@@ -16,3 +16,20 @@ void Studio:: start(){
         }
     }
 }
+
+
+void Studio :: makeTranier(int trainerCount, int *spotArray ){
+    numOfTrainers = trainerCount;
+    for(int i = 0; i < trainerCount; i++){
+
+    }
+}
+
+int Studio::getNumOfTrainers() const {
+    return numOfTrainers;
+}
+
+Trainer *Studio::getTrainer(int tid) {
+    return trainers[tid];
+}
+

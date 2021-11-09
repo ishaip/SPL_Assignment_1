@@ -23,6 +23,8 @@ private:
     std::vector<Trainer*> trainers;
     std::vector<Workout> workout_options;
     std::vector<BaseAction*> actionsLog;
+    int numOfTrainers;
+    void makeTranier(int trainerCount, int *spotArray);
 };
 
 
