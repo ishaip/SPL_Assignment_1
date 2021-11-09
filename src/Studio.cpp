@@ -29,7 +29,7 @@ void Studio:: makeTrainer(int trainerCount, int *spots){
 
 }
 
-int Studio:: getNumberOfTrainers(){
+int Studio:: getNumberOfTrainers(){ //
     return numOfTrainers;
 }
 
