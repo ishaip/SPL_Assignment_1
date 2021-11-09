@@ -7,5 +7,5 @@
 Studio::Studio(){}
 
 void Studio:: start(){
-    std:: cout<< "Studio is now open!"<< std::endl;
+    std:: cout<< "Studio is now open!\n";
 }
