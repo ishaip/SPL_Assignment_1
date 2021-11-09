@@ -8,4 +8,11 @@ Studio::Studio(){}
 
 void Studio:: start(){
     std:: cout<< "Studio is now open!\n";
+    std:: string x = "";
+    while(x != "closeall"){
+        std:: cin >> x;
+        if(x.substr(0,4) == "open"){
+
+        }
+    }
 }
