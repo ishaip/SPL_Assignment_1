@@ -25,9 +25,6 @@ private:
     std::vector<BaseAction*> actionsLog;
 };
 
-void start(){
-    std:: cout<< "Studio is now open!"<< std::endl;
 
-}
 
 #endif
