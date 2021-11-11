@@ -21,7 +21,7 @@ void start() {
 // gets number of trainer to init and a pointer to an array of spots for each trainer
 // update the number of trainers in the studio
 void Studio:: makeTrainer(int trainerCount, int *spots){
-    numOfTrainers = trainerCount;
+    _numOfTrainers = trainerCount;
     std::vector<Trainer*> trainers;
     for (int i = 0; i < trainerCount; i++){
 
@@ -29,11 +29,14 @@ void Studio:: makeTrainer(int trainerCount, int *spots){
 
 }
 
-int Studio:: getNumberOfTrainers(){ //
-    return numOfTrainers;
+int Studio::getNumOfTrainers() const{ //
+    return _numOfTrainers;
 }
 
 Trainer *Studio::getTrainer(int tid) {
-    return trainers[tid];
+    if ( tid < trainers.size() )
+        return trainers[tid];
+    else
+        std::cout<< "invalid id\n";
 }
 
