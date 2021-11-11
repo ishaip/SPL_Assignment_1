@@ -18,18 +18,24 @@ void Studio:: start(){
 }
 
 
-void Studio :: makeTranier(int trainerCount, int *spotArray ){
-    numOfTrainers = trainerCount;
-    for(int i = 0; i < trainerCount; i++){
+void Studio :: makeTrainer(int numOfTrainers, int *spotArray ){
+    _numOfTrainers = numOfTrainers;
+    for(int i = 0; i < numOfTrainers; i++){
 
     }
 }
 
 int Studio::getNumOfTrainers() const {
-    return numOfTrainers;
+    return _numOfTrainers;
 }
 
 Trainer *Studio::getTrainer(int tid) {
-    return trainers[tid];
+    if (trainers.size() > tid){ //vector size isn't big enough prevents an error
+        return trainers[tid];
+    }
+    else{
+        std :: cout << "invalid id\n";
+    }
+    return nullptr;
 }
 
