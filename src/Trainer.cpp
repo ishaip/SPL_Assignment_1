@@ -26,11 +26,20 @@ int Trainer::availableCapacity() {
 Trainer::Trainer(int t_capacity):
         capacity (t_capacity),open (false),customersList (0),orderList(0){}
 
+
+
 Trainer:: ~Trainer() {
-    if (!customersList.empty()){ delete customersList;}
-    if (!orderList.empty()) { delete orderList; }
-
-
+    if (!customersList.empty()){
+        for (int i = 0; i < customersList.size(); ++i) {
+            delete &customersList[i];
+            customersList[i] = nullptr;
+        }
+    }
+    if (!orderList.empty()) {
+        for (int i = 0; i < orderList.size(); ++i) {
+            //delete orderList[i];
+        }
+    }
 }
 
 
