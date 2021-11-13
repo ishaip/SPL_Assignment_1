@@ -23,11 +23,14 @@ WorkoutType Workout::getType() const {
     return type;
 }
 
-bool Workout::operator< (const Workout& otherWorkout) {
-    if (price < otherWorkout.getPrice()){
-        return true;
-    }
-    return false;
+bool Workout::comparePrice(const Workout &thisWorkout, const Workout &otherWorkout) {
+    return thisWorkout.getPrice() < otherWorkout.getPrice();
 }
+
+bool Workout::compareId(const Workout &thisWorkout, const Workout &otherWorkout) {
+    return thisWorkout.getId() < otherWorkout.getId();
+}
+
+
 
 

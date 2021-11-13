@@ -3,6 +3,7 @@
 //
 
 #include "../include/Customer.h"
+#include <bits/stdc++.h>
 
 Customer::Customer(std::string c_name, int c_id): name(c_name),  id(c_id){}
 
@@ -31,7 +32,6 @@ CheapCustomer::CheapCustomer(std::string name, int id) : Customer(name, id) {}
 
 std::vector<int> CheapCustomer::order(const std::vector<Workout> &workout_options) {
     std::vector<int> workoutOrder;
-    std::vector<Workout> temp = std::vector<Workout>(workout_options);
     if (!workout_options.empty() ){
         int j=0;
         for (int i = 1; i < workout_options.size(); i++){
@@ -46,5 +46,20 @@ std::vector<int> CheapCustomer::order(const std::vector<Workout> &workout_option
         }
         workoutOrder.emplace_back(j);
     }
+    return workoutOrder;
+}
+
+HeavyMuscleCustomer::HeavyMuscleCustomer(std::string name, int id) : Customer(name, id) {}
+
+std::vector<int> HeavyMuscleCustomer::order(const std::vector<Workout> &workout_options) {
+    std::vector<int> workoutOrder;
+    //if it is a ANAEROBIC type of workout save the location of the workout
+    for (int i = 0; i < workout_options.size(); i++){
+        if (workout_options[i].getType() == ANAEROBIC){
+            workoutOrder.emplace_back(i);
+        }
+    }
+    std::sort(workoutOrder.begin(),workoutOrder.end(),Workout::comparePrice());
+
     return workoutOrder;
 }

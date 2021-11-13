@@ -14,7 +14,11 @@ public:
     std::string getName() const;
     int getPrice() const;
     WorkoutType getType() const;
-    bool operator< (const Workout& otherWorkout);
+    static bool comparePrice (const Workout& thisWorkout, const Workout& otherWorkout);
+    bool compareId(const Workout &thisWorkout, const Workout &otherWorkout);
+
+    static bool comparePrice();
+
 private:
 	const int id;
     const std::string name;
