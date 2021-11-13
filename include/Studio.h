@@ -27,6 +27,7 @@ private:
 
     void makeTrainer(int trainerCount, int *spots);
 
+    // id's 'iterator' for every class that has an id field
 };
 
 

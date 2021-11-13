@@ -7,10 +7,18 @@
 
 Trainer::Trainer(int t_capacity):
     capacity(t_capacity), open(false), customersList(0), orderList(0){}
-    ~virtual Trainer(){
-        if(customerList) delete[] customerList;
-        if(orderList) delete[] orderList;
-}
+
+    Trainer::~Trainer(){
+        for (int i = 0; i < customersList.size(); i++){
+            delete &customersList[i];
+            customersList[i] = nullptr;
+        }
+        customersList.clear(); // important?
+        for (int i = 0; i < orderList.size(); i++){
+            delete orderList[i]; //
+        }
+        orderList.clear();
+    }
 ;
 
 int Trainer::getCapacity() const{ return capacity; }

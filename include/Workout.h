@@ -14,6 +14,9 @@ public:
     std::string getName() const;
     int getPrice() const;
     WorkoutType getType() const;
+
+    static bool comparePrice(const Workout w1, const Workout w2); // compare two workouts by price
+    static bool compareID(const Workout w1, const Workout w2); // compare two workouts by id
 private:
 	const int id;
     const std::string name;
