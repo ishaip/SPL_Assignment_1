@@ -13,7 +13,7 @@ public:
     std::string getName() const;
     int getId() const;
 
-    static int selectOrder(const std::vector<Workout> &workout_options, WorkoutType workoutType, bool lookingForCheap);
+    static int selectOrder(const std::vector<Workout> &workout_options, WorkoutType workoutType, bool lookingForCheap); //select workout according to a customer preference
 private:
     const std::string name;
     const int id;

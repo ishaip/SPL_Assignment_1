@@ -16,6 +16,7 @@ int Customer::getId() const { return id; }
 
 std::string Customer::getName() const { return name; }
 
+//select workout according to a customer preference
 int Customer::selectOrder(const std::vector<Workout> &workout_options, WorkoutType workoutType, bool lookingForCheap) {
     if ( workout_options.empty() )
         return -1;

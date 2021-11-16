@@ -20,6 +20,7 @@ public:
     void openTrainer();
     void closeTrainer();
     int getSalary();
+    void setSalary(int salary); //A method to set the accumulated salary
     bool isOpen();
     virtual ~Trainer();
 private:
@@ -27,6 +28,7 @@ private:
     bool open;
     std::vector<Customer*> customersList;
     std::vector<OrderPair> orderList; //A list of pairs for each order for the trainer - (customer_id, Workout)
+    int salary;
 };
 
 
