@@ -9,6 +9,7 @@ int Trainer::getCapacity() const {
 
 void Trainer::openTrainer() {
     open = true;
+
 }
 
 void Trainer::closeTrainer() {
@@ -40,6 +41,10 @@ Trainer:: ~Trainer() {
             //delete orderList[i];
         }
     }
+}
+
+void Trainer::addCustomer(Customer *customer) {
+    customersList.emplace_back(customer);
 }
 
 

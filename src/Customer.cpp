@@ -5,7 +5,9 @@
 #include "../include/Customer.h"
 #include <bits/stdc++.h>
 
-Customer::Customer(std::string c_name, int c_id): name(c_name),  id(c_id){}
+#include <utility>
+
+Customer::Customer(std::string c_name, int c_id): name(std::move(c_name)),  id(c_id){}
 
 std::string Customer::getName() const {
     return name;

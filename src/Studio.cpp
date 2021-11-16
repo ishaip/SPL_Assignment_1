@@ -30,11 +30,8 @@ int Studio::getNumOfTrainers() const {
 }
 
 Trainer *Studio::getTrainer(int tid) {
-    if (trainers.size() > tid){ //vector size isn't big enough prevents an error
+    if (trainers.size() > tid && tid >= 0){ //vector size isn't big enough prevents an error
         return trainers[tid];
-    }
-    else{
-        std :: cout << "invalid id\n";
     }
     return nullptr;
 }
