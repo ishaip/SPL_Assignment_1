@@ -2,9 +2,10 @@
 #define WORKOUT_H_
 
 #include <string>
+#include <vector>
 
 enum WorkoutType{
-    ANAEROBIC, MIXED, CARDIO
+    ANAEROBIC, MIXED, CARDIO, ALL
 };
 
 class Workout{
