@@ -12,6 +12,7 @@ public:
     virtual std::string toString() const = 0;
     std::string getName() const;
     int getId() const;
+    static int selectOrder(const std::vector<Workout> &workout_options, WorkoutType workoutType, bool lookingForCheap);
 private:
     const std::string name;
     const int id;

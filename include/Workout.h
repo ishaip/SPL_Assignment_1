@@ -4,7 +4,7 @@
 #include <string>
 
 enum WorkoutType{
-    ANAEROBIC, MIXED, CARDIO
+    ANAEROBIC, MIXED, CARDIO, ALL
 };
 
 class Workout{
@@ -15,8 +15,7 @@ public:
     int getPrice() const;
     WorkoutType getType() const;
     static bool comparePrice (const Workout& thisWorkout, const Workout& otherWorkout);
-    bool compareId(const Workout &thisWorkout, const Workout &otherWorkout);
-
+    static bool compareId(const Workout &thisWorkout, const Workout &otherWorkout);
     static bool comparePrice();
 
 private:
