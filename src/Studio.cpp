@@ -29,14 +29,13 @@ void Studio:: makeTrainer(int trainerCount, int *spots){
 
 }
 
-int Studio::getNumOfTrainers() const{ //
-    return _numOfTrainers;
+int Studio::getNumOfTrainers() const{
+    return (int) trainers.size(); // TODO: fix the casting
 }
 
 Trainer *Studio::getTrainer(int tid) {
-    if ( tid < trainers.size() )
+    if (tid >= 0 && tid < trainers.size())
         return trainers[tid];
-    else
-        std::cout<< "invalid id\n";
+    return nullptr;
 }
 

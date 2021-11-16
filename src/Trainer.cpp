@@ -23,8 +23,16 @@ Trainer::Trainer(int t_capacity):
 
 int Trainer::getCapacity() const{ return capacity; }
 
+void Trainer::addCustomer(Customer *customer) {
+    customersList.emplace_back(customer);
+}
+
 bool Trainer::isOpen(){ return open; }
 
 void Trainer::openTrainer(){ open = true; }
 
 void Trainer::closeTrainer(){ open = false; }
+
+std::vector<Customer *> &Trainer::getCustomers() { return customersList; }
+
+
