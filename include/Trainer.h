@@ -1,6 +1,7 @@
 #ifndef TRAINER_H_
 #define TRAINER_H_
 
+#include <iostream>
 #include <vector>
 #include "Customer.h"
 #include "Workout.h"
@@ -23,9 +24,14 @@ public:
     bool isOpen();
     int availableCapacity();
     virtual ~Trainer();
+    void setSalary(int salary);
+    void addCustomerOrders(std::vector<OrderPair> orders);
+    void removeCustomerOrders(int id);
+    std::vector<OrderPair> getCustomerOrders(int id);
 private:
     int capacity;
     bool open;
+    int salary;
     std::vector<Customer*> customersList;
     std::vector<OrderPair> orderList; //A list of pairs for each order for the trainer - (customer_id, Workout)
 };

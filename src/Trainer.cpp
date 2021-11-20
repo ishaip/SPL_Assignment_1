@@ -25,7 +25,7 @@ int Trainer::availableCapacity() {
 }
 
 Trainer::Trainer(int t_capacity):
-        capacity (t_capacity),open (false),customersList (0),orderList(0){}
+        capacity (t_capacity),open (false),customersList (0),orderList(0),salary(0){}
 
 
 
@@ -45,6 +45,26 @@ Trainer:: ~Trainer() {
 
 void Trainer::addCustomer(Customer *customer) {
     customersList.emplace_back(customer);
+}
+
+int Trainer::getSalary() {
+    return salary;
+}
+
+void Trainer::setSalary(int salary) {
+    this->salary = salary;
+}
+
+// a function to add all the orders made by a single custemer
+void
+Trainer::order(const int customer_id, const std::vector<int> workout_ids, const std::vector<Workout> &workout_options) {
+    for (int index : workout_ids) {
+        orderList.emplace_back(customer_id,workout_options[index]);
+    }
+}
+
+
+
 }
 
 

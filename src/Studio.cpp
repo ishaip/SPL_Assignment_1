@@ -36,3 +36,7 @@ Trainer *Studio::getTrainer(int tid) {
     return nullptr;
 }
 
+std::vector<Workout> &Studio::getWorkoutOptions() {
+    return workout_options;
+}
+
