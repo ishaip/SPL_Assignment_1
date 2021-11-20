@@ -9,7 +9,7 @@ typedef std::pair<int, Workout> OrderPair;
 
 class Trainer{
 public:
-    Trainer(int t_capacity);
+    Trainer(int t_capacity); //Constructor
     int getCapacity() const;
     void addCustomer(Customer* customer);
     void removeCustomer(int id);
@@ -23,13 +23,14 @@ public:
     void setSalary(int salary); //A method to set the accumulated salary
     bool isOpen();
     bool availableCapacity(); //Check whether there is available spot
-    virtual ~Trainer();
+    virtual ~Trainer(); //Destructor
 private:
     int capacity;
     bool open;
     std::vector<Customer*> customersList;
     std::vector<OrderPair> orderList; //A list of pairs for each order for the trainer - (customer_id, Workout)
     int salary;
+    void clear(); //clear memory (in destructor)
 };
 
 
