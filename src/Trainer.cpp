@@ -44,6 +44,10 @@ bool Trainer::isOpen(){ return open; }
 
 std::vector<Customer *> &Trainer::getCustomers() { return customersList; }
 
+bool Trainer::availableCapacity() { return capacity - customersList.size() > 0; }
+
+
+
 
 
 

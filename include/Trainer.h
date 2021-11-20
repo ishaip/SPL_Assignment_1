@@ -22,6 +22,7 @@ public:
     int getSalary();
     void setSalary(int salary); //A method to set the accumulated salary
     bool isOpen();
+    bool availableCapacity(); //Check whether there is available spot
     virtual ~Trainer();
 private:
     int capacity;

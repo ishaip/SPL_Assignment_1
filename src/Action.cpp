@@ -55,5 +55,48 @@ void Order::act(Studio &studio){
         //for all customers that the trainer has, we add their preferred workout to the trainer orderList
         for (Customer* customer : trainer->getCustomers())
             trainer->order(customer->getId(), customer->order(studio.getWorkoutOptions()), studio.getWorkoutOptions());
+
+
+        std::cout<< "order" << studio.getTrainer(trainerId) << std::endl;
+        //printing all customers' order
+        for (const OrderPair& pair : trainer->getOrders()){
+            std::string name = trainer->getCustomer(pair.first)->getName();
+            std::cout<< name << " Is Doing " << pair.second.getName() << std::endl;
+        }
     }
 }
+
+MoveCustomer::MoveCustomer(int src, int dst, int customerId):
+    srcTrainer(src), dstTrainer(dst), id(customerId){}
+    //act(*studio);
+;
+void MoveCustomer::act(Studio &studio) {
+    Trainer *trainerSrc = studio.getTrainer(srcTrainer);
+    Trainer *trainerDst = studio.getTrainer(dstTrainer);
+    //
+    if ( trainerSrc == nullptr || !trainerSrc->isOpen() || trainerSrc->getCustomer(id) == nullptr )
+        error("Cannot move customer");
+    else if ( trainerDst == nullptr || !trainerDst->isOpen() || !trainerDst->availableCapacity() )
+        error("Cannot move customer");
+    else{
+        Customer* customer = trainerSrc->getCustomer(id);
+        for (int i = 0; i < trainerSrc->getOrders().size(); i++){
+            if (trainerSrc->getOrders()[i].first == id)
+                trainerDst
+        }
+
+
+        trainerDst->addCustomer(customer);
+        trainerDst->addCustomerOrder(customer); //TODO: write this method
+        trainerSrc->removeCustomerOrder(customer); //TODO: write this method
+        trainerSrc->removeCustomer(customer->getId());
+
+        if ( trainerSrc->getCustomers().empty() )
+            trainerSrc.closeTrainer();
+
+        //TODO: delete customer
+    }
+    //TODO: delete trainers
+}
+
+
