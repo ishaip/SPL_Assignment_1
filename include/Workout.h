@@ -19,7 +19,6 @@ public:
     static bool comparePrice(const Workout &w1, const Workout &w2); // compare two workouts by price
     static bool compareID(const Workout &w1, const Workout &w2); // compare two workouts by id
 
-    virtual ~Workout(); //destructor
 private:
 	const int id;
     const std::string name;

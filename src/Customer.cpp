@@ -44,7 +44,7 @@ int Customer::selectOrder(const std::vector<Workout> &workout_options, WorkoutTy
     return index;
 }
 
-SweatyCustomer::SweatyCustomer(std::string name, int id) : Customer(name, id){}
+SweatyCustomer::SweatyCustomer(std::string name, int id) : Customer(name, id){};
 
 std::vector<int> SweatyCustomer::order(const std::vector<Workout> &workout_options) {
     std::vector<int> workoutOrder;

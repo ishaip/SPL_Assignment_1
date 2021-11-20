@@ -73,7 +73,7 @@ MoveCustomer::MoveCustomer(int src, int dst, int customerId):
 void MoveCustomer::act(Studio &studio) {
     Trainer *trainerSrc = studio.getTrainer(srcTrainer);
     Trainer *trainerDst = studio.getTrainer(dstTrainer);
-    //
+
     if ( trainerSrc == nullptr || !trainerSrc->isOpen() || trainerSrc->getCustomer(id) == nullptr )
         error("Cannot move customer");
     else if ( trainerDst == nullptr || !trainerDst->isOpen() || !trainerDst->availableCapacity() )
@@ -82,7 +82,7 @@ void MoveCustomer::act(Studio &studio) {
         Customer* customer = trainerSrc->getCustomer(id);
         for (int i = 0; i < trainerSrc->getOrders().size(); i++){
             if (trainerSrc->getOrders()[i].first == id)
-                trainerDst
+
         }
 
 
@@ -92,11 +92,13 @@ void MoveCustomer::act(Studio &studio) {
         trainerSrc->removeCustomer(customer->getId());
 
         if ( trainerSrc->getCustomers().empty() )
-            trainerSrc.closeTrainer();
+            trainerSrc->closeTrainer();
 
-        //TODO: delete customer
+
+        delete customer; //
     }
-    //TODO: delete trainers
+    delete trainerSrc;
+    delete trainerDst;
 }
 
 
