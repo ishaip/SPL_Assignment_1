@@ -123,3 +123,26 @@ void PrintWorkoutOptions::act(Studio &studio) {
         std::cout << workoutOptions[i].toString()<< "\n";
     }
 }
+
+PrintTrainerStatus::PrintTrainerStatus(int id): trainerId(id) {}
+
+void PrintTrainerStatus::act(Studio &studio) {
+    Trainer *trainer = studio.getTrainer(trainerId);
+    if (trainer != nullptr && !(trainer->isOpen())){
+        std::cout <<"Trainer 3 status: closed\n";
+    }
+    if (trainer != nullptr && trainer->isOpen()){
+        std::cout <<"Trainer 3 status: open\n Customers: \n";
+        std::vector<Customer *> customers = trainer->getCustomers();
+        for (int i = 0; i < customers.size(); ++i) {
+            std::cout <<customers[i]->getId() << " "<<customers[i]->getName()<<"\n";
+        }
+        std::cout <<"Orders:\n";
+        std::vector<OrderPair> orderList = trainer->getOrders();
+        for (int i = 0; i < orderList.size(); ++i) {
+            std::cout <<orderList[i].second.getName()<<" " <<std::to_string(orderList[i].second.getPrice())<< " "<< std::to_string(orderList[i].first)
+        }
+    }
+
+}
+
