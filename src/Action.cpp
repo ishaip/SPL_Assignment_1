@@ -102,5 +102,24 @@ void Close::act(Studio &studio) {
 }
 
 
+CloseAll::CloseAll() {}
 
+void CloseAll::act(Studio &studio) {
+    for (int i = 0; i < studio.getNumOfTrainers(); ++i) {
+        Trainer *trainer = studio.getTrainer(i);
+        if (trainer->isOpen()){
+            Close close = Close(i);
+            close.act(studio);
+        }
+    }
+    //TODO:close stodiuo
+}
 
+PrintWorkoutOptions::PrintWorkoutOptions() {}
+
+void PrintWorkoutOptions::act(Studio &studio) {
+    std::vector<Workout> workoutOptions =  studio.getWorkoutOptions();
+    for (int i = 0; i < workoutOptions.size(); ++i) {
+        std::cout << workoutOptions[i].toString()<< "\n";
+    }
+}

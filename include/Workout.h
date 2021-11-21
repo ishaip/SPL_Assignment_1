@@ -16,7 +16,8 @@ public:
     WorkoutType getType() const;
     static bool comparePrice (const Workout& thisWorkout, const Workout& otherWorkout);
     static bool compareId(const Workout &thisWorkout, const Workout &otherWorkout);
-    static bool comparePrice();
+    std::string toString();
+    std::string typeToString();
 
 private:
 	const int id;

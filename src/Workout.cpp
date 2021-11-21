@@ -31,6 +31,20 @@ bool Workout::compareId(const Workout &thisWorkout, const Workout &otherWorkout)
     return thisWorkout.getId() < otherWorkout.getId();
 }
 
+std::string Workout::toString() {
+    return name + ", " +typeToString()+", " + std::to_string(price) ;
+}
+
+std::string Workout::typeToString() {
+    if (type == ANAEROBIC)
+        return  "ANAEROBIC";
+    if (type == MIXED)
+        return "MIXED";
+    if (type == CARDIO)
+        return "CARDIO";
+    return "ALL";
+}
+
 
 
 
