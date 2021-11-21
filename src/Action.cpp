@@ -140,8 +140,13 @@ void PrintTrainerStatus::act(Studio &studio) {
         std::cout <<"Orders:\n";
         std::vector<OrderPair> orderList = trainer->getOrders();
         for (int i = 0; i < orderList.size(); ++i) {
-            std::cout <<orderList[i].second.getName()<<" " <<std::to_string(orderList[i].second.getPrice())<< " "<< std::to_string(orderList[i].first)
+            std::cout <<orderList[i].second.getName()<<" " <<std::to_string(orderList[i].second.getPrice())<< " "<< std::to_string(orderList[i].first)<<"\n";
         }
+        int sum =0;
+        for(int i =0; i<orderList.size(); i++){
+            sum = sum + orderList[i].second.getPrice();
+        }
+        std::cout <<"Current Trainer’s Salary: " << std::to_string(trainer->getSalary() + sum)<<"\n";
     }
 
 }
