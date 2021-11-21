@@ -25,9 +25,7 @@ public:
     int availableCapacity();
     virtual ~Trainer();
     void setSalary(int salary);
-    void addCustomerOrders(std::vector<OrderPair> orders);
-    void removeCustomerOrders(int id);
-    std::vector<OrderPair> getCustomerOrders(int id);
+    void addCustomerOrders(const OrderPair& orders);
 private:
     int capacity;
     bool open;

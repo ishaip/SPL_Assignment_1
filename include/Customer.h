@@ -13,6 +13,7 @@ public:
     std::string getName() const;
     int getId() const;
     static int selectOrder(const std::vector<Workout> &workout_options, WorkoutType workoutType, bool lookingForCheap);
+    virtual ~Customer();
 private:
     const std::string name;
     const int id;

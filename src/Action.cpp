@@ -27,9 +27,7 @@ void BaseAction::complete() {
 }
 
 OpenTrainer::OpenTrainer(int id, std::vector<Customer *> &customersList):
-trainerId (id),customers(customersList){
-    //act(&studio); //TODO:understand forward declartions
-}
+trainerId (id),customers(customersList){}
 
 void OpenTrainer::act(Studio &studio) {
     Trainer *trainer = studio.getTrainer(trainerId);
@@ -41,12 +39,9 @@ void OpenTrainer::act(Studio &studio) {
             trainer->addCustomer(customers[i]);
         }
     }
-    trainer = nullptr;
 }
 
-Order::Order(int id): trainerId(id) {
-    //act(&studi)};//TODO: same
-}
+Order::Order(int id): trainerId(id) {}
 
 void Order::act(Studio &studio) {
     Trainer *trainer = studio.getTrainer(trainerId);
@@ -63,26 +58,23 @@ void Order::act(Studio &studio) {
             std:: cout << trainer->getCustomer(pair.first)->getName()<< " Is Doing " << pair.second.getName() <<"\n";
         }
     }
-    //TODO:figure out if vectors need to be deleted
 }
 
-MoveCustomer::MoveCustomer(int src, int dst, int customerId):srcTrainer(src), dstTrainer(dst),id(customerId) {
-    //act(&studi)};//TODO: same
-}
+MoveCustomer::MoveCustomer(int src, int dst, int customerId):srcTrainer(src), dstTrainer(dst),id(customerId) {}
 
 void MoveCustomer::act(Studio &studio) {
     Trainer *trainerDst = studio.getTrainer(dstTrainer);
     Trainer *trainerSrc = studio.getTrainer(srcTrainer);
-    if(trainerSrc == nullptr ||!trainerSrc->isOpen() || trainerSrc->getCustomer(id) == nullptr|| trainerDst == nullptr || !trainerDst->isOpen() || trainerDst->availableCapacity() < 1)
-        error( "Cannot move customer");
+    if (trainerSrc == nullptr || !trainerSrc->isOpen() || trainerSrc->getCustomer(id) == nullptr ||
+        trainerDst == nullptr || !trainerDst->isOpen() || trainerDst->availableCapacity() < 1)
+        error("Cannot move customer");
 
-    else{
-
-        //TODO:finish this
-        std::vector<OrderPair>::iterator itr;
-        for(itr = trainerSrc->getOrders().begin(); itr < trainerSrc->getOrders().end(); itr ++){
-            if (itr->first == id)
-                trainerDst->getOrders().emplace_back(trainerSrc->getOrders().pop)
+    else {
+        std::vector<OrderPair> orderList = trainerSrc->getOrders();
+        for (int i = 0; i < orderList.size(); i++) {
+            if (orderList[i].first == id) {
+                trainerDst->addCustomerOrders(orderList[i]);
+            }
         }
         trainerDst->addCustomer(trainerSrc->getCustomer(id));
         trainerSrc->removeCustomer(id);
@@ -90,4 +82,25 @@ void MoveCustomer::act(Studio &studio) {
             trainerSrc->closeTrainer();
     }
 }
+
+Close::Close(int id): trainerId(id){}
+
+void Close::act(Studio &studio) {
+    Trainer *trainer = studio.getTrainer(trainerId);
+    if (trainer == nullptr || !trainer->isOpen())
+        error("Trainer does not exist or is not open");
+    else{
+        trainer->closeTrainer();
+        int sum=0;
+        std::vector<OrderPair> orderList = trainer->getOrders();
+        for(int i =0; i<orderList.size(); i++){
+            sum = sum + orderList[i].second.getPrice();
+        }
+        trainer->setSalary( trainer->getSalary() + sum);
+        std:: cout <<"Trainer "<< trainerId << "  closed. Salary "<< trainer-> getSalary() <<"NIS"<< "\n";
+    }
+}
+
+
+
 

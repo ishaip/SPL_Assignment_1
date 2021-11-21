@@ -14,6 +14,12 @@ void Trainer::openTrainer() {
 
 void Trainer::closeTrainer() {
     open = false;
+    for (int i = 0; i < customersList.size(); ++i) {
+        delete customersList[i];
+        customersList[i] = nullptr;
+    }
+    customersList.erase(customersList.begin(),customersList.end());
+    orderList.erase(orderList.begin(),orderList.end());
 }
 
 bool Trainer::isOpen() {
@@ -63,9 +69,26 @@ Trainer::order(const int customer_id, const std::vector<int> workout_ids, const 
     }
 }
 
-
-
+void Trainer::removeCustomer(int id) {
+    std::vector<OrderPair>::iterator itr;
+    for (itr = orderList.begin(); itr < orderList.end(); itr++) {
+        if (itr->first == id) {
+            orderList.erase(itr);
+        }
+    }
+    std::vector<Customer*>::iterator cItr;
+    for (cItr = customersList.begin(); cItr < customersList.end(); cItr++) {
+        if ((*cItr)->getId() == id)
+            orderList.erase(itr);
+    }
 }
+
+void Trainer::addCustomerOrders(const OrderPair& orders) {
+    orderList.emplace_back(orders);
+}
+
+
+
 
 
 
