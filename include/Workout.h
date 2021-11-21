@@ -20,7 +20,7 @@ public:
     static bool compareID(const Workout &w1, const Workout &w2); // compare two workouts by id
 
 private:
-	const int id;
+    const int id;
     const std::string name;
     const int price;
     const WorkoutType type;

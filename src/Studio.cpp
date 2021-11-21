@@ -18,19 +18,18 @@ void start() {
 
 }
 
-// gets number of trainer to init and a pointer to an array of spots for each trainer
-// update the number of trainers in the studio
+// get number of trainer to init and a pointer to an array(??) of spots for each trainer
+// update the number of trainers in the studio // important??
 void Studio:: makeTrainer(int trainerCount, int *spots){
     _numOfTrainers = trainerCount;
     std::vector<Trainer*> trainers;
     for (int i = 0; i < trainerCount; i++){
 
     }
-
 }
 
 int Studio::getNumOfTrainers() const{
-    return (int) trainers.size(); // TODO: fix the casting
+    return static_cast<int>(trainers.size());
 }
 
 Trainer *Studio::getTrainer(int tid) {

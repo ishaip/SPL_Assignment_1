@@ -34,8 +34,8 @@ public:
     void act(Studio &studio);
     std::string toString() const;
 private:
-	const int trainerId;
-	std::vector<Customer *> customers;
+    const int trainerId;
+    std::vector<Customer *> customers;
 };
 
 

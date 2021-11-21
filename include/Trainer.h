@@ -16,12 +16,13 @@ public:
     Customer* getCustomer(int id);
     std::vector<Customer*>& getCustomers();
     std::vector<OrderPair>& getOrders();
+    void addOrder(const OrderPair& pair) ; //add an order(pair) to the orderList of the trainer
     void order(const int customer_id, const std::vector<int> workout_ids, const std::vector<Workout>& workout_options);
     void openTrainer();
     void closeTrainer();
     int getSalary();
-    void setSalary(int salary); //A method to set the accumulated salary
-    bool isOpen();
+    void updateSalary(); //A method to update the accumulated salary
+    bool isOpen() const;
     bool availableCapacity(); //Check whether there is available spot
     virtual ~Trainer(); //Destructor
 private:

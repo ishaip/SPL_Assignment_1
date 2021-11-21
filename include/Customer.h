@@ -12,6 +12,7 @@ public:
     virtual std::string toString() const = 0;
     std::string getName() const;
     int getId() const;
+    virtual ~Customer();
 
     static int selectOrder(const std::vector<Workout> &workout_options, WorkoutType workoutType, bool lookingForCheap); //select workout according to a customer preference
 private:
@@ -22,7 +23,7 @@ private:
 
 class SweatyCustomer : public Customer {
 public:
-	SweatyCustomer(std::string name, int id);
+    SweatyCustomer(std::string name, int id);
     std::vector<int> order(const std::vector<Workout> &workout_options);
     std::string toString() const;
 private:
@@ -31,7 +32,7 @@ private:
 
 class CheapCustomer : public Customer {
 public:
-	CheapCustomer(std::string name, int id);
+    CheapCustomer(std::string name, int id);
     std::vector<int> order(const std::vector<Workout> &workout_options);
     std::string toString() const;
 private:
@@ -39,7 +40,7 @@ private:
 
 class HeavyMuscleCustomer : public Customer {
 public:
-	HeavyMuscleCustomer(std::string name, int id);
+    HeavyMuscleCustomer(std::string name, int id);
     std::vector<int> order(const std::vector<Workout> &workout_options);
     std::string toString() const;
 private:
@@ -48,7 +49,7 @@ private:
 
 class FullBodyCustomer : public Customer {
 public:
-	FullBodyCustomer(std::string name, int id);
+    FullBodyCustomer(std::string name, int id);
     std::vector<int> order(const std::vector<Workout> &workout_options);
     std::string toString() const;
 private:

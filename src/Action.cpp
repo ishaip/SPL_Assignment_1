@@ -5,6 +5,7 @@
 #include "../include/Action.h"
 #include "../include/Studio.h"
 #include "../include/Trainer.h"
+#include "../include/Workout.h"
 
 BaseAction::BaseAction() {};
 
@@ -25,8 +26,7 @@ void BaseAction::complete() {
 
 
 OpenTrainer::OpenTrainer(int id, std::vector<Customer *> &customersList) :
-    trainerId(id), customers(customersList){
-    // act(Studio); //TODO: understand forward declaration
+        trainerId(id), customers(customersList){
 }
 
 void OpenTrainer::act(Studio &studio) {
@@ -42,9 +42,7 @@ void OpenTrainer::act(Studio &studio) {
     trainer = nullptr;
 }
 
-Order::Order(int id): trainerId(id){
-    // act(studio); //TODO: understand forward declaration
-};
+Order::Order(int id): trainerId(id){};
 
 void Order::act(Studio &studio){
     Trainer *trainer = studio.getTrainer(trainerId);
@@ -67,9 +65,10 @@ void Order::act(Studio &studio){
 }
 
 MoveCustomer::MoveCustomer(int src, int dst, int customerId):
-    srcTrainer(src), dstTrainer(dst), id(customerId){}
-    //act(*studio);
+        srcTrainer(src), dstTrainer(dst), id(customerId){}
+//act(*studio);
 ;
+
 void MoveCustomer::act(Studio &studio) {
     Trainer *trainerSrc = studio.getTrainer(srcTrainer);
     Trainer *trainerDst = studio.getTrainer(dstTrainer);
@@ -80,15 +79,14 @@ void MoveCustomer::act(Studio &studio) {
         error("Cannot move customer");
     else{
         Customer* customer = trainerSrc->getCustomer(id);
-        for (int i = 0; i < trainerSrc->getOrders().size(); i++){
-            if (trainerSrc->getOrders()[i].first == id)
 
+        std::vector<OrderPair> list = trainerSrc->getOrders();
+        for (int i = 0; i < list.size(); i++){
+            if (list[i].first == id) {
+                trainerDst->addOrder(list[i]);
+            }
         }
-
-
         trainerDst->addCustomer(customer);
-        trainerDst->addCustomerOrder(customer); //TODO: write this method
-        trainerSrc->removeCustomerOrder(customer); //TODO: write this method
         trainerSrc->removeCustomer(customer->getId());
 
         if ( trainerSrc->getCustomers().empty() )
@@ -101,4 +99,18 @@ void MoveCustomer::act(Studio &studio) {
     delete trainerDst;
 }
 
+
+Close::Close(int id):
+        trainerId(id){}
+
+void Close::act(Studio &studio) {
+    Trainer* trainer = studio.getTrainer(trainerId);
+    if ( trainer == nullptr || !trainer->isOpen() )
+        error("Trainer does not exist or is not open");
+    trainer->closeTrainer();
+    trainer->updateSalary();
+
+    std::cout << "Trainer " << trainerId << " closed. Salary "<<  trainer->getSalary() << "NIS" << std::endl;
+
+};
 

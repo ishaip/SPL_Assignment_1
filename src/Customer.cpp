@@ -10,7 +10,9 @@
 #include <bits/stdc++.h>
 
 Customer::Customer(std::string c_name, int c_id):
-        name(c_name), id(c_id){};
+        name(std::move(c_name)), id(c_id){}
+Customer::~Customer()= default
+;
 
 int Customer::getId() const { return id; }
 
@@ -32,10 +34,10 @@ int Customer::selectOrder(const std::vector<Workout> &workout_options, WorkoutTy
             //if we want the cheapest workout
             if (lookingForCheap && Workout::comparePrice(workout_options[i], workout_options[index]) )
                 index = i;
-            //if we want the most expensive workout
+                //if we want the most expensive workout
             else if (!lookingForCheap && !Workout::comparePrice(workout_options[i], workout_options[index]) )
                 index = i;
-            //if the current workout has same price, we want to take the one with the lowest id
+                //if the current workout has same price, we want to take the one with the lowest id
             else if ( workout_options[i].getPrice() == workout_options[index].getPrice() && Workout::compareID(workout_options[i], workout_options[index]))
                 index = i;
         }
