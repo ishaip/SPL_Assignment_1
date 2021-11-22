@@ -254,6 +254,10 @@ std::string PrintActionsLog::toString() const {
 BackupStudio::BackupStudio() {}
 
 void BackupStudio::act(Studio &studio) {
+    if (backup != nullptr) {
+        delete backup;
+        backup = nullptr;
+    }
     backup = new Studio(studio);
     complete();
 }
