@@ -59,6 +59,10 @@ std::vector<int> SweatyCustomer::order(const std::vector<Workout> &workout_optio
     return workoutOrder;
 }
 
+std::string SweatyCustomer::toString() const {
+    return getName() + ",swt";
+}
+
 CheapCustomer::CheapCustomer(std::string name, int id) : Customer(name, id) {}
 
 std::vector<int> CheapCustomer::order(const std::vector<Workout> &workout_options) {
@@ -68,6 +72,10 @@ std::vector<int> CheapCustomer::order(const std::vector<Workout> &workout_option
     if (cheapest != -1)
         workoutOrder.emplace_back(cheapest);
     return workoutOrder;
+}
+
+std::string CheapCustomer::toString() const {
+    return getName() +",chp";
 }
 
 HeavyMuscleCustomer::HeavyMuscleCustomer(std::string name, int id) : Customer(name, id) {}
@@ -80,9 +88,13 @@ std::vector<int> HeavyMuscleCustomer::order(const std::vector<Workout> &workout_
             workoutOrder.emplace_back(i);
         }
     }
-    std::sort(workoutOrder.begin(),workoutOrder.end(),Workout::comparePrice());
+    std::sort(workoutOrder.begin(),workoutOrder.end(),Workout::comparePrice);
     //we wrote a comprator that compares prices
     return workoutOrder;
+}
+
+std::string HeavyMuscleCustomer::toString() const {
+    return getName() + ",mcl";
 }
 
 
@@ -100,4 +112,8 @@ std::vector<int> FullBodyCustomer::order(const std::vector<Workout> &workout_opt
     if (index != -1)
         workoutOrder.emplace_back(index);
     return workoutOrder;
+}
+
+std::string FullBodyCustomer::toString() const {
+    return getName() + ",fbd";
 }

@@ -38,7 +38,22 @@ void OpenTrainer::act(Studio &studio) {
         for (int i = 0; i < customers.size(); i++) {
             trainer->addCustomer(customers[i]);
         }
+        complete();
     }
+}
+
+std::string OpenTrainer::toString() const {
+    std::string str = "open ";
+    str += std::to_string(trainerId);
+    for (Customer* customer : customers) {
+        str +=" ";
+        str += customer->toString();
+    }
+    if (getStatus() == COMPLETED)
+        str += " Completed";
+    else
+        str +=" " + getErrorMsg();
+    return str;
 }
 
 Order::Order(int id): trainerId(id) {}
@@ -57,7 +72,18 @@ void Order::act(Studio &studio) {
         for(const OrderPair& pair : trainer->getOrders()){
             std:: cout << trainer->getCustomer(pair.first)->getName()<< " Is Doing " << pair.second.getName() <<"\n";
         }
+        complete();
     }
+}
+
+std::string Order::toString() const {
+    std::string str = "order ";
+    str += std::to_string(trainerId);
+    if (getStatus() == COMPLETED)
+        str += " Completed";
+    else
+        str +=" "+ getErrorMsg();
+    return str;
 }
 
 MoveCustomer::MoveCustomer(int src, int dst, int customerId):srcTrainer(src), dstTrainer(dst),id(customerId) {}
@@ -80,8 +106,22 @@ void MoveCustomer::act(Studio &studio) {
         trainerSrc->removeCustomer(id);
         if (trainerSrc->getCapacity() == trainerSrc->availableCapacity())
             trainerSrc->closeTrainer();
+        complete();
     }
 }
+
+std::string MoveCustomer::toString() const {
+    std::string str = "move ";
+    str += std::to_string(srcTrainer);
+    str +=" "+ std::to_string(dstTrainer);
+    str += " " +std::to_string(id);
+    if (getStatus() == COMPLETED)
+        str += " Completed";
+    else
+        str +=" "+ getErrorMsg();
+    return str;
+}
+
 
 Close::Close(int id): trainerId(id){}
 
@@ -98,7 +138,18 @@ void Close::act(Studio &studio) {
         }
         trainer->setSalary( trainer->getSalary() + sum);
         std:: cout <<"Trainer "<< trainerId << "  closed. Salary "<< trainer-> getSalary() <<"NIS"<< "\n";
+        complete();
     }
+}
+
+std::string Close::toString() const {
+    std::string str = "close ";
+    str += std::to_string(trainerId);
+    if (getStatus() == COMPLETED)
+        str += " Completed";
+    else
+        str +=" "+ getErrorMsg();
+    return str;
 }
 
 
@@ -112,7 +163,17 @@ void CloseAll::act(Studio &studio) {
             close.act(studio);
         }
     }
+    complete();
     //TODO:close stodiuo
+}
+
+std::string CloseAll::toString() const {
+    std::string str = "closeall";
+    if (getStatus() == COMPLETED)
+        str += " Completed";
+    else
+        str +=" "+ getErrorMsg();
+    return str;
 }
 
 PrintWorkoutOptions::PrintWorkoutOptions() {}
@@ -122,6 +183,16 @@ void PrintWorkoutOptions::act(Studio &studio) {
     for (int i = 0; i < workoutOptions.size(); ++i) {
         std::cout << workoutOptions[i].toString()<< "\n";
     }
+    complete();
+}
+
+std::string PrintWorkoutOptions::toString() const {
+    std::string str = "workout_options";
+    if (getStatus() == COMPLETED)
+        str += " Completed";
+    else
+        str +=" "+ getErrorMsg();
+    return str;
 }
 
 PrintTrainerStatus::PrintTrainerStatus(int id): trainerId(id) {}
@@ -148,6 +219,34 @@ void PrintTrainerStatus::act(Studio &studio) {
         }
         std::cout <<"Current Trainer’s Salary: " << std::to_string(trainer->getSalary() + sum)<<"\n";
     }
-
+    complete();
 }
 
+std::string PrintTrainerStatus::toString() const {
+    std::string str = "status ";
+    str += std::to_string(trainerId);
+    if (getStatus() == COMPLETED)
+        str += " Completed";
+    else
+        str +=" "+ getErrorMsg();
+    return str;
+}
+
+PrintActionsLog::PrintActionsLog() = default;
+
+void PrintActionsLog::act(Studio &studio) {
+    const std::vector<BaseAction*>& actionLog = studio.getActionsLog();
+    for (int i = 0; i < actionLog.size(); i++) {
+        std::cout<< actionLog[i]->toString()<<"\n";
+    }
+    complete();
+}
+
+std::string PrintActionsLog::toString() const {
+    std::string str = "log";
+    if (getStatus() == COMPLETED)
+        str += " Completed";
+    else
+        str +=" "+ getErrorMsg();
+    return str;
+}
