@@ -7,8 +7,9 @@
 #include "Trainer.h"
 #include "Action.h"
 
+extern Studio* backup;
+class Studio{
 
-class Studio{		
 public:
 	Studio();
     Studio(const std::string &configFilePath);

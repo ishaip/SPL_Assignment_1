@@ -18,16 +18,6 @@ void Studio:: start(){
 }
 
 
-void Studio :: makeTrainer(int numOfTrainers, int *spotArray ){
-    _numOfTrainers = numOfTrainers;
-    for(int i = 0; i < numOfTrainers; i++){
-
-    }
-}
-
-int Studio::getNumOfTrainers() const {
-    return _numOfTrainers;
-}
 
 Trainer *Studio::getTrainer(int tid) {
     if (trainers.size() > tid && tid >= 0){ //vector size isn't big enough prevents an error

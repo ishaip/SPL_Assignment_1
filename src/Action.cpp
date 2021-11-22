@@ -250,3 +250,35 @@ std::string PrintActionsLog::toString() const {
         str +=" "+ getErrorMsg();
     return str;
 }
+
+BackupStudio::BackupStudio() {}
+
+void BackupStudio::act(Studio &studio) {
+    backup = new Studio(studio);
+    complete();
+}
+
+std::string BackupStudio::toString() const {
+    std::string str = "backup";
+    if (getStatus() == COMPLETED)
+        str += " Completed";
+    else
+        str +=" "+ getErrorMsg();
+    return str;
+}
+
+RestoreStudio::RestoreStudio() {}
+
+void RestoreStudio::act(Studio &studio) {
+    studio = * backup;
+
+}
+
+std::string RestoreStudio::toString() const {
+    std::string str = "restore";
+    if (getStatus() == COMPLETED)
+        str += " Completed";
+    else
+        str +=" "+ getErrorMsg();
+    return str;
+}
