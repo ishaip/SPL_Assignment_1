@@ -18,10 +18,12 @@ public:
     Trainer* getTrainer(int tid);
 	const std::vector<BaseAction*>& getActionsLog() const; // Return a reference to the history of actions
     std::vector<Workout>& getWorkoutOptions();
-
+    void addAction(BaseAction *action);
+    int getNextCustomerId();
 
 private:
     bool open;
+    int nextCustomerId;
     std::vector<Trainer*> trainers;
     std::vector<Workout> workout_options;
     std::vector<BaseAction*> actionsLog;

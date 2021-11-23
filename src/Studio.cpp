@@ -30,3 +30,7 @@ std::vector<Workout> &Studio::getWorkoutOptions() {
     return workout_options;
 }
 
+void Studio::addAction(BaseAction *action) {
+actionsLog.emplace_back(action);
+}
+
