@@ -99,7 +99,7 @@ void MoveCustomer::act(Studio &studio) {
         std::vector<OrderPair> orderList = trainerSrc->getOrders();
         for (int i = 0; i < orderList.size(); i++) {
             if (orderList[i].first == id) {
-                trainerDst->addCustomerOrders(orderList[i]);
+                trainerDst->addOrder(orderList[i]);
             }
         }
         trainerDst->addCustomer(trainerSrc->getCustomer(id));
@@ -131,12 +131,6 @@ void Close::act(Studio &studio) {
         error("Trainer does not exist or is not open");
     else{
         trainer->closeTrainer();
-        int sum=0;
-        std::vector<OrderPair> orderList = trainer->getOrders();
-        for(int i =0; i<orderList.size(); i++){
-            sum = sum + orderList[i].second.getPrice();
-        }
-        trainer->setSalary( trainer->getSalary() + sum);
         std:: cout <<"Trainer "<< trainerId << "  closed. Salary "<< trainer-> getSalary() <<"NIS"<< "\n";
         complete();
     }

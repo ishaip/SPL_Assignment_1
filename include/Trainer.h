@@ -25,7 +25,8 @@ public:
     int availableCapacity();
     virtual ~Trainer();
     void setSalary(int salary);
-    void addCustomerOrders(const OrderPair& orders);
+    void addOrder(const OrderPair& orders);
+    void updateSalary();
 
 private:
     int capacity;

@@ -81,7 +81,7 @@ void Trainer::removeCustomer(int id) {
     }
 }
 
-void Trainer::addCustomerOrders(const OrderPair& orders) {
+void Trainer::addOrder(const OrderPair& orders) {
     orderList.emplace_back(orders);
 }
 
