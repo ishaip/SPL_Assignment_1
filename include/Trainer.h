@@ -26,6 +26,7 @@ public:
     virtual ~Trainer();
     void setSalary(int salary);
     void addCustomerOrders(const OrderPair& orders);
+
 private:
     int capacity;
     bool open;

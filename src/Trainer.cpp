@@ -36,11 +36,9 @@ Trainer::Trainer(int t_capacity):
 
 
 Trainer:: ~Trainer() {
-    if (!customersList.empty()){
-        for (int i = 0; i < customersList.size(); ++i) {
-            delete &customersList[i];
-            customersList[i] = nullptr;
-        }
+    for (Customer *  customer : customersList) {
+        delete &customer;
+        customer = nullptr;
     }
     if (!orderList.empty()) {
         for (int i = 0; i < orderList.size(); ++i) {
