@@ -8,26 +8,35 @@
 #include "Action.h"
 
 extern Studio* backup;
-class Studio{
 
+class Studio{
 public:
-	Studio();
+    Studio();
     Studio(const std::string &configFilePath);
     void start();
     int getNumOfTrainers() const;
     Trainer* getTrainer(int tid);
-	const std::vector<BaseAction*>& getActionsLog() const; // Return a reference to the history of actions
+    const std::vector<BaseAction*>& getActionsLog() const; // Return a reference to the history of actions
     std::vector<Workout>& getWorkoutOptions();
-    void addAction(BaseAction *action);
+    void addAction(BaseAction* action);
     int getNextCustomerId();
 
+    virtual ~Studio(); //destructor
+    Studio (const Studio& other); //copy constructor
+    Studio &operator=(Studio& other); //copy assignment operator
+    Studio(Studio&& other) noexcept ; //move constructor
+    Studio &operator=(Studio&& other) noexcept ;//move assignment operator //should be 'noexcept'??
 private:
     bool open;
     int nextCustomerId;
     std::vector<Trainer*> trainers;
     std::vector<Workout> workout_options;
     std::vector<BaseAction*> actionsLog;
-    void makeTrainer(int numOfTrainers, int *spotArray);
+
+    void makeTrainer(int trainerCount,const int *spots);
+    void makeWorkout(std::string workout, int id);
+
+    // id's 'iterator' for every class that has an id field
 };
 
 
