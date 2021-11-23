@@ -106,56 +106,38 @@ int main(int argc, char** argv){
     std::string str;
     std::cin >> str;
     while(str !="closeall"){
+        BaseAction *action;
         if (str.substr(0,4) == "open"){
-            OpenTrainer *action = breakdownOpen(str, studio);
-            studio.addAction(action);
-            action->act(studio);
+            action = breakdownOpen(str, studio);
         }
         if (str.substr(0,5) == "order"){
-            Order *action = breakdownOrder(str);
-            studio.addAction(action);
-            action->act(studio);
+            action = breakdownOrder(str);
         }
         if (str.substr(0,4) == "move"){
-            MoveCustomer *action = breakdownMove(str);
-            studio.addAction(action);
-            action->act(studio);
+            action = breakdownMove(str);
         }
         if (str.substr(0,5) == "close"){
-            Close *action = breakdownClose(str);
-            studio.addAction(action);
-            action->act(studio);
+            action = breakdownClose(str);
         }
         if (str.substr(0,4) == "work"){
-            PrintWorkoutOptions *action = breakdownWorkout_options(str);
-            studio.addAction(action);
-            action->act(studio);
+            action = breakdownWorkout_options(str);
         }
         if (str.substr(0,4) == "stat"){
-            PrintTrainerStatus *action = breakdownStatus(str);
-            studio.addAction(action);
-            action->act(studio);
+            action = breakdownStatus(str);
         }
         if (str.substr(0,3) == "log"){
-            PrintActionsLog *action = breakdownLog(str);
-            studio.addAction(action);
-            action->act(studio);
+            action = breakdownLog(str);
         }
         if (str.substr(0,4) == "back"){
-            BackupStudio *action = breakdownBackup(str);
-            studio.addAction(action);
-            action->act(studio);
+            action = breakdownBackup(str);
         }
         if (str.substr(0,4) == "rest"){
-            RestoreStudio *action = breakdownRestore(str);
-            studio.addAction(action);
-            action->act(studio);
+            action = breakdownRestore(str);
         }
+        action->act(studio);
+        studio.addAction(action);
         std::cin >> str;
     }
-
-
-
     CloseAll closeAll = CloseAll();
     closeAll.act(studio);
 
