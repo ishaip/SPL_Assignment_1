@@ -24,8 +24,9 @@ public:
     void updateSalary(); //A method to update the accumulated salary
     bool isOpen() const;
     int availableCapacity(); //Check whether there is available spot
-
     virtual ~Trainer(); //Destructor
+    Trainer (const Trainer &trainer); //copy constructor
+    Trainer &operator=(const Trainer& other); //copy assignment operator
 private:
     int capacity;
     bool open;

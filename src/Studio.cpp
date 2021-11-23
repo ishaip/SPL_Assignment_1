@@ -127,10 +127,15 @@ Studio &Studio::operator=(Studio &other){
     if ( this == &other)
         return *this;
     //freeing the pointers
-    for (Trainer* t : trainers)
+    for (Trainer* t : trainers) {
         delete &t;
-    for (BaseAction* a : actionsLog)
+        t= nullptr;
+
+    }
+    for (BaseAction* a : actionsLog) {
         delete &a;
+        a = nullptr;
+    }
 
     //duplicate the resources
     for (Trainer* t : other.trainers){

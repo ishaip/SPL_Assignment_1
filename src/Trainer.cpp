@@ -13,15 +13,51 @@ Trainer::Trainer(int t_capacity):
 Trainer::~Trainer(){
     clear();
 }
-;
+
 
 void Trainer::clear(){
     for (Customer *customer: customersList){
         delete &customer;
         customer = nullptr;
     }
-
+    customersList.erase(customersList.begin(),customersList.end());
     orderList.erase(orderList.begin(), orderList.end());
+}
+
+Trainer::Trainer(const Trainer &trainer):
+    capacity(trainer.capacity), open(trainer.open),salary(trainer.salary){
+    for (Customer * customer : trainer.customersList) {
+        this->customersList.emplace_back(customer->clone());
+    }
+    for (OrderPair orderPair : trainer.orderList) {
+        this->orderList.emplace_back(orderPair);
+    }
+}
+
+//copy assignment operator
+Trainer &Trainer::operator=(const Trainer &other) {
+    if (this == &other)
+        return *this;
+    for (Customer * customer : customersList) {
+        if (customer != nullptr){
+            delete &customer;
+            customer = nullptr;
+        }
+    }
+    for (OrderPair orderPair  : orderList) {
+        delete & orderPair;
+    }
+    orderList.erase(orderList.begin(),orderList.end());
+    customersList.erase(customersList.begin(),customersList.end());
+    for (OrderPair orderPair  : other.orderList) {
+        orderList.emplace_back(orderPair);
+    }
+    for (Customer * customer : other.customersList) {
+        customersList.emplace_back(customer->clone());
+    }
+    capacity = other.capacity;
+    open = other.open;
+    salary = other.salary;
 }
 
 int Trainer::getCapacity() const{ return capacity; }
@@ -92,6 +128,7 @@ void Trainer::updateSalary() {
 bool Trainer::isOpen() const{ return open; }
 
 int Trainer::availableCapacity() { return capacity - customersList.size(); }
+
 
 
 

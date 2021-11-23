@@ -271,9 +271,8 @@ void RestoreStudio::act(Studio &studio) {
     if (backup == nullptr)
         error("No backup available");
     else{
+        delete  &studio;
         studio = *backup;
-        BackupStudio backupStudio = BackupStudio();
-        backupStudio.act(studio);
         complete();
     }
 }
