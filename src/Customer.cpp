@@ -98,7 +98,16 @@ std::vector<int> HeavyMuscleCustomer::order(const std::vector<Workout> &workout_
             workoutOrder.emplace_back(i);
         }
     }
-    std::sort(workoutOrder.begin(),workoutOrder.end(),Workout::comparePrice);
+    for (int i = 0; i < workoutOrder.size(); ++i) {
+        for (int j = i+1; j < workoutOrder.size(); ++j) {
+            if(workout_options[workoutOrder[i]].getPrice() < workout_options[workoutOrder[j]].getPrice()) {
+                int temp = workoutOrder[i];
+                workoutOrder[i] = workoutOrder[j];
+                workoutOrder[j] = temp;
+            }
+        }
+    }
+    //std::sort(workoutOrder.begin(),workoutOrder.end(),Workout::comparePrice);
     //we wrote a comprator that compares prices
     return workoutOrder;
 }

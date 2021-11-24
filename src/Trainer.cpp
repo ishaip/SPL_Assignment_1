@@ -6,8 +6,8 @@
 #include <vector>
 
 Trainer::Trainer(int t_capacity):
-        capacity(t_capacity), open(false), customersList(0),
-        orderList(0), salary(0){};
+        capacity(t_capacity), open(false), customersList({}),
+        orderList({}), salary(0){};
 
 //destructor
 Trainer::~Trainer(){
@@ -21,7 +21,8 @@ void Trainer::clear(){
         customer = nullptr;
     }
     customersList.erase(customersList.begin(),customersList.end());
-    orderList.erase(orderList.begin(), orderList.end());
+    orderList.clear();
+    //orderList.erase(orderList.begin(), orderList.end());
 }
 
 Trainer::Trainer(const Trainer &trainer):
@@ -47,7 +48,8 @@ Trainer &Trainer::operator=(const Trainer &other) {
     for (OrderPair orderPair  : orderList) {
         delete & orderPair;
     }
-    orderList.erase(orderList.begin(),orderList.end());
+    orderList.clear();
+    //orderList.erase(orderList.begin(),orderList.end());
     customersList.erase(customersList.begin(),customersList.end());
     for (OrderPair orderPair  : other.orderList) {
         orderList.emplace_back(orderPair);
@@ -71,7 +73,8 @@ void Trainer::removeCustomer(int id) { //TODO: check when compiling
     std::vector<OrderPair>::iterator itr;
     for (itr = orderList.begin(); itr < orderList.end(); itr++){
         if (itr->first == id)
-            orderList.erase(itr);
+            delete &itr;
+            //orderList.erase(itr);
     }
     //removing the customer from the list
     std::vector<Customer*>::iterator cItr;
@@ -114,7 +117,8 @@ void Trainer::closeTrainer(){
         customer = nullptr;
     }
     //clear orderList and customersList
-    orderList.erase(orderList.begin(), orderList.end());
+    orderList.clear();
+    //orderList.erase(orderList.begin(), orderList.end());
     customersList.erase(customersList.begin(), customersList.end());
 }
 

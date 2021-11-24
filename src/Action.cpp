@@ -5,6 +5,8 @@
 #include "../include/Action.h"
 #include "../include/Studio.h"
 #include "../include/Trainer.h"
+
+extern Studio *backup;
 BaseAction::BaseAction() {}
 
 ActionStatus BaseAction::getStatus() const {

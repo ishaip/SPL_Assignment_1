@@ -18,6 +18,7 @@ public:
     static bool compareId(const Workout &thisWorkout, const Workout &otherWorkout);
     std::string toString();
     std::string typeToString();
+    virtual ~Workout();
 
 private:
 	const int id;

@@ -7,7 +7,6 @@
 #include "Trainer.h"
 #include "Action.h"
 
-extern Studio* backup;
 
 class Studio{
 public:

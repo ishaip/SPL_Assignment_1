@@ -11,7 +11,9 @@
 #include <sstream>
 
 Studio::Studio():
-        open(false), nextCustomerId(0), trainers(0), workout_options(0), actionsLog(0){};
+        open(false), nextCustomerId(0), trainers({}),
+        workout_options({}), actionsLog({}){
+};
 
 Studio::Studio(const std::string &configFilePath):
         open(false), nextCustomerId(0){
@@ -100,7 +102,8 @@ Studio::~Studio() {
         delete &trainer;
         trainer = nullptr;
     }
-    workout_options.erase(workout_options.begin(), workout_options.end());
+    workout_options.clear();
+   // workout_options.erase(workout_options.begin(), workout_options.end());
 
     for (BaseAction* a : actionsLog){
         delete &a;
@@ -110,12 +113,11 @@ Studio::~Studio() {
 
 //copy constructor
 Studio:: Studio(const Studio& other):
-        open(other.open), nextCustomerId(other.nextCustomerId){
+        open(other.open), nextCustomerId(other.nextCustomerId),workout_options(other.workout_options){
     for (Trainer* t : other.trainers){
-        Trainer* trainer = new Trainer(t);
+        Trainer* trainer = new Trainer(*t);
         trainers.emplace_back(trainer);
     }
-    workout_options = other.workout_options;
 
     for (BaseAction* action : other.actionsLog)
         actionsLog.emplace_back(action);
@@ -139,14 +141,17 @@ Studio &Studio::operator=(Studio &other){
 
     //duplicate the resources
     for (Trainer* t : other.trainers){
-        Trainer* trainer = new Trainer(t);
+        Trainer* trainer = new Trainer(*t);
         trainers.emplace_back(trainer);
     }
     for (BaseAction* action : other.actionsLog)
         actionsLog.emplace_back(action);
 
     //copy the rest of the data
-    workout_options = other.workout_options;
+    workout_options.clear();
+    for(Workout workout : other.workout_options){
+        workout_options.emplace_back(workout);
+    }
     open = other.open;
     nextCustomerId = other.nextCustomerId;
 
@@ -184,10 +189,14 @@ Studio &Studio::operator=(Studio &&other) noexcept {
 
     //assigning
     for (Trainer* t : other.trainers){
-        Trainer* trainer = new Trainer(t);
+        Trainer* trainer = new Trainer(*t);
         trainers.emplace_back(trainer);
     }
-    workout_options = other.workout_options;
+    workout_options.clear();
+    for(Workout workout : other.workout_options){
+        workout_options.emplace_back(workout);
+    }
+    other.workout_options.clear();
     for (BaseAction* action : other.actionsLog)
         actionsLog.emplace_back(action);
 
