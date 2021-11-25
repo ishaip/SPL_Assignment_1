@@ -14,7 +14,7 @@ Studio::Studio():
         open(false), nextCustomerId(0), trainers({}),
         workout_options({}), actionsLog({}){
 };
-//
+
 Studio::Studio(const std::string &configFilePath):
         open(false), nextCustomerId(0){
 
@@ -121,20 +121,18 @@ Studio:: Studio(const Studio& other):
 };
 
 //copy assignment operator
-Studio &Studio::operator=(Studio &other){
+Studio &Studio::operator=(Studio &other){ //TODO: check deleting way
     //check for self assignment
     if ( this == &other)
         return *this;
     //freeing the pointers
-    for (Trainer* t : trainers) {
-        delete &t;
-        t= nullptr;
-
-    }
+    for (Trainer* t : trainers)
+        t->~Trainer();
     for (BaseAction* a : actionsLog) {
-        delete &a;
-        a = nullptr;
+        a->~BaseAction();
     }
+    for (Workout workout : workout_options)
+        workout.~Workout();
 
     //duplicate the resources
     for (Trainer* t : other.trainers){
