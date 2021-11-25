@@ -30,7 +30,7 @@ void BaseAction::complete() {
 }
 
 OpenTrainer::OpenTrainer(int id, std::vector<Customer *> &customersList):
-trainerId (id),customers(customersList){}
+        trainerId (id),customers(customersList){}
 
 void OpenTrainer::act(Studio &studio) {
     Trainer *trainer = studio.getTrainer(trainerId);
@@ -60,6 +60,14 @@ std::string OpenTrainer::toString() const {
     return str;
 }
 
+BaseAction *OpenTrainer::clone() {
+    std::vector<Customer *> cloneCustomerList;
+    for (int i = 0; i < customers.size(); ++i) {
+        cloneCustomerList.emplace_back(customers[i]->clone());
+    }
+    return  new OpenTrainer(trainerId,cloneCustomerList);
+}
+
 Order::Order(int id): trainerId(id) {}
 
 void Order::act(Studio &studio) {
@@ -71,7 +79,7 @@ void Order::act(Studio &studio) {
         //for all customers that the trainers has, add their preferred workout routine
         for (Customer *customer : trainer->getCustomers()) {
             trainer->order( customer->getId() , customer->order(workoutOptions), workoutOptions);
-            }
+        }
         std:: cout <<"order "<< trainerId << "\n";
         for(const OrderPair& pair : trainer->getOrders()){
             std:: cout << trainer->getCustomer(pair.first)->getName()<< " Is Doing " << pair.second.getName() <<"\n";
@@ -88,6 +96,10 @@ std::string Order::toString() const {
     else
         str +=" "+ getErrorMsg();
     return str;
+}
+
+BaseAction *Order::clone() {
+    return new Order(trainerId);
 }
 
 MoveCustomer::MoveCustomer(int src, int dst, int customerId):srcTrainer(src), dstTrainer(dst),id(customerId) {}
@@ -126,6 +138,10 @@ std::string MoveCustomer::toString() const {
     return str;
 }
 
+BaseAction *MoveCustomer::clone() {
+    return new MoveCustomer(srcTrainer, dstTrainer,id);
+}
+
 
 Close::Close(int id): trainerId(id){}
 
@@ -148,6 +164,10 @@ std::string Close::toString() const {
     else
         str +=" "+ getErrorMsg();
     return str;
+}
+
+BaseAction *Close::clone() {
+    return new Close(trainerId);
 }
 
 
@@ -173,6 +193,10 @@ std::string CloseAll::toString() const {
     return str;
 }
 
+BaseAction *CloseAll::clone() {
+    return new CloseAll();
+}
+
 PrintWorkoutOptions::PrintWorkoutOptions() {}
 
 void PrintWorkoutOptions::act(Studio &studio) {
@@ -190,6 +214,10 @@ std::string PrintWorkoutOptions::toString() const {
     else
         str +=" "+ getErrorMsg();
     return str;
+}
+
+BaseAction *PrintWorkoutOptions::clone() {
+    return new PrintWorkoutOptions();
 }
 
 PrintTrainerStatus::PrintTrainerStatus(int id): trainerId(id) {}
@@ -229,6 +257,10 @@ std::string PrintTrainerStatus::toString() const {
     return str;
 }
 
+BaseAction *PrintTrainerStatus::clone() {
+    return new PrintTrainerStatus(trainerId);
+}
+
 PrintActionsLog::PrintActionsLog() = default;
 
 void PrintActionsLog::act(Studio &studio) {
@@ -246,6 +278,10 @@ std::string PrintActionsLog::toString() const {
     else
         str +=" "+ getErrorMsg();
     return str;
+}
+
+BaseAction *PrintActionsLog::clone() {
+    return new PrintActionsLog();
 }
 
 BackupStudio::BackupStudio() {}
@@ -268,6 +304,10 @@ std::string BackupStudio::toString() const {
     return str;
 }
 
+BaseAction *BackupStudio::clone() {
+    return new BackupStudio;
+}
+
 RestoreStudio::RestoreStudio() {}
 
 void RestoreStudio::act(Studio &studio) {
@@ -286,4 +326,8 @@ std::string RestoreStudio::toString() const {
     else
         str +=" "+ getErrorMsg();
     return str;
+}
+
+BaseAction *RestoreStudio::clone() {
+    return new RestoreStudio();
 }

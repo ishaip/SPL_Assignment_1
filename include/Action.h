@@ -36,6 +36,7 @@ private:
 
 class OpenTrainer : public BaseAction {
 public:
+    virtual BaseAction *clone();
     OpenTrainer(int id, std::vector<Customer *> &customersList);
     void act(Studio &studio);
     std::string toString() const;
@@ -47,6 +48,7 @@ private:
 
 class Order : public BaseAction {
 public:
+    virtual BaseAction *clone();
     Order(int id);
     void act(Studio &studio);
     std::string toString() const;
@@ -57,6 +59,7 @@ private:
 
 class MoveCustomer : public BaseAction {
 public:
+    virtual BaseAction *clone();
     MoveCustomer(int src, int dst, int customerId);
     void act(Studio &studio);
     std::string toString() const;
@@ -69,6 +72,7 @@ private:
 
 class Close : public BaseAction {
 public:
+    virtual BaseAction *clone();
     Close(int id);
     void act(Studio &studio);
     std::string toString() const;
@@ -79,6 +83,7 @@ private:
 
 class CloseAll : public BaseAction {
 public:
+    virtual BaseAction *clone();
     CloseAll();
     void act(Studio &studio);
     std::string toString() const;
@@ -88,6 +93,7 @@ private:
 
 class PrintWorkoutOptions : public BaseAction {
 public:
+    virtual BaseAction *clone();
     PrintWorkoutOptions();
     void act(Studio &studio);
     std::string toString() const;
@@ -97,6 +103,7 @@ private:
 
 class PrintTrainerStatus : public BaseAction {
 public:
+    virtual BaseAction *clone();
     PrintTrainerStatus(int id);
     void act(Studio &studio);
     std::string toString() const;
@@ -107,6 +114,7 @@ private:
 
 class PrintActionsLog : public BaseAction {
 public:
+    virtual BaseAction *clone();
     PrintActionsLog();
     void act(Studio &studio);
     std::string toString() const;
@@ -116,6 +124,7 @@ private:
 
 class BackupStudio : public BaseAction {
 public:
+    virtual BaseAction *clone();
     BackupStudio();
     void act(Studio &studio);
     std::string toString() const;
@@ -125,6 +134,7 @@ private:
 
 class RestoreStudio : public BaseAction {
 public:
+    virtual BaseAction *clone();
     RestoreStudio();
     void act(Studio &studio);
     std::string toString() const;
