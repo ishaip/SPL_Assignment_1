@@ -14,16 +14,16 @@ Studio::Studio():
         open(false), nextCustomerId(0), trainers({}),
         workout_options({}), actionsLog({}){
 };
-
+//
 Studio::Studio(const std::string &configFilePath):
         open(false), nextCustomerId(0){
-
+//
     //reading the running file
     std::ifstream file;
     file.open(configFilePath);
-    std::stringstream buffer;
+    std::stringstream buffer; //
 //reinterpret_cast<const char *>(&configFilePath)
-    buffer << file.rdbuf();
+    buffer << file.rdbuf(); //
     int trainerCount = 0;
     int numOfTrainers;
     int workoutIds = 0;
