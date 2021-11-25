@@ -1,0 +1,388 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 33554432 bytes for committing reserved memory.
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   The process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (os_linux.cpp:2987), pid=9087, tid=9088
+#
+# JRE version:  (11.0.12+7) (build )
+# Java VM: OpenJDK 64-Bit Server VM (11.0.12+7-b1504.40, mixed mode, sharing, tiered, compressed oops, g1 gc, linux-amd64)
+# Core dump will be written. Default location: Core dumps may be processed with "/usr/share/apport/apport %p %s %c %d %P %E" (or dumping to /home/spl211/CLionProjects/SPL_Assignment_111/core.9087)
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: git4idea.http.GitAskPassApp Username for 'https://github.com': 
+
+Host: Intel(R) Core(TM) i5-8250U CPU @ 1.60GHz, 2 cores, 3G, Ubuntu 18.04.1 LTS
+Time: Thu Nov 25 12:21:29 2021 IST elapsed time: 0.215955 seconds (0d 0h 0m 0s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007fe034029000):  JavaThread "Unknown thread" [_thread_in_vm, id=9088, stack(0x00007fe03c398000,0x00007fe03c499000)]
+
+Stack: [0x00007fe03c398000,0x00007fe03c499000],  sp=0x00007fe03c497410,  free space=1021k
+Native frames: (J=compiled Java code, A=aot compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [libjvm.so+0xe7415a]  VMError::report_and_die(int, char const*, char const*, __va_list_tag*, Thread*, unsigned char*, void*, void*, char const*, int, unsigned long)+0x38a
+V  [libjvm.so+0xe74e3b]  VMError::report_and_die(Thread*, char const*, int, unsigned long, VMErrorType, char const*, __va_list_tag*)+0x2b
+V  [libjvm.so+0x696515]  report_vm_out_of_memory(char const*, int, unsigned long, VMErrorType, char const*, ...)+0xc5
+V  [libjvm.so+0xbcb6a8]  os::pd_commit_memory(char*, unsigned long, bool)+0xd8
+V  [libjvm.so+0xbc1a5f]  os::commit_memory(char*, unsigned long, bool)+0x1f
+V  [libjvm.so+0x77e083]  G1CMMarkStack::resize(unsigned long)+0x63
+V  [libjvm.so+0x781ada]  G1ConcurrentMark::G1ConcurrentMark(G1CollectedHeap*, G1RegionToSpaceMapper*, G1RegionToSpaceMapper*)+0x8aa
+V  [libjvm.so+0x76e98e]  G1CollectedHeap::initialize()+0x64e
+V  [libjvm.so+0xe36ff1]  Universe::initialize_heap()+0x41
+V  [libjvm.so+0xe372a6]  universe_init()+0x46
+V  [libjvm.so+0x853837]  init_globals()+0x57
+V  [libjvm.so+0xe10fea]  Threads::create_vm(JavaVMInitArgs*, bool*)+0x30a
+V  [libjvm.so+0x8fbca1]  JNI_CreateJavaVM+0x51
+C  [libjli.so+0x3c98]  JavaMain+0x88
+C  [libjli.so+0x8939]  ThreadJavaMain+0x9
+
+
+---------------  P R O C E S S  ---------------
+
+Threads class SMR info:
+_java_thread_list=0x00005644eb6c5010, length=0, elements={
+}
+
+Java Threads: ( => current thread )
+
+Other Threads:
+  0x00007fe034040800 GCTaskThread "GC Thread#0" [stack: 0x00007fe038883000,0x00007fe038983000] [id=9089]
+
+[error occurred during error reporting (printing all threads), id 0xb, SIGSEGV (0xb) at pc=0x00007fe03a91e400]
+
+VM state:not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x00007fe0340255f0] Heap_lock - owner thread: 0x00007fe034029000
+
+Heap address: 0x00000000c2400000, size: 988 MB, Compressed Oops mode: Non-zero based: 0x00000000c2400000
+Narrow klass base: 0x0000000000000000, Narrow klass shift: 0
+
+GC Heap History (0 events):
+No events
+
+Deoptimization events (0 events):
+No events
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+Events (2 events):
+Event: 0.079 Protecting memory [0x00007fe03c398000,0x00007fe03c39c000] with protection modes 0
+Event: 0.143 Loaded shared library /home/spl211/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/212.5457.51/jbr/lib/libzip.so
+
+
+Dynamic libraries:
+c2400000-100000000 ---p 00000000 00:00 0 
+5644ea618000-5644ea619000 r-xp 00000000 08:01 952878                     /home/spl211/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/212.5457.51/jbr/bin/java
+5644ea819000-5644ea81a000 r--p 00001000 08:01 952878                     /home/spl211/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/212.5457.51/jbr/bin/java
+5644ea81a000-5644ea81b000 rw-p 00002000 08:01 952878                     /home/spl211/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/212.5457.51/jbr/bin/java
+5644eb6c1000-5644eb6e2000 rw-p 00000000 00:00 0                          [heap]
+7fe00c000000-7fe00c021000 rw-p 00000000 00:00 0 
+7fe00c021000-7fe010000000 ---p 00000000 00:00 0 
+7fe014000000-7fe014021000 rw-p 00000000 00:00 0 
+7fe014021000-7fe018000000 ---p 00000000 00:00 0 
+7fe01ae1d000-7fe01b090000 rw-p 00000000 00:00 0 
+7fe01b090000-7fe01c000000 ---p 00000000 00:00 0 
+7fe01c000000-7fe01c021000 rw-p 00000000 00:00 0 
+7fe01c021000-7fe020000000 ---p 00000000 00:00 0 
+7fe020127000-7fe020277000 rw-p 00000000 00:00 0 
+7fe020277000-7fe020278000 ---p 00000000 00:00 0 
+7fe020278000-7fe020379000 rw-p 00000000 00:00 0 
+7fe020379000-7fe02037a000 ---p 00000000 00:00 0 
+7fe02037a000-7fe02047b000 rw-p 00000000 00:00 0 
+7fe02047b000-7fe0213eb000 ---p 00000000 00:00 0 
+7fe0213eb000-7fe02165b000 rwxp 00000000 00:00 0 
+7fe02165b000-7fe02197a000 ---p 00000000 00:00 0 
+7fe02197a000-7fe021bea000 rwxp 00000000 00:00 0 
+7fe021bea000-7fe028eb2000 ---p 00000000 00:00 0 
+7fe028eb2000-7fe029122000 rwxp 00000000 00:00 0 
+7fe029122000-7fe0303eb000 ---p 00000000 00:00 0 
+7fe0303eb000-7fe034000000 r--s 00000000 08:01 952843                     /home/spl211/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/212.5457.51/jbr/lib/modules
+7fe034000000-7fe03406b000 rw-p 00000000 00:00 0 
+7fe03406b000-7fe038000000 ---p 00000000 00:00 0 
+7fe0380b5000-7fe03867f000 ---p 00000000 00:00 0 
+7fe03867f000-7fe038881000 rw-p 00000000 00:00 0 
+7fe038881000-7fe038882000 ---p 00000000 00:00 0 
+7fe038882000-7fe038988000 rw-p 00000000 00:00 0 
+7fe038988000-7fe038a6e000 ---p 00000000 00:00 0 
+7fe038a6e000-7fe038a73000 rw-p 00000000 00:00 0 
+7fe038a73000-7fe038b59000 ---p 00000000 00:00 0 
+7fe038b59000-7fe038b60000 r-xp 00000000 08:01 952789                     /home/spl211/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/212.5457.51/jbr/lib/libzip.so
+7fe038b60000-7fe038d5f000 ---p 00007000 08:01 952789                     /home/spl211/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/212.5457.51/jbr/lib/libzip.so
+7fe038d5f000-7fe038d60000 r--p 00006000 08:01 952789                     /home/spl211/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/212.5457.51/jbr/lib/libzip.so
+7fe038d60000-7fe038d61000 rw-p 00000000 00:00 0 
+7fe038d61000-7fe038d6c000 r-xp 00000000 08:01 1185646                    /lib/x86_64-linux-gnu/libnss_files-2.27.so
+7fe038d6c000-7fe038f6b000 ---p 0000b000 08:01 1185646                    /lib/x86_64-linux-gnu/libnss_files-2.27.so
+7fe038f6b000-7fe038f6c000 r--p 0000a000 08:01 1185646                    /lib/x86_64-linux-gnu/libnss_files-2.27.so
+7fe038f6c000-7fe038f6d000 rw-p 0000b000 08:01 1185646                    /lib/x86_64-linux-gnu/libnss_files-2.27.so
+7fe038f6d000-7fe038f73000 rw-p 00000000 00:00 0 
+7fe038f73000-7fe038f8a000 r-xp 00000000 08:01 1185623                    /lib/x86_64-linux-gnu/libnsl-2.27.so
+7fe038f8a000-7fe039189000 ---p 00017000 08:01 1185623                    /lib/x86_64-linux-gnu/libnsl-2.27.so
+7fe039189000-7fe03918a000 r--p 00016000 08:01 1185623                    /lib/x86_64-linux-gnu/libnsl-2.27.so
+7fe03918a000-7fe03918b000 rw-p 00017000 08:01 1185623                    /lib/x86_64-linux-gnu/libnsl-2.27.so
+7fe03918b000-7fe03918d000 rw-p 00000000 00:00 0 
+7fe03918d000-7fe039198000 r-xp 00000000 08:01 1185661                    /lib/x86_64-linux-gnu/libnss_nis-2.27.so
+7fe039198000-7fe039397000 ---p 0000b000 08:01 1185661                    /lib/x86_64-linux-gnu/libnss_nis-2.27.so
+7fe039397000-7fe039398000 r--p 0000a000 08:01 1185661                    /lib/x86_64-linux-gnu/libnss_nis-2.27.so
+7fe039398000-7fe039399000 rw-p 0000b000 08:01 1185661                    /lib/x86_64-linux-gnu/libnss_nis-2.27.so
+7fe039399000-7fe0393a1000 r-xp 00000000 08:01 1185624                    /lib/x86_64-linux-gnu/libnss_compat-2.27.so
+7fe0393a1000-7fe0395a1000 ---p 00008000 08:01 1185624                    /lib/x86_64-linux-gnu/libnss_compat-2.27.so
+7fe0395a1000-7fe0395a2000 r--p 00008000 08:01 1185624                    /lib/x86_64-linux-gnu/libnss_compat-2.27.so
+7fe0395a2000-7fe0395a3000 rw-p 00009000 08:01 1185624                    /lib/x86_64-linux-gnu/libnss_compat-2.27.so
+7fe0395a3000-7fe0395be000 r-xp 00000000 08:01 952764                     /home/spl211/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/212.5457.51/jbr/lib/libjimage.so
+7fe0395be000-7fe0397bd000 ---p 0001b000 08:01 952764                     /home/spl211/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/212.5457.51/jbr/lib/libjimage.so
+7fe0397bd000-7fe0397bf000 r--p 0001a000 08:01 952764                     /home/spl211/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/212.5457.51/jbr/lib/libjimage.so
+7fe0397bf000-7fe0397c0000 rw-p 0001c000 08:01 952764                     /home/spl211/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/212.5457.51/jbr/lib/libjimage.so
+7fe0397c0000-7fe0397e9000 r-xp 00000000 08:01 952759                     /home/spl211/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/212.5457.51/jbr/lib/libjava.so
+7fe0397e9000-7fe0399e9000 ---p 00029000 08:01 952759                     /home/spl211/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/212.5457.51/jbr/lib/libjava.so
+7fe0399e9000-7fe0399ea000 r--p 00029000 08:01 952759                     /home/spl211/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/212.5457.51/jbr/lib/libjava.so
+7fe0399ea000-7fe0399eb000 rw-p 0002a000 08:01 952759                     /home/spl211/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/212.5457.51/jbr/lib/libjava.so
+7fe0399eb000-7fe0399ec000 rw-p 00000000 00:00 0 
+7fe0399ec000-7fe0399f9000 r-xp 00000000 08:01 952788                     /home/spl211/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/212.5457.51/jbr/lib/libverify.so
+7fe0399f9000-7fe039bf8000 ---p 0000d000 08:01 952788                     /home/spl211/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/212.5457.51/jbr/lib/libverify.so
+7fe039bf8000-7fe039bfa000 r--p 0000c000 08:01 952788                     /home/spl211/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/212.5457.51/jbr/lib/libverify.so
+7fe039bfa000-7fe039bfb000 rw-p 00000000 00:00 0 
+7fe039bfb000-7fe039c02000 r-xp 00000000 08:01 1185778                    /lib/x86_64-linux-gnu/librt-2.27.so
+7fe039c02000-7fe039e01000 ---p 00007000 08:01 1185778                    /lib/x86_64-linux-gnu/librt-2.27.so
+7fe039e01000-7fe039e02000 r--p 00006000 08:01 1185778                    /lib/x86_64-linux-gnu/librt-2.27.so
+7fe039e02000-7fe039e03000 rw-p 00007000 08:01 1185778                    /lib/x86_64-linux-gnu/librt-2.27.so
+7fe039e03000-7fe039fa0000 r-xp 00000000 08:01 1185620                    /lib/x86_64-linux-gnu/libm-2.27.so
+7fe039fa0000-7fe03a19f000 ---p 0019d000 08:01 1185620                    /lib/x86_64-linux-gnu/libm-2.27.so
+7fe03a19f000-7fe03a1a0000 r--p 0019c000 08:01 1185620                    /lib/x86_64-linux-gnu/libm-2.27.so
+7fe03a1a0000-7fe03a1a1000 rw-p 0019d000 08:01 1185620                    /lib/x86_64-linux-gnu/libm-2.27.so
+7fe03a1a1000-7fe03b2fa000 r-xp 00000000 08:01 952852                     /home/spl211/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/212.5457.51/jbr/lib/server/libjvm.so
+7fe03b2fa000-7fe03b4f9000 ---p 01159000 08:01 952852                     /home/spl211/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/212.5457.51/jbr/lib/server/libjvm.so
+7fe03b4f9000-7fe03b5be000 r--p 01158000 08:01 952852                     /home/spl211/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/212.5457.51/jbr/lib/server/libjvm.so
+7fe03b5be000-7fe03b5f9000 rw-p 0121d000 08:01 952852                     /home/spl211/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/212.5457.51/jbr/lib/server/libjvm.so
+7fe03b5f9000-7fe03b650000 rw-p 00000000 00:00 0 
+7fe03b650000-7fe03b837000 r-xp 00000000 08:01 1185515                    /lib/x86_64-linux-gnu/libc-2.27.so
+7fe03b837000-7fe03ba37000 ---p 001e7000 08:01 1185515                    /lib/x86_64-linux-gnu/libc-2.27.so
+7fe03ba37000-7fe03ba3b000 r--p 001e7000 08:01 1185515                    /lib/x86_64-linux-gnu/libc-2.27.so
+7fe03ba3b000-7fe03ba3d000 rw-p 001eb000 08:01 1185515                    /lib/x86_64-linux-gnu/libc-2.27.so
+7fe03ba3d000-7fe03ba41000 rw-p 00000000 00:00 0 
+7fe03ba41000-7fe03ba44000 r-xp 00000000 08:01 1185574                    /lib/x86_64-linux-gnu/libdl-2.27.so
+7fe03ba44000-7fe03bc43000 ---p 00003000 08:01 1185574                    /lib/x86_64-linux-gnu/libdl-2.27.so
+7fe03bc43000-7fe03bc44000 r--p 00002000 08:01 1185574                    /lib/x86_64-linux-gnu/libdl-2.27.so
+7fe03bc44000-7fe03bc45000 rw-p 00003000 08:01 1185574                    /lib/x86_64-linux-gnu/libdl-2.27.so
+7fe03bc45000-7fe03bc54000 r-xp 00000000 08:01 952745                     /home/spl211/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/212.5457.51/jbr/lib/jli/libjli.so
+7fe03bc54000-7fe03be53000 ---p 0000f000 08:01 952745                     /home/spl211/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/212.5457.51/jbr/lib/jli/libjli.so
+7fe03be53000-7fe03be54000 r--p 0000e000 08:01 952745                     /home/spl211/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/212.5457.51/jbr/lib/jli/libjli.so
+7fe03be54000-7fe03be55000 rw-p 0000f000 08:01 952745                     /home/spl211/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/212.5457.51/jbr/lib/jli/libjli.so
+7fe03be55000-7fe03be6f000 r-xp 00000000 08:01 1185740                    /lib/x86_64-linux-gnu/libpthread-2.27.so
+7fe03be6f000-7fe03c06e000 ---p 0001a000 08:01 1185740                    /lib/x86_64-linux-gnu/libpthread-2.27.so
+7fe03c06e000-7fe03c06f000 r--p 00019000 08:01 1185740                    /lib/x86_64-linux-gnu/libpthread-2.27.so
+7fe03c06f000-7fe03c070000 rw-p 0001a000 08:01 1185740                    /lib/x86_64-linux-gnu/libpthread-2.27.so
+7fe03c070000-7fe03c074000 rw-p 00000000 00:00 0 
+7fe03c074000-7fe03c090000 r-xp 00000000 08:01 1185776                    /lib/x86_64-linux-gnu/libz.so.1.2.11
+7fe03c090000-7fe03c28f000 ---p 0001c000 08:01 1185776                    /lib/x86_64-linux-gnu/libz.so.1.2.11
+7fe03c28f000-7fe03c290000 r--p 0001b000 08:01 1185776                    /lib/x86_64-linux-gnu/libz.so.1.2.11
+7fe03c290000-7fe03c291000 rw-p 0001c000 08:01 1185776                    /lib/x86_64-linux-gnu/libz.so.1.2.11
+7fe03c291000-7fe03c2b8000 r-xp 00000000 08:01 1185318                    /lib/x86_64-linux-gnu/ld-2.27.so
+7fe03c377000-7fe03c398000 rw-p 00000000 00:00 0 
+7fe03c398000-7fe03c39c000 ---p 00000000 00:00 0 
+7fe03c39c000-7fe03c49b000 rw-p 00000000 00:00 0 
+7fe03c4a0000-7fe03c4a5000 rw-p 00000000 00:00 0 
+7fe03c4a5000-7fe03c4ac000 ---p 00000000 00:00 0 
+7fe03c4ac000-7fe03c4b4000 rw-s 00000000 08:01 1052297                    /tmp/hsperfdata_spl211/9087
+7fe03c4b4000-7fe03c4b5000 ---p 00000000 00:00 0 
+7fe03c4b5000-7fe03c4b6000 r--p 00000000 00:00 0 
+7fe03c4b6000-7fe03c4b8000 rw-p 00000000 00:00 0 
+7fe03c4b8000-7fe03c4b9000 r--p 00027000 08:01 1185318                    /lib/x86_64-linux-gnu/ld-2.27.so
+7fe03c4b9000-7fe03c4ba000 rw-p 00028000 08:01 1185318                    /lib/x86_64-linux-gnu/ld-2.27.so
+7fe03c4ba000-7fe03c4bb000 rw-p 00000000 00:00 0 
+7ffc99203000-7ffc99224000 rw-p 00000000 00:00 0                          [stack]
+7ffc993f3000-7ffc993f6000 r--p 00000000 00:00 0                          [vvar]
+7ffc993f6000-7ffc993f8000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
+
+
+VM Arguments:
+java_command: git4idea.http.GitAskPassApp Username for 'https://github.com': 
+java_class_path (initial): /home/spl211/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/212.5457.51/plugins/git4idea/lib/git4idea-rt.jar:/home/spl211/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/212.5457.51/lib/3rd-party.jar
+Launcher Type: SUN_STANDARD
+
+[Global flags]
+     intx CICompilerCount                          = 2                                         {product} {ergonomic}
+     uint ConcGCThreads                            = 1                                         {product} {ergonomic}
+     uint G1ConcRefinementThreads                  = 2                                         {product} {ergonomic}
+   size_t G1HeapRegionSize                         = 1048576                                   {product} {ergonomic}
+    uintx GCDrainStackTargetSize                   = 64                                        {product} {ergonomic}
+   size_t InitialHeapSize                          = 65011712                                  {product} {ergonomic}
+   size_t MarkStackSize                            = 4194304                                   {product} {ergonomic}
+   size_t MaxHeapSize                              = 1035993088                                {product} {ergonomic}
+   size_t MinHeapDeltaBytes                        = 1048576                                   {product} {ergonomic}
+    uintx NonNMethodCodeHeapSize                   = 5825164                                {pd product} {ergonomic}
+    uintx NonProfiledCodeHeapSize                  = 122916538                              {pd product} {ergonomic}
+    uintx ProfiledCodeHeapSize                     = 122916538                              {pd product} {ergonomic}
+    uintx ReservedCodeCacheSize                    = 251658240                              {pd product} {ergonomic}
+     bool SegmentedCodeCache                       = true                                      {product} {ergonomic}
+     bool UseCompressedClassPointers               = true                                 {lp64_product} {ergonomic}
+     bool UseCompressedOops                        = true                                 {lp64_product} {ergonomic}
+     bool UseG1GC                                  = true                                      {product} {ergonomic}
+
+Logging:
+Log output configuration:
+ #0: stdout all=warning uptime,level,tags
+ #1: stderr all=off uptime,level,tags
+
+Environment Variables:
+PATH=/usr/lib/git-core:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+USERNAME=spl211
+SHELL=/bin/bash
+DISPLAY=:0
+LANG=en_IL
+LC_ALL=en_US.UTF-8
+
+Signal Handlers:
+SIGSEGV: [libjvm.so+0xe74e90], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGBUS: [libjvm.so+0xe74e90], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGFPE: [libjvm.so+0xe74e90], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGPIPE: [libjvm.so+0xbc6700], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGXFSZ: [libjvm.so+0xbc6700], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGILL: [libjvm.so+0xe74e90], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGUSR2: [libjvm.so+0xbc6590], sa_mask[0]=00100000000000000000000000000000, sa_flags=SA_RESTART|SA_SIGINFO
+SIGHUP: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+SIGINT: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+SIGTERM: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+SIGQUIT: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+
+
+---------------  S Y S T E M  ---------------
+
+OS:DISTRIB_ID=Ubuntu
+DISTRIB_RELEASE=18.04
+DISTRIB_CODENAME=bionic
+DISTRIB_DESCRIPTION="Ubuntu 18.04.1 LTS"
+uname:Linux 4.15.0-162-generic #170-Ubuntu SMP Mon Oct 18 11:38:05 UTC 2021 x86_64
+OS uptime: 0 days 7:13 hours
+libc:glibc 2.27 NPTL 2.27 
+rlimit (soft/hard): STACK 8192k/infinity , CORE 0k/infinity , NPROC 15525/15525 , NOFILE 1048576/1048576 , AS infinity/infinity , CPU infinity/infinity , DATA infinity/infinity , FSIZE infinity/infinity , MEMLOCK 65536k/65536k
+load average:8.73 5.20 2.93
+
+/proc/meminfo:
+MemTotal:        4039160 kB
+MemFree:           95412 kB
+MemAvailable:       6256 kB
+Buffers:             248 kB
+Cached:            86552 kB
+SwapCached:          548 kB
+Active:          3107452 kB
+Inactive:         637272 kB
+Active(anon):    3098240 kB
+Inactive(anon):   619708 kB
+Active(file):       9212 kB
+Inactive(file):    17564 kB
+Unevictable:          48 kB
+Mlocked:              48 kB
+SwapTotal:        969960 kB
+SwapFree:              0 kB
+Dirty:                88 kB
+Writeback:           200 kB
+AnonPages:       3657720 kB
+Mapped:            45288 kB
+Shmem:             59768 kB
+Slab:              73564 kB
+SReclaimable:      32068 kB
+SUnreclaim:        41496 kB
+KernelStack:       13232 kB
+PageTables:        49184 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:     2989540 kB
+Committed_AS:    9025060 kB
+VmallocTotal:   34359738367 kB
+VmallocUsed:           0 kB
+VmallocChunk:          0 kB
+HardwareCorrupted:     0 kB
+AnonHugePages:     10240 kB
+ShmemHugePages:        0 kB
+ShmemPmdMapped:        0 kB
+CmaTotal:              0 kB
+CmaFree:               0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+DirectMap4k:      204736 kB
+DirectMap2M:     3989504 kB
+
+/sys/kernel/mm/transparent_hugepage/enabled:
+always [madvise] never
+/sys/kernel/mm/transparent_hugepage/defrag (defrag/compaction efforts parameter):
+always defer defer+madvise [madvise] never
+
+Process Memory:
+Virtual Size: 1687840K (peak: 1749524K)
+Resident Set Size: 11760K (peak: 12372K) (anon: 5752K, file: 6008K, shmem: 0K)
+Swapped out: 0K
+C-Heap outstanding allocations: 522K
+
+/proc/sys/kernel/threads-max (system-wide limit on the number of threads):
+31050
+/proc/sys/vm/max_map_count (maximum number of memory map areas a process may have):
+65530
+/proc/sys/kernel/pid_max (system-wide limit on number of process identifiers):
+32768
+
+container (cgroup) information:
+container_type: cgroupv1
+cpu_cpuset_cpus: 0-1
+cpu_memory_nodes: 0
+active_processor_count: 2
+cpu_quota: -1
+cpu_period: 100000
+cpu_shares: -1
+memory_limit_in_bytes: -1
+memory_and_swap_limit_in_bytes: -2
+memory_soft_limit_in_bytes: -1
+memory_usage_in_bytes: 3835469824
+memory_max_usage_in_bytes: 0
+
+KVM virtualization detected
+Steal ticks since vm start: 0
+Steal ticks percentage since vm start:  0.000
+
+CPU:total 2 (initial active 2) (2 cores per cpu, 1 threads per core) family 6 model 142 stepping 10 microcode 0x0, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, avx2, aes, clmul, 3dnowpref, lzcnt, tsc, tscinvbit
+CPU Model and flags from /proc/cpuinfo:
+model name	: Intel(R) Core(TM) i5-8250U CPU @ 1.60GHz
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx rdtscp lm constant_tsc rep_good nopl xtopology nonstop_tsc cpuid tsc_known_freq pni pclmulqdq ssse3 cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt aes xsave avx rdrand hypervisor lahf_lm abm 3dnowprefetch invpcid_single pti fsgsbase avx2 invpcid rdseed clflushopt md_clear flush_l1d
+Online cpus:
+0-1
+Offline cpus:
+
+BIOS frequency limitation:
+<Not Available>
+Frequency switch latency (ns):
+<Not Available>
+Available cpu frequencies:
+<Not Available>
+Current governor:
+<Not Available>
+Core performance/turbo boost:
+<Not Available>
+
+Memory: 4k page, physical 4039160k(94172k free), swap 969960k(0k free)
+
+vm_info: OpenJDK 64-Bit Server VM (11.0.12+7-b1504.40) for linux-amd64 JRE (11.0.12+7-b1504.40), built on Sep 23 2021 10:28:44 by "" with gcc 8.3.1 20190311 (Red Hat 8.3.1-3)
+
+END.
