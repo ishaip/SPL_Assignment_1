@@ -37,6 +37,8 @@ void OpenTrainer::act(Studio &studio) {
     else{
         trainer->openTrainer();
         for (int i = 0; i < customers.size(); i++) {
+            Customer *customer;
+            customer = new Customer(customer[i]);
             trainer->addCustomer(customers[i]);
         }
         complete();

@@ -92,7 +92,7 @@ HeavyMuscleCustomer::HeavyMuscleCustomer(std::string name, int id) : Customer(na
 
 std::vector<int> HeavyMuscleCustomer::order(const std::vector<Workout> &workout_options) {
     std::vector<int> workoutOrder;
-    //if it is a ANAEROBIC type of workout save the location of the workout
+    //if it is an ANAEROBIC type of workout save the location of the workout
     for (int i = 0; i < workout_options.size(); i++){
         if (workout_options[i].getType() == ANAEROBIC){
             workoutOrder.emplace_back(i);
@@ -107,8 +107,6 @@ std::vector<int> HeavyMuscleCustomer::order(const std::vector<Workout> &workout_
             }
         }
     }
-    //std::sort(workoutOrder.begin(),workoutOrder.end(),Workout::comparePrice);
-    //we wrote a comprator that compares prices
     return workoutOrder;
 }
 
