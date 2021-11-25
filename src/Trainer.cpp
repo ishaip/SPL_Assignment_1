@@ -15,10 +15,11 @@ Trainer::~Trainer(){
 }
 
 void Trainer::clear(){
-    for (Customer  *customer : customersList){
-        customer->~Customer();
+    for (Customer *customer: customersList){
+        delete &customer;
+        customer = nullptr;
     }
-    customersList.clear();
+    customersList.erase(customersList.begin(),customersList.end());
     orderList.clear();
     //orderList.erase(orderList.begin(), orderList.end());
 }
@@ -66,31 +67,21 @@ void Trainer::addCustomer(Customer *customer) {
     customersList.emplace_back(customer);
 }
 
-void Trainer::removeCustomer(int id) {
+void Trainer::removeCustomer(int id) { //TODO: check when compiling
     //removing the orders of the customer
-    std::vector<OrderPair> newOrders;
-    for (int i = 0; i < orderList.size(); ++i) {
-        if (orderList[i].first != id){
-            newOrders.push_back(orderList[i]);
-        }
-    }
-    orderList.clear();
-    for (int i = 0; i < newOrders.size(); ++i) {
-        orderList.push_back(newOrders[i]);
+    std::vector<OrderPair>::iterator itr;
+    for (itr = orderList.begin(); itr < orderList.end(); itr++){
+        if (itr->first == id)
+            delete &itr;
+            //orderList.erase(itr);
     }
     //removing the customer from the list
-    std::vector<Customer*> newCustomerList;
-    for (int i = 0; i < customersList.size(); ++i) {
-        if (customersList[i]->getId() != id) {
-            newCustomerList.push_back(customersList[i]);
-        }
-    }
-    customersList.clear();
-    for (int i = 0; i < newCustomerList.size(); ++i) {
-        customersList.push_back(newCustomerList[i]);
+    std::vector<Customer*>::iterator cItr;
+    for (cItr = customersList.begin(); cItr < customersList.end(); cItr++){
+        if ((*cItr)->getId() == id)
+            customersList.erase(cItr);
     }
 }
-
 
 Customer *Trainer::getCustomer(int id) {
     std::vector<Customer*>::iterator itr;
@@ -111,7 +102,7 @@ void Trainer::addOrder (const OrderPair& pair) {
 
 void Trainer::order(const int customer_id, const std::vector<int> workout_ids, const std::vector<Workout> &workout_options) {
     for (int i = 0; i < workout_ids.size(); i++)
-        orderList.emplace_back(customer_id, workout_options[workout_ids[i]]);
+        orderList.emplace_back(customer_id, workout_options[i]);
 }
 
 void Trainer::openTrainer(){ open = true; }
@@ -126,9 +117,7 @@ void Trainer::closeTrainer(){
     }
     //clear orderList and customersList
     orderList.clear();
-    customersList.clear();
-    //orderList.erase(orderList.begin(), orderList.end());
-    //customersList.erase(customersList.begin(), customersList.end());
+    customersList.erase(customersList.begin(), customersList.end());
 }
 
 int Trainer::getSalary() { return salary; }
