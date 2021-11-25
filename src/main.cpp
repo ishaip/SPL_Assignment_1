@@ -48,13 +48,13 @@ static Order *breakdownOrder(const std::string& str){
 static MoveCustomer *breakdownMove(const std::string& str){
     int srcStart = (int) str.find(' ') + 1;
     int srcEnd = (int) str.find(' ', srcStart);
-    int src = std::stoi(str.substr(srcStart,srcEnd-srcStart));
+    int src = std::stoi(str.substr(srcStart,srcEnd - srcStart));
     int dstStart = srcEnd + 1;
-    int dstEnd =(int) str.find(' ', srcEnd);
-    int dst = std::stoi(str.substr(dstStart,dstEnd-dstStart));
-    int idStart = srcEnd + 1;
+    int dstEnd =(int) str.find(' ', dstStart);
+    int dst = std::stoi(str.substr(dstStart,dstEnd - dstStart));
+    int idStart = dstEnd + 1;
     int id = std::stoi(str.substr(idStart));
-    MoveCustomer *moveCustomer = new MoveCustomer(dst,src,id);
+    MoveCustomer *moveCustomer = new MoveCustomer(src, dst, id);
     return moveCustomer;
 
 }

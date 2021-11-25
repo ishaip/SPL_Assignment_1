@@ -96,7 +96,6 @@ void MoveCustomer::act(Studio &studio) {
     if (trainerSrc == nullptr || !trainerSrc->isOpen() || trainerSrc->getCustomer(id) == nullptr ||
         trainerDst == nullptr || !trainerDst->isOpen() || trainerDst->availableCapacity() < 1)
         error("Cannot move customer");
-
     else {
         std::vector<OrderPair> orderList = trainerSrc->getOrders();
         for (int i = 0; i < orderList.size(); i++) {
@@ -207,13 +206,13 @@ void PrintTrainerStatus::act(Studio &studio) {
         std::cout <<"Orders:\n";
         std::vector<OrderPair> orderList = trainer->getOrders();
         for (int i = 0; i < orderList.size(); ++i) {
-            std::cout <<orderList[i].second.getName()<<" " <<std::to_string(orderList[i].second.getPrice())<< " "<< std::to_string(orderList[i].first)<<"\n";
+            std::cout <<orderList[i].second.getName()<<" " <<std::to_string(orderList[i].second.getPrice())<< "NIS "<< std::to_string(orderList[i].first)<<"\n";
         }
         int sum =0;
         for(int i =0; i<orderList.size(); i++){
             sum = sum + orderList[i].second.getPrice();
         }
-        std::cout <<"Current Trainer’s Salary: " << std::to_string(trainer->getSalary() + sum)<<"\n";
+        std::cout <<"Current Trainer’s Salary: " << std::to_string(trainer->getSalary() + sum)<<"NIS\n";
     }
     complete();
 }
