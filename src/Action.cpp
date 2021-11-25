@@ -6,6 +6,7 @@
 #include "../include/Studio.h"
 #include "../include/Trainer.h"
 
+
 extern Studio *backup;
 BaseAction::BaseAction() {}
 
@@ -25,19 +26,20 @@ void BaseAction::error(std::string errorMsg) {
 
 void BaseAction::complete() {
     status = COMPLETED;
+    //this->errorMsg = nullptr;
 }
 
 OpenTrainer::OpenTrainer(int id, std::vector<Customer *> &customersList):
-trainerId (id),customers(customersList){}
+        trainerId (id),customers(customersList){}
 
 void OpenTrainer::act(Studio &studio) {
     Trainer *trainer = studio.getTrainer(trainerId);
-    if(trainer == nullptr || trainer->isOpen() || trainer->getCapacity() < customers.size())
-        error( "Trainer does not exist or is not open"); //was "Workout session does not exist or is already open"
+    if(trainer == nullptr || trainer->isOpen()|| trainer->getCapacity() < customers.size())
+        error( "Trainer does not exist or is not open");
     else{
         trainer->openTrainer();
-        for (int i = 0; i < customers.size(); i++) {
-            Customer *customer = customers[i]->clone();
+        for (Customer *c : customers) {
+            Customer *customer = c->clone();
             trainer->addCustomer(customer);
         }
         complete();
@@ -57,6 +59,14 @@ std::string OpenTrainer::toString() const {
         str +=" " + getErrorMsg();
     return str;
 }
+//gg
+BaseAction *OpenTrainer::clone() {
+    std::vector<Customer *> cloneCustomerList;
+    for (int i = 0; i < customers.size(); ++i) {
+        cloneCustomerList.emplace_back(customers[i]->clone());
+    }
+    return  new OpenTrainer(trainerId,cloneCustomerList);
+}
 
 Order::Order(int id): trainerId(id) {}
 
@@ -69,7 +79,7 @@ void Order::act(Studio &studio) {
         //for all customers that the trainers has, add their preferred workout routine
         for (Customer *customer : trainer->getCustomers()) {
             trainer->order( customer->getId() , customer->order(workoutOptions), workoutOptions);
-            }
+        }
         std:: cout <<"order "<< trainerId << "\n";
         for(const OrderPair& pair : trainer->getOrders()){
             std:: cout << trainer->getCustomer(pair.first)->getName()<< " Is Doing " << pair.second.getName() <<"\n";
@@ -88,15 +98,19 @@ std::string Order::toString() const {
     return str;
 }
 
+BaseAction *Order::clone() {
+    return new Order(trainerId);
+}
+
 MoveCustomer::MoveCustomer(int src, int dst, int customerId):srcTrainer(src), dstTrainer(dst),id(customerId) {}
 
 void MoveCustomer::act(Studio &studio) {
     Trainer *trainerDst = studio.getTrainer(dstTrainer);
     Trainer *trainerSrc = studio.getTrainer(srcTrainer);
-
     if (trainerSrc == nullptr || !trainerSrc->isOpen() || trainerSrc->getCustomer(id) == nullptr ||
         trainerDst == nullptr || !trainerDst->isOpen() || trainerDst->availableCapacity() < 1)
         error("Cannot move customer");
+
     else {
         std::vector<OrderPair> orderList = trainerSrc->getOrders();
         for (int i = 0; i < orderList.size(); i++) {
@@ -124,6 +138,10 @@ std::string MoveCustomer::toString() const {
     return str;
 }
 
+BaseAction *MoveCustomer::clone() {
+    return new MoveCustomer(srcTrainer, dstTrainer,id);
+}
+
 
 Close::Close(int id): trainerId(id){}
 
@@ -148,6 +166,10 @@ std::string Close::toString() const {
     return str;
 }
 
+BaseAction *Close::clone() {
+    return new Close(trainerId);
+}
+
 
 CloseAll::CloseAll() {}
 
@@ -155,12 +177,11 @@ void CloseAll::act(Studio &studio) {
     for (int i = 0; i < studio.getNumOfTrainers(); ++i) {
         Trainer *trainer = studio.getTrainer(i);
         if (trainer->isOpen()){
-            Close close = Close(i);
+            Close close =  Close(i);
             close.act(studio);
         }
     }
     complete();
-    //delete &studio;
 }
 
 std::string CloseAll::toString() const {
@@ -170,6 +191,10 @@ std::string CloseAll::toString() const {
     else
         str +=" "+ getErrorMsg();
     return str;
+}
+
+BaseAction *CloseAll::clone() {
+    return new CloseAll();
 }
 
 PrintWorkoutOptions::PrintWorkoutOptions() {}
@@ -191,15 +216,19 @@ std::string PrintWorkoutOptions::toString() const {
     return str;
 }
 
+BaseAction *PrintWorkoutOptions::clone() {
+    return new PrintWorkoutOptions();
+}
+
 PrintTrainerStatus::PrintTrainerStatus(int id): trainerId(id) {}
 
 void PrintTrainerStatus::act(Studio &studio) {
     Trainer *trainer = studio.getTrainer(trainerId);
     if (trainer != nullptr && !(trainer->isOpen())){
-        std::cout <<"Trainer "<< trainerId << " status: closed\n";
+        std::cout <<"Trainer " << trainerId<<" status: closed\n";
     }
     if (trainer != nullptr && trainer->isOpen()){
-        std::cout <<"Trainer "<< trainerId<< " status: open\nCustomers: \n";
+        std::cout <<"Trainer "<< trainerId<<" status: open\nCustomers: \n";
         std::vector<Customer *> customers = trainer->getCustomers();
         for (int i = 0; i < customers.size(); ++i) {
             std::cout <<customers[i]->getId() << " "<<customers[i]->getName()<<"\n";
@@ -207,13 +236,13 @@ void PrintTrainerStatus::act(Studio &studio) {
         std::cout <<"Orders:\n";
         std::vector<OrderPair> orderList = trainer->getOrders();
         for (int i = 0; i < orderList.size(); ++i) {
-            std::cout <<orderList[i].second.getName()<<" " <<std::to_string(orderList[i].second.getPrice())<< "NIS "<< std::to_string(orderList[i].first)<<"\n";
+            std::cout <<orderList[i].second.getName()<<" " <<std::to_string(orderList[i].second.getPrice())<<"NIS"<< " "<< std::to_string(orderList[i].first)<<"\n";
         }
         int sum =0;
         for(int i =0; i<orderList.size(); i++){
             sum = sum + orderList[i].second.getPrice();
         }
-        std::cout <<"Current Trainer’s Salary: " << std::to_string(trainer->getSalary() + sum)<<"NIS\n";
+        std::cout <<"Current Trainer’s Salary: " << std::to_string(trainer->getSalary() + sum)<<"NIS"<< "\n";
     }
     complete();
 }
@@ -226,6 +255,10 @@ std::string PrintTrainerStatus::toString() const {
     else
         str +=" "+ getErrorMsg();
     return str;
+}
+
+BaseAction *PrintTrainerStatus::clone() {
+    return new PrintTrainerStatus(trainerId);
 }
 
 PrintActionsLog::PrintActionsLog() = default;
@@ -245,6 +278,10 @@ std::string PrintActionsLog::toString() const {
     else
         str +=" "+ getErrorMsg();
     return str;
+}
+
+BaseAction *PrintActionsLog::clone() {
+    return new PrintActionsLog();
 }
 
 BackupStudio::BackupStudio() {}
@@ -267,13 +304,16 @@ std::string BackupStudio::toString() const {
     return str;
 }
 
+BaseAction *BackupStudio::clone() {
+    return new BackupStudio;
+}
+
 RestoreStudio::RestoreStudio() {}
 
 void RestoreStudio::act(Studio &studio) {
     if (backup == nullptr)
         error("No backup available");
     else{
-        delete  &studio;
         studio = *backup;
         complete();
     }
@@ -286,4 +326,8 @@ std::string RestoreStudio::toString() const {
     else
         str +=" "+ getErrorMsg();
     return str;
+}
+
+BaseAction *RestoreStudio::clone() {
+    return new RestoreStudio();
 }
