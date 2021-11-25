@@ -17,7 +17,7 @@ Studio::Studio():
 //
 Studio::Studio(const std::string &configFilePath):
         open(false), nextCustomerId(0){
-//
+////
     //reading the running file
     std::ifstream file;
     file.open(configFilePath);
