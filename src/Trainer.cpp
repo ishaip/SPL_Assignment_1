@@ -102,7 +102,7 @@ void Trainer::addOrder (const OrderPair& pair) {
 
 void Trainer::order(const int customer_id, const std::vector<int> workout_ids, const std::vector<Workout> &workout_options) {
     for (int i = 0; i < workout_ids.size(); i++)
-        orderList.emplace_back(customer_id, workout_options[i]);
+        orderList.emplace_back(customer_id, workout_options[workout_ids[i]]);
 }
 
 void Trainer::openTrainer(){ open = true; }
