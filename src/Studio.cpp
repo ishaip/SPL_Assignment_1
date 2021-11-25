@@ -17,25 +17,26 @@ Studio::Studio():
 //
 Studio::Studio(const std::string &configFilePath):
         open(false), nextCustomerId(0){
-////
+
     //reading the running file
     std::ifstream file;
     file.open(configFilePath);
-    std::stringstream buffer; //
+    std::stringstream buffer;
 //reinterpret_cast<const char *>(&configFilePath)
-    buffer << file.rdbuf(); //
+//    buffer << file.rdbuf(); //??
     int trainerCount = 0;
     int numOfTrainers;
     int workoutIds = 0;
-    char line[256]; //should be a pointer??
+    std::string line;
     int index = 0;
 
-    while (file.is_open()){
-        file.getline(line, 256);
+    while (std::getline(file, line)){
+        //char line[256];
         if ( line[0] == '#' || line[0] == '\0' )
             continue;
-        else if ( index == 0 ) //reading the number of trainers in the studio
-            numOfTrainers = static_cast<int>(line[0]);
+        else if ( index == 0 ) { //reading the number of trainers in the studio
+            numOfTrainers = std::stoi(line);
+        }
         else if ( index == 1 ){ //reading the respective spots of the trainers
             int i = 0;
             while ( line[i] != '\n' && trainerCount < numOfTrainers){
