@@ -59,7 +59,7 @@ std::string OpenTrainer::toString() const {
         str +=" " + getErrorMsg();
     return str;
 }
-//gg
+
 BaseAction *OpenTrainer::clone() {
     std::vector<Customer *> cloneCustomerList;
     for (int i = 0; i < customers.size(); ++i) {
