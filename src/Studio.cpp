@@ -94,16 +94,17 @@ void Studio:: makeWorkout(std::string workout, int id){
 
 //destructor
 Studio::~Studio() {
-    for (Trainer* trainer : trainers){
-        delete &trainer;
-        trainer = nullptr;
+    std::cout<< "4";
+    for (int i = 0; i < trainers.size(); i++){
+        delete trainers[i];
+        trainers[i] = nullptr;
     }
     workout_options.clear();
    // workout_options.erase(workout_options.begin(), workout_options.end());
 
-    for (BaseAction* a : actionsLog){
-        delete &a;
-        a = nullptr;
+    for (int i = 0; i < actionsLog.size(); i++){
+        delete &actionsLog[i];
+        actionsLog[i] = nullptr;
     }
 }
 
