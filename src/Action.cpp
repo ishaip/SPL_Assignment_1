@@ -6,6 +6,7 @@
 #include "../include/Studio.h"
 #include "../include/Trainer.h"
 
+
 extern Studio *backup;
 BaseAction::BaseAction() {}
 
@@ -161,7 +162,6 @@ void CloseAll::act(Studio &studio) {
         }
     }
     complete();
-    delete &studio;
 }
 
 std::string CloseAll::toString() const {

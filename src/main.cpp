@@ -6,6 +6,7 @@ using namespace std;
 
 Studio* backup = nullptr;
 
+
 static  OpenTrainer *breakdownOpen(const std::string& str, Studio &studio){
     std::vector<Customer *> customers;
     int idStart = (int) str.find(' ') + 1;

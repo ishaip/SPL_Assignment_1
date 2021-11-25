@@ -16,11 +16,10 @@ Trainer::~Trainer(){
 
 
 void Trainer::clear(){
-    for (Customer *customer: customersList){
-        delete &customer;
-        customer = nullptr;
+    for (Customer  *customer : customersList){
+        customer->~Customer();
     }
-    customersList.erase(customersList.begin(),customersList.end());
+    customersList.clear();
     orderList.clear();
     //orderList.erase(orderList.begin(), orderList.end());
 }
