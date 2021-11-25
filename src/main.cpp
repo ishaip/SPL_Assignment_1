@@ -1,11 +1,10 @@
 #include "../include/Studio.h"
 #include <iostream>
 #include <algorithm>
-//valgrind --leak-check=full --show-reachable=yes bin/studio example.txt
+
 using namespace std;
 
 Studio* backup = nullptr;
-
 
 static  OpenTrainer *breakdownOpen(const std::string& str, Studio &studio){
     std::vector<Customer *> customers;
@@ -51,11 +50,11 @@ static MoveCustomer *breakdownMove(const std::string& str){
     int srcEnd = (int) str.find(' ', srcStart);
     int src = std::stoi(str.substr(srcStart,srcEnd-srcStart));
     int dstStart = srcEnd + 1;
-    int dstEnd =(int) str.find(' ', dstStart);
+    int dstEnd =(int) str.find(' ', srcEnd);
     int dst = std::stoi(str.substr(dstStart,dstEnd-dstStart));
-    int idStart = dstEnd + 1;
+    int idStart = srcEnd + 1;
     int id = std::stoi(str.substr(idStart));
-    MoveCustomer *moveCustomer = new MoveCustomer(src,dst,id);
+    MoveCustomer *moveCustomer = new MoveCustomer(dst,src,id);
     return moveCustomer;
 
 }
@@ -100,6 +99,7 @@ int main(int argc, char** argv){
     string configurationFile = argv[1];
     Studio studio(configurationFile);
     studio.start();
+
     std::string str;
     std::getline(cin,str);
     while(str !="closeall"){
@@ -141,5 +141,6 @@ int main(int argc, char** argv){
         delete backup;
         backup = nullptr;
     }
+
     return 0;
 }

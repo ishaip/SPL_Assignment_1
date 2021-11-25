@@ -160,7 +160,7 @@ void CloseAll::act(Studio &studio) {
         }
     }
     complete();
-    delete &studio;
+    //delete &studio;
 }
 
 std::string CloseAll::toString() const {
