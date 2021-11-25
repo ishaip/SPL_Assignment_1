@@ -99,13 +99,18 @@ Studio::~Studio() {
         delete trainers[i];
         trainers[i] = nullptr;
     }
-    workout_options.clear();
-   // workout_options.erase(workout_options.begin(), workout_options.end());
+    for (int i = 0; i < workout_options.size(); i++){
+        delete &workout_options[i];
+    }
 
     for (int i = 0; i < actionsLog.size(); i++){
         delete &actionsLog[i];
         actionsLog[i] = nullptr;
     }
+
+    workout_options.clear();
+    trainers.clear();
+    workout_options.clear();
 }
 
 //copy constructor
