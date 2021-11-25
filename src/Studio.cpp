@@ -103,9 +103,9 @@ Studio::~Studio() {
     for (BaseAction* action: actionsLog)
         action->BaseAction::~BaseAction();
 
-    workout_options.clear();
-    trainers.clear();
-    workout_options.clear();
+//    workout_options.clear();
+//    trainers.clear();
+//    workout_options.clear();
 }
 
 //copy constructor

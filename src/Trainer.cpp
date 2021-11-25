@@ -66,6 +66,9 @@ void Trainer::addCustomer(Customer *customer) {
 }
 
 void Trainer::removeCustomer(int id) { //TODO: check when compiling
+    //create new vector of orderList and customersList
+
+
     //removing the orders of the customer
     std::vector<OrderPair>::iterator itr;
     for (itr = orderList.begin(); itr < orderList.end(); itr++){
