@@ -14,7 +14,7 @@ Studio::Studio():
         open(false), nextCustomerId(0), trainers({}),
         workout_options({}), actionsLog({}){
 };
-//
+
 Studio::Studio(const std::string &configFilePath):
         open(false), nextCustomerId(0){
 
@@ -23,34 +23,39 @@ Studio::Studio(const std::string &configFilePath):
     file.open(configFilePath);
     std::stringstream buffer;
 //reinterpret_cast<const char *>(&configFilePath)
-//    buffer << file.rdbuf(); //??
+    buffer << file.rdbuf();
     int trainerCount = 0;
     int numOfTrainers;
     int workoutIds = 0;
-    std::string line;
+    char line[256]; //should be a pointer??
     int index = 0;
 
-    while (std::getline(file, line)){
-        //the conditions we wish to skip
+    while (file.is_open()){
+        file.getline(line, 256);
         if ( line[0] == '#' || line[0] == '\0' )
             continue;
-        else if ( index == 0 ) { //reading the number of trainers in the studio
-            numOfTrainers = std::stoi(line);
-        }
+        else if ( index == 0 ) //reading the number of trainers in the studio
+            numOfTrainers = static_cast<int>(line[0]);
         else if ( index == 1 ){ //reading the respective spots of the trainers
-            int start = 0;
-            while ( line[start] != '\n' && trainerCount < numOfTrainers){
-                int end;
-                end = line.find(",", start);
-                std::string str = line.substr(start, end - start);
-                int spot = stoi(str);
-                makeTrainer(trainerCount, &spot);
-                trainerCount ++;
-                start = end + 1;
+            int i = 0;
+            while ( line[i] != '\n' && trainerCount < numOfTrainers){
+                if ( line[i] == ',' )
+                    i ++;
+                else{
+                    int spot = static_cast<int>(line[index]);
+                    makeTrainer(trainerCount, &spot);
+                    trainerCount ++;
+                    i ++;
+                }
             }
         }
         else{
-            makeWorkout(line, workoutIds);
+            int i = 0;
+            std::string workout;
+            while ( line[i] != '\n' ){
+                workout.append(reinterpret_cast<const char *>(line[i]));
+            }
+            makeWorkout(workout, workoutIds);
             workoutIds ++;
         }
         index ++;
@@ -94,17 +99,17 @@ void Studio:: makeWorkout(std::string workout, int id){
 
 //destructor
 Studio::~Studio() {
-    for (Trainer  *trainer : trainers){
-        trainer->~Trainer();
+    for (Trainer* trainer : trainers){
+        delete &trainer;
+        trainer = nullptr;
     }
-    for (BaseAction *action : actionsLog){
-        action->BaseAction::~BaseAction();
+    workout_options.clear();
+   // workout_options.erase(workout_options.begin(), workout_options.end());
+
+    for (BaseAction* a : actionsLog){
+        delete &a;
+        a = nullptr;
     }
-    for (Workout workout : workout_options){
-        workout.~Workout();
-    }
-    actionsLog.clear();
-    trainers.clear();
 }
 
 //copy constructor
@@ -117,7 +122,7 @@ Studio:: Studio(const Studio& other):
 
     for (BaseAction* action : other.actionsLog)
         actionsLog.emplace_back(action);
-}
+};
 
 //copy assignment operator
 Studio &Studio::operator=(Studio &other){
@@ -126,17 +131,15 @@ Studio &Studio::operator=(Studio &other){
         return *this;
     //freeing the pointers
     for (Trainer* t : trainers) {
-        t->~Trainer();
+        delete &t;
+        t= nullptr;
+
     }
     for (BaseAction* a : actionsLog) {
-        a->~BaseAction();
+        delete &a;
+        a = nullptr;
     }
-    for (Workout w : workout_options) {
-        w.~Workout();
-    }
-    actionsLog.clear();
-    trainers.clear();
-    workout_options.clear();
+
     //duplicate the resources
     for (Trainer* t : other.trainers){
         Trainer* trainer = new Trainer(*t);
@@ -235,4 +238,3 @@ int Studio::getNextCustomerId() {
     nextCustomerId ++;
     return output;
 }
-
