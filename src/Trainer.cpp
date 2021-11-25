@@ -123,7 +123,9 @@ void Trainer::closeTrainer(){
     }
     //clear orderList and customersList
     orderList.clear();
-    customersList.erase(customersList.begin(), customersList.end());
+    customersList.clear();
+//    customersList.erase(customersList.begin(), customersList.end());
+
 }
 
 int Trainer::getSalary() { return salary; }
