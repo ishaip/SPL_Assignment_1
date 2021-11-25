@@ -126,15 +126,17 @@ Studio &Studio::operator=(Studio &other){
         return *this;
     //freeing the pointers
     for (Trainer* t : trainers) {
-        delete &t;
-        t= nullptr;
-
+        t->~Trainer();
     }
     for (BaseAction* a : actionsLog) {
-        delete &a;
-        a = nullptr;
+        a->~BaseAction();
     }
-
+    for (Workout w : workout_options) {
+        w.~Workout();
+    }
+    actionsLog.clear();
+    trainers.clear();
+    workout_options.clear();
     //duplicate the resources
     for (Trainer* t : other.trainers){
         Trainer* trainer = new Trainer(*t);
@@ -233,3 +235,4 @@ int Studio::getNextCustomerId() {
     nextCustomerId ++;
     return output;
 }
+

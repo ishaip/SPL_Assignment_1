@@ -19,7 +19,6 @@ public:
     std::vector<Workout>& getWorkoutOptions();
     void addAction(BaseAction* action);
     int getNextCustomerId();
-
     virtual ~Studio(); //destructor
     Studio (const Studio& other); //copy constructor
     Studio &operator=(Studio& other); //copy assignment operator
