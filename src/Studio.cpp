@@ -19,9 +19,10 @@ Studio::Studio(const std::string &configFilePath):
         open(false), nextCustomerId(0){
 
     //reading the running file
-    std::ifstream file(reinterpret_cast<const char *>(&configFilePath));
+    std::ifstream file;
+    file.open(configFilePath);
     std::stringstream buffer;
-
+//reinterpret_cast<const char *>(&configFilePath)
     buffer << file.rdbuf();
     int trainerCount = 0;
     int numOfTrainers;
@@ -29,7 +30,7 @@ Studio::Studio(const std::string &configFilePath):
     char line[256]; //should be a pointer??
     int index = 0;
 
-    while (file){
+    while (file.is_open()){
         file.getline(line, 256);
         if ( line[0] == '#' || line[0] == '\0' )
             continue;
@@ -59,7 +60,7 @@ Studio::Studio(const std::string &configFilePath):
         }
         index ++;
     }
-
+    file.close();
     std::cout << buffer.str() << std::endl;
 };
 
