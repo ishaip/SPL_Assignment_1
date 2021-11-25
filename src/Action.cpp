@@ -25,7 +25,6 @@ void BaseAction::error(std::string errorMsg) {
 
 void BaseAction::complete() {
     status = COMPLETED;
-    this->errorMsg = nullptr;
 }
 
 OpenTrainer::OpenTrainer(int id, std::vector<Customer *> &customersList):
@@ -33,9 +32,8 @@ trainerId (id),customers(customersList){}
 
 void OpenTrainer::act(Studio &studio) {
     Trainer *trainer = studio.getTrainer(trainerId);
-    std::cout<<"here";
-    if(trainer == nullptr || trainer->isOpen()|| trainer->getCapacity() < customers.size())
-        error( "Trainer does not exist or is not open");
+    if(trainer == nullptr || trainer->isOpen() || trainer->getCapacity() < customers.size())
+        error( "Trainer does not exist or is not open"); //was "Workout session does not exist or is already open"
     else{
         trainer->openTrainer();
         for (int i = 0; i < customers.size(); i++) {
