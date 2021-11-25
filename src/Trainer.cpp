@@ -30,7 +30,6 @@ Trainer::Trainer(const Trainer &trainer):
 
     for (OrderPair orderPair : trainer.orderList)
         this->orderList.emplace_back(orderPair);
-
 }
 
 //copy assignment operator
