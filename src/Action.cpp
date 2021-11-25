@@ -93,6 +93,7 @@ MoveCustomer::MoveCustomer(int src, int dst, int customerId):srcTrainer(src), ds
 void MoveCustomer::act(Studio &studio) {
     Trainer *trainerDst = studio.getTrainer(dstTrainer);
     Trainer *trainerSrc = studio.getTrainer(srcTrainer);
+
     if (trainerSrc == nullptr || !trainerSrc->isOpen() || trainerSrc->getCustomer(id) == nullptr ||
         trainerDst == nullptr || !trainerDst->isOpen() || trainerDst->availableCapacity() < 1)
         error("Cannot move customer");
