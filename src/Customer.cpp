@@ -9,7 +9,6 @@
 
 Customer::Customer(std::string c_name, int c_id): name(std::move(c_name)),  id(c_id){}
 
-
 std::string Customer::getName() const {
     return name;
 }
@@ -44,8 +43,7 @@ int Customer::selectOrder(const std::vector<Workout> &workout_options, WorkoutTy
     return index;
 }
 
-
-//Customer::~Customer() = default;
+Customer::~Customer() = default;
 
 SweatyCustomer::SweatyCustomer(std::string name, int id) : Customer(name, id) {}
 
