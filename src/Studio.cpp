@@ -116,8 +116,10 @@ Studio:: Studio(const Studio& other):
         trainers.emplace_back(trainer);
     }
 
-    for (BaseAction* action : other.actionsLog)
-        actionsLog.emplace_back(action);
+    for (int i = 0; i < other.actionsLog.size(); i++)
+        actionsLog.emplace_back(actionsLog[i]->clone());
+//    for (BaseAction* action : other.actionsLog)
+//        actionsLog.emplace_back(action);
 };
 
 //copy assignment operator
@@ -184,10 +186,14 @@ Studio &Studio::operator=(Studio &&other) noexcept {
     //workout_options.clear(); //important??
 
     //assigning
-    for (Trainer* t : other.trainers){
-        Trainer* trainer = new Trainer(*t);
-        trainers.emplace_back(trainer);
+    for (int i = 0; i < other.trainers.size(); i++){
+        Trainer* t = new Trainer(*other.trainers[i]);
+        trainers.emplace_back(t);
     }
+//    for (Trainer* t : other.trainers){
+//        Trainer* trainer = new Trainer(*t);
+//        trainers.emplace_back(trainer);
+//    }
     workout_options.clear();
     for(Workout workout : other.workout_options){
         workout_options.emplace_back(workout);
