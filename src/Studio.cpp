@@ -127,6 +127,7 @@ Studio &Studio::operator=(Studio &other){ //TODO: check deleting way
     //check for self assignment
     if ( this == &other)
         return *this;
+
     //freeing the pointers
     for (Trainer* t : trainers)
         t->~Trainer();
@@ -137,10 +138,11 @@ Studio &Studio::operator=(Studio &other){ //TODO: check deleting way
         workout.~Workout();
 
     //duplicate the resources
-    for (Trainer* t : other.trainers){
-        Trainer* trainer = new Trainer(*t);
+    for (int i = 0; i < other.trainers.size(); i++){
+        Trainer* trainer = new Trainer(*other.trainers[i]);
         trainers.emplace_back(trainer);
     }
+
     actionsLog.clear();
     for (int i = 0; i < other.actionsLog.size(); i++)
         actionsLog.emplace_back(actionsLog[i]->clone());
