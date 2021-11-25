@@ -19,17 +19,18 @@ void Trainer::clear(){
         delete &customersList[i];
         customersList[i] = nullptr;
     }
+    //customersList.clear();
     orderList.clear();
 }
 
 Trainer::Trainer(const Trainer &trainer):
     capacity(trainer.capacity), open(trainer.open),salary(trainer.salary){
-    for (Customer * customer : trainer.customersList) {
+    for (Customer * customer : trainer.customersList)
         this->customersList.emplace_back(customer->clone());
-    }
-    for (OrderPair orderPair : trainer.orderList) {
+
+    for (OrderPair orderPair : trainer.orderList)
         this->orderList.emplace_back(orderPair);
-    }
+
 }
 
 //copy assignment operator
@@ -45,9 +46,9 @@ Trainer &Trainer::operator=(const Trainer &other) {
     for (OrderPair orderPair  : orderList) {
         delete & orderPair;
     }
-    orderList.clear();
+    orderList.clear(); //TODO: check clear when compile
     //orderList.erase(orderList.begin(),orderList.end());
-    customersList.erase(customersList.begin(),customersList.end());
+    customersList.erase(customersList.begin(),customersList.end()); //
     for (OrderPair orderPair  : other.orderList) {
         orderList.emplace_back(orderPair);
     }
@@ -66,22 +67,26 @@ void Trainer::addCustomer(Customer *customer) {
 }
 
 void Trainer::removeCustomer(int id) { //TODO: check when compiling
-    //create new vector of orderList and customersList
-
-
-    //removing the orders of the customer
-    std::vector<OrderPair>::iterator itr;
-    for (itr = orderList.begin(); itr < orderList.end(); itr++){
-        if (itr->first == id)
-            delete &itr;
-            //orderList.erase(itr);
+    //create new vector of orderList
+    std::vector<OrderPair> tempOrder;
+    for (int i = 0; i < orderList.size(); i++){
+        if ( orderList[i].first != id )
+            tempOrder.emplace_back(orderList[i]);
     }
-    //removing the customer from the list
-    std::vector<Customer*>::iterator cItr;
-    for (cItr = customersList.begin(); cItr < customersList.end(); cItr++){
-        if ((*cItr)->getId() == id)
-            customersList.erase(cItr);
-    }
+    orderList.clear();
+    //reassign to our vector
+    for (int i = 0; i < tempOrder.size(); i++)
+        orderList.emplace_back(tempOrder[i]);
+
+    //create new vector of customersList
+    std::vector<Customer*> tempCustomer;
+    for (int i = 0; i < customersList.size(); i++)
+        tempCustomer.emplace_back(customersList[i]);
+
+    customersList.clear();
+    //reassign to our vector
+    for (int i = 0; i < tempCustomer.size(); i++)
+        customersList.emplace_back(tempCustomer[i]);
 }
 
 Customer *Trainer::getCustomer(int id) {
