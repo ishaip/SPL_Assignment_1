@@ -99,10 +99,6 @@ int main(int argc, char** argv){
     string configurationFile = argv[1];
     Studio studio(configurationFile);
     studio.start();
-    if(backup!=nullptr){
-    	delete backup;
-    	backup = nullptr;
-    }
     std::string str;
     std::getline(cin,str);
     while(str !="closeall"){
@@ -140,6 +136,9 @@ int main(int argc, char** argv){
     }
     CloseAll closeAll = CloseAll();
     closeAll.act(studio);
-
+    if(backup!=nullptr){
+        delete backup;
+        backup = nullptr;
+    }
     return 0;
 }

@@ -112,14 +112,15 @@ void Trainer::closeTrainer(){
     open = false;
     updateSalary();
     //removing the customers
-    for (Customer* customer : customersList) {
-        delete &customer;
-        customer = nullptr;
+    for (int i = 0; i < customersList.size(); i++) {
+        delete customersList[i];
+        customersList[i] = nullptr;
     }
     //clear orderList and customersList
     orderList.clear();
+    customersList.clear();
     //orderList.erase(orderList.begin(), orderList.end());
-    customersList.erase(customersList.begin(), customersList.end());
+    //customersList.erase(customersList.begin(), customersList.end());
 }
 
 int Trainer::getSalary() { return salary; }

@@ -14,56 +14,50 @@ Studio::Studio():
         open(false), nextCustomerId(0), trainers({}),
         workout_options({}), actionsLog({}){
 };
-
+//
 Studio::Studio(const std::string &configFilePath):
         open(false), nextCustomerId(0){
 
     //reading the running file
-
-    std::stringstream buffer;
     std::ifstream file;
     file.open(configFilePath);
-    buffer << file.rdbuf();
+    std::stringstream buffer;
+//reinterpret_cast<const char *>(&configFilePath)
+//    buffer << file.rdbuf(); //??
     int trainerCount = 0;
     int numOfTrainers;
     int workoutIds = 0;
-    char line[256]; //should be a pointer??
+    std::string line;
     int index = 0;
 
-
-    while (file.is_open()){
-        file.getline(line, 256);
+    while (std::getline(file, line)){
+        //the conditions we wish to skip
         if ( line[0] == '#' || line[0] == '\0' )
             continue;
-        else if ( index == 0 ) //reading the number of trainers in the studio
-            numOfTrainers = static_cast<int>(line[0]);
+        else if ( index == 0 ) { //reading the number of trainers in the studio
+            numOfTrainers = std::stoi(line);
+        }
         else if ( index == 1 ){ //reading the respective spots of the trainers
-            int i = 0;
-            while ( line[i] != '\n' && trainerCount < numOfTrainers){
-                if ( line[i] == ',' )
-                    i ++;
-                else{
-                    int spot = static_cast<int>(line[index]);
-                    makeTrainer(trainerCount, &spot);
-                    trainerCount ++;
-                    i ++;
-                }
+            int start = 0;
+            while ( line[start] != '\n' && trainerCount < numOfTrainers){
+                int end;
+                end = line.find(",", start);
+                std::string str = line.substr(start, end - start);
+                int spot = stoi(str);
+                makeTrainer(trainerCount, &spot);
+                trainerCount ++;
+                start = end + 1;
             }
         }
         else{
-            int i = 0;
-            std::string workout;
-            while ( line[i] != '\n' ){
-                workout.append(reinterpret_cast<const char *>(line[i]));
-            }
-            makeWorkout(workout, workoutIds);
+            makeWorkout(line, workoutIds);
             workoutIds ++;
         }
         index ++;
     }
-
+    file.close();
     std::cout << buffer.str() << std::endl;
-}
+};
 
 void Studio:: makeTrainer(int trainerCount, const int *spots){
     Trainer* newTrainer;
@@ -105,7 +99,7 @@ Studio::~Studio() {
         trainer = nullptr;
     }
     workout_options.clear();
-   // workout_options.erase(workout_options.begin(), workout_options.end());
+    // workout_options.erase(workout_options.begin(), workout_options.end());
 
     for (BaseAction* a : actionsLog){
         delete &a;

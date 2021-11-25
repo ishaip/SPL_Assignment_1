@@ -33,13 +33,13 @@ trainerId (id),customers(customersList){}
 
 void OpenTrainer::act(Studio &studio) {
     Trainer *trainer = studio.getTrainer(trainerId);
-    std::cout<<"here";
     if(trainer == nullptr || trainer->isOpen()|| trainer->getCapacity() < customers.size())
         error( "Trainer does not exist or is not open");
     else{
         trainer->openTrainer();
-        for (int i = 0; i < customers.size(); i++) {
-            trainer->addCustomer(customers[i]);
+        for (Customer *c : customers) {
+            Customer *customer = c->clone();
+            trainer->addCustomer(customer);
         }
         complete();
     }
@@ -197,10 +197,10 @@ PrintTrainerStatus::PrintTrainerStatus(int id): trainerId(id) {}
 void PrintTrainerStatus::act(Studio &studio) {
     Trainer *trainer = studio.getTrainer(trainerId);
     if (trainer != nullptr && !(trainer->isOpen())){
-        std::cout <<"Trainer 3 status: closed\n";
+        std::cout <<"Trainer " << trainerId<<" status: closed\n";
     }
     if (trainer != nullptr && trainer->isOpen()){
-        std::cout <<"Trainer 3 status: open\n Customers: \n";
+        std::cout <<"Trainer "<< trainerId<<" status: open\nCustomers: \n";
         std::vector<Customer *> customers = trainer->getCustomers();
         for (int i = 0; i < customers.size(); ++i) {
             std::cout <<customers[i]->getId() << " "<<customers[i]->getName()<<"\n";
