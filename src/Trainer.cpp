@@ -67,21 +67,31 @@ void Trainer::addCustomer(Customer *customer) {
     customersList.emplace_back(customer);
 }
 
-void Trainer::removeCustomer(int id) { //TODO: check when compiling
+void Trainer::removeCustomer(int id) {
     //removing the orders of the customer
-    std::vector<OrderPair>::iterator itr;
-    for (itr = orderList.begin(); itr < orderList.end(); itr++){
-        if (itr->first == id)
-            delete &itr;
-            //orderList.erase(itr);
+    std::vector<OrderPair> newOrders;
+    for (int i = 0; i < orderList.size(); ++i) {
+        if (orderList[i].first != id){
+            newOrders.push_back(orderList[i]);
+        }
+    }
+    orderList.clear();
+    for (int i = 0; i < newOrders.size(); ++i) {
+        orderList.push_back(newOrders[i]);
     }
     //removing the customer from the list
-    std::vector<Customer*>::iterator cItr;
-    for (cItr = customersList.begin(); cItr < customersList.end(); cItr++){
-        if ((*cItr)->getId() == id)
-            customersList.erase(cItr);
+    std::vector<Customer*> newCustomerList;
+    for (int i = 0; i < customersList.size(); ++i) {
+        if (customersList[i]->getId() != id) {
+            newCustomerList.push_back(customersList[i]);
+        }
+    }
+    customersList.clear();
+    for (int i = 0; i < newCustomerList.size(); ++i) {
+        customersList.push_back(newCustomerList[i]);
     }
 }
+
 
 Customer *Trainer::getCustomer(int id) {
     std::vector<Customer*>::iterator itr;

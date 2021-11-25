@@ -117,7 +117,7 @@ Studio:: Studio(const Studio& other):
 
     for (BaseAction* action : other.actionsLog)
         actionsLog.emplace_back(action);
-};
+}
 
 //copy assignment operator
 Studio &Studio::operator=(Studio &other){
