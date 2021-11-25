@@ -31,23 +31,22 @@ Studio::Studio(const std::string &configFilePath):
     int index = 0;
 
     while (std::getline(file, line)){
-        //char line[256];
+        //the conditions we wish to skip
         if ( line[0] == '#' || line[0] == '\0' )
             continue;
         else if ( index == 0 ) { //reading the number of trainers in the studio
             numOfTrainers = std::stoi(line);
         }
         else if ( index == 1 ){ //reading the respective spots of the trainers
-            int i = 0;
-            while ( line[i] != '\n' && trainerCount < numOfTrainers){
-                if ( line[i] == ',' )
-                    i ++;
-                else{
-                    int spot = static_cast<int>(line[index]);
-                    makeTrainer(trainerCount, &spot);
-                    trainerCount ++;
-                    i ++;
-                }
+            int start = 0;
+            while ( line[start] != '\n' && trainerCount < numOfTrainers){
+                int end;
+                end = line.find(",", start);
+                std::string str = line.substr(start, end - start);
+                int spot = stoi(str);
+                makeTrainer(trainerCount, &spot);
+                trainerCount ++;
+                start = end + 1;
             }
         }
         else{
