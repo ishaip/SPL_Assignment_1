@@ -25,7 +25,7 @@ void BaseAction::error(std::string errorMsg) {
 
 void BaseAction::complete() {
     status = COMPLETED;
-    this->errorMsg = nullptr;
+    //this->errorMsg = nullptr;
 }
 
 OpenTrainer::OpenTrainer(int id, std::vector<Customer *> &customersList):
