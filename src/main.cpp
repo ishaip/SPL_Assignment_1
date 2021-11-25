@@ -1,7 +1,7 @@
 #include "../include/Studio.h"
 #include <iostream>
 #include <algorithm>
-
+//valgrind --leak-check=full --show-reachable=yes bin/studio example.txt
 using namespace std;
 
 Studio* backup = nullptr;
