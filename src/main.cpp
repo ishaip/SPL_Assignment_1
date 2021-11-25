@@ -104,7 +104,7 @@ int main(int argc, char** argv){
     	backup = nullptr;
     }
     std::string str;
-    std::cin >> str;
+    std::getline(cin,str);
     while(str !="closeall"){
         BaseAction *action;
         if (str.substr(0,4) == "open"){
@@ -136,7 +136,7 @@ int main(int argc, char** argv){
         }
         action->act(studio);
         studio.addAction(action);
-        std::cin >> str;
+        std::getline(cin,str);
     }
     CloseAll closeAll = CloseAll();
     closeAll.act(studio);

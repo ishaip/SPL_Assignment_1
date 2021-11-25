@@ -19,8 +19,8 @@ std::string BaseAction::getErrorMsg() const {
 
 void BaseAction::error(std::string errorMsg) {
     status = ERROR;
-    this->errorMsg = errorMsg;
-    std:: cout <<"Error: " << errorMsg <<"\n";
+    this->errorMsg ="Error: " + errorMsg;
+    std:: cout << errorMsg <<"\n";
 }
 
 void BaseAction::complete() {
@@ -33,8 +33,9 @@ trainerId (id),customers(customersList){}
 
 void OpenTrainer::act(Studio &studio) {
     Trainer *trainer = studio.getTrainer(trainerId);
+    std::cout<<"here";
     if(trainer == nullptr || trainer->isOpen()|| trainer->getCapacity() < customers.size())
-        error( "Workout session does not exist or is already open.");
+        error( "Trainer does not exist or is not open");
     else{
         trainer->openTrainer();
         for (int i = 0; i < customers.size(); i++) {
