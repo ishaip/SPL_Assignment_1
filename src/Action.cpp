@@ -156,12 +156,14 @@ void CloseAll::act(Studio &studio) {
     for (int i = 0; i < studio.getNumOfTrainers(); ++i) {
         Trainer *trainer = studio.getTrainer(i);
         if (trainer->isOpen()){
-            Close close = Close(i);
-            close.act(studio);
+            Close *close = new Close(i);
+            close->act(studio);
+            delete close;
+            close = nullptr;
         }
     }
     complete();
-    //TODO:close stodiuo
+    delete &studio;
 }
 
 std::string CloseAll::toString() const {
