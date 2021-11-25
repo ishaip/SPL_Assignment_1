@@ -50,12 +50,7 @@ Studio::Studio(const std::string &configFilePath):
             }
         }
         else{
-            int i = 0;
-            std::string workout;
-            while ( line[i] != '\n' ){
-                workout.append(reinterpret_cast<const char *>(line[i]));
-            }
-            makeWorkout(workout, workoutIds);
+            makeWorkout(line, workoutIds);
             workoutIds ++;
         }
         index ++;
