@@ -139,13 +139,14 @@ Studio &Studio::operator=(Studio &other){ //TODO: check deleting way
         Trainer* trainer = new Trainer(*t);
         trainers.emplace_back(trainer);
     }
-    for (BaseAction* action : other.actionsLog)
-        actionsLog.emplace_back(action);
+    actionsLog.clear();
+    for (int i = 0; i < other.actionsLog.size(); i++)
+        actionsLog.emplace_back(actionsLog[i]->clone());
 
     //copy the rest of the data
     workout_options.clear();
-    for(Workout workout : other.workout_options){
-        workout_options.emplace_back(workout);
+    for(int i = 0; i < other.workout_options.size(); i++){
+        workout_options.emplace_back(other.workout_options[i].clone());
     }
     open = other.open;
     nextCustomerId = other.nextCustomerId;
