@@ -14,7 +14,6 @@ Trainer::~Trainer(){
     clear();
 }
 
-
 void Trainer::clear(){
     for (Customer  *customer : customersList){
         customer->~Customer();
