@@ -19,7 +19,7 @@ void Trainer::clear(){
         delete &customersList[i];
         customersList[i] = nullptr;
     }
-    //customersList.clear();
+    customersList.clear(); //TODO: check memory leak
     orderList.clear();
 }
 
@@ -35,26 +35,29 @@ Trainer::Trainer(const Trainer &trainer):
 
 //copy assignment operator
 Trainer &Trainer::operator=(const Trainer &other) {
+    //check for self assignment
     if (this == &other)
         return *this;
-    for (Customer * customer : customersList) {
-        if (customer != nullptr){
-            delete &customer;
-            customer = nullptr;
+    //free the pointers
+    for (int i = 0; i < customersList.size(); i++) {
+        if (customersList[i] != nullptr){
+            delete &customersList[i];
+            customersList[i] = nullptr;
         }
     }
-    for (OrderPair orderPair  : orderList) {
-        delete & orderPair;
-    }
-    orderList.clear(); //TODO: check clear when compile
-    //orderList.erase(orderList.begin(),orderList.end());
-    customersList.erase(customersList.begin(),customersList.end()); //
-    for (OrderPair orderPair  : other.orderList) {
+    for (int i = 0; i < orderList.size(); i++)
+        delete &orderList[i];
+
+    orderList.clear(); //TODO: check memory leak
+    customersList.erase(customersList.begin(),customersList.end()); // TODO: check whether it is important when compiling
+
+    for (OrderPair orderPair : other.orderList) {
         orderList.emplace_back(orderPair);
     }
-    for (Customer * customer : other.customersList) {
-        customersList.emplace_back(customer->clone());
+    for (int i = 0; i < other.customersList.size(); i++) {
+        customersList.emplace_back(other.customersList[i]->clone());
     }
+    //copy the rest of the data
     capacity = other.capacity;
     open = other.open;
     salary = other.salary;
