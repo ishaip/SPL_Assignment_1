@@ -19,7 +19,6 @@ void Trainer::clear(){
         delete &customersList[i];
         customersList[i] = nullptr;
     }
-    customersList.erase(customersList.begin(),customersList.end());
     orderList.clear();
 }
 
