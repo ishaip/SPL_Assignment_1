@@ -98,8 +98,9 @@ std::vector<int> HeavyMuscleCustomer::order(const std::vector<Workout> &workout_
             workoutOrder.emplace_back(i);
         }
     }
+    //stable sorting
     for (int i = 0; i < workoutOrder.size(); ++i) {
-        for (int j = i+1; j < workoutOrder.size(); ++j) {
+        for (int j = i + 1; j < workoutOrder.size(); ++j) {
             if(workout_options[workoutOrder[i]].getPrice() < workout_options[workoutOrder[j]].getPrice()) {
                 int temp = workoutOrder[i];
                 workoutOrder[i] = workoutOrder[j];
