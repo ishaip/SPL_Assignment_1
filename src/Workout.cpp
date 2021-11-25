@@ -4,10 +4,16 @@
 
 #include "../include/Workout.h"
 
+//constructor
 Workout::Workout(int w_id, std::string w_name, int w_price, WorkoutType w_type):
-id(w_id), name(w_name),price(w_price), type(w_type){}
+id(w_id), name(w_name),price(w_price), type(w_type){};
 
+//destructor
 Workout::~Workout() = default;
+
+//copy constructor
+Workout::Workout(const Workout &w): //TODO: check
+    id(w.id), name(w.name),price(w.price), type(w.type){}{};
 
 int Workout::getId() const {
     return id;
