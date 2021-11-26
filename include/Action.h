@@ -20,11 +20,12 @@ class BaseAction{
 public:
     BaseAction();
     ActionStatus getStatus() const;
-    bool getIsItDone() const;
     virtual void act(Studio& studio)=0;
     virtual std::string toString() const=0;
     virtual ~BaseAction()= default;
     virtual BaseAction *clone() = 0;
+    virtual void setStatus(ActionStatus status);
+    virtual void setErrorMsg(std::string str);
 protected:
     void complete();
     void error(std::string errorMsg);
@@ -32,6 +33,8 @@ protected:
 private:
     std::string errorMsg;
     ActionStatus status;
+
+
 };
 
 

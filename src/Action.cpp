@@ -29,13 +29,22 @@ void BaseAction::complete() {
     status = ActionStatus::COMPLETED;
 }
 
+void BaseAction::setStatus(ActionStatus status) {
+    this->status = status;
+}
+
+void BaseAction::setErrorMsg(std::string str) {
+    this->errorMsg = str;
+}
+
+
 OpenTrainer::OpenTrainer(int id, std::vector<Customer *> &customersList):
         trainerId (id),customers(customersList){}
 
 void OpenTrainer::act(Studio &studio) {
     Trainer *trainer = studio.getTrainer(trainerId);
     if(trainer == nullptr || trainer->isOpen())
-        error( "Trainer does not exist or is not open");
+        this->error( "Trainer does not exist or is not open");
     else{
         std::vector<Customer *> rightsize;
         for (int i = static_cast<int>(customers.size() - 1); i >= trainer->getCapacity(); i--) {
@@ -70,7 +79,10 @@ BaseAction *OpenTrainer::clone() {
     for (int i = 0; i < static_cast<int>(customers.size()); ++i) {
         cloneCustomerList.emplace_back(customers[i]->clone());
     }
-    return new OpenTrainer(trainerId,cloneCustomerList);
+    BaseAction *action = new OpenTrainer(trainerId,cloneCustomerList);
+    action->setErrorMsg(getErrorMsg());
+    action->setStatus(getStatus());
+    return action;
 }
 
 OpenTrainer::~OpenTrainer() {
@@ -110,7 +122,10 @@ std::string Order::toString() const {
 }
 
 BaseAction *Order::clone() {
-    return new Order(trainerId);
+    BaseAction *action = new Order(trainerId);
+    action->setErrorMsg(getErrorMsg());
+    action->setStatus(getStatus());
+    return action;
 }
 
 MoveCustomer::MoveCustomer(int src, int dst, int customerId):srcTrainer(src), dstTrainer(dst),id(customerId) {}
@@ -150,7 +165,10 @@ std::string MoveCustomer::toString() const {
 }
 
 BaseAction *MoveCustomer::clone() {
-    return new MoveCustomer(srcTrainer, dstTrainer,id);
+    BaseAction *action = new MoveCustomer(srcTrainer,dstTrainer,id);
+    action->setErrorMsg(getErrorMsg());
+    action->setStatus(getStatus());
+    return action;
 }
 
 Close::Close(int id): trainerId(id){}
@@ -177,7 +195,10 @@ std::string Close::toString() const {
 }
 
 BaseAction *Close::clone() {
-    return new Close(trainerId);
+    BaseAction *action = new Close(trainerId);
+    action->setErrorMsg(getErrorMsg());
+    action->setStatus(getStatus());
+    return action;
 }
 
 CloseAll::CloseAll() {}
@@ -203,7 +224,10 @@ std::string CloseAll::toString() const {
 }
 
 BaseAction *CloseAll::clone() {
-    return new CloseAll();
+    BaseAction *action = new CloseAll();
+    action->setErrorMsg(getErrorMsg());
+    action->setStatus(getStatus());
+    return action;
 }
 
 PrintWorkoutOptions::PrintWorkoutOptions() {}
@@ -226,7 +250,10 @@ std::string PrintWorkoutOptions::toString() const {
 }
 
 BaseAction *PrintWorkoutOptions::clone() {
-    return new PrintWorkoutOptions();
+    BaseAction *action = new PrintWorkoutOptions();
+    action->setErrorMsg(getErrorMsg());
+    action->setStatus(getStatus());
+    return action;
 }
 
 PrintTrainerStatus::PrintTrainerStatus(int id): trainerId(id) {}
@@ -267,7 +294,10 @@ std::string PrintTrainerStatus::toString() const {
 }
 
 BaseAction *PrintTrainerStatus::clone() {
-    return new PrintTrainerStatus(trainerId);
+    BaseAction *action = new PrintTrainerStatus(trainerId);
+    action->setErrorMsg(getErrorMsg());
+    action->setStatus(getStatus());
+    return action;
 }
 
 PrintActionsLog::PrintActionsLog() = default;
@@ -290,7 +320,10 @@ std::string PrintActionsLog::toString() const {
 }
 
 BaseAction *PrintActionsLog::clone() {
-    return new PrintActionsLog();
+    BaseAction *action = new PrintActionsLog();
+    action->setErrorMsg(getErrorMsg());
+    action->setStatus(getStatus());
+    return action;
 }
 
 BackupStudio::BackupStudio() {}
@@ -314,7 +347,10 @@ std::string BackupStudio::toString() const {
 }
 
 BaseAction *BackupStudio::clone() {
-    return new BackupStudio;
+    BaseAction *action = new BackupStudio();
+    action->setErrorMsg(getErrorMsg());
+    action->setStatus(getStatus());
+    return action;
 }
 
 RestoreStudio::RestoreStudio() {}
@@ -338,5 +374,8 @@ std::string RestoreStudio::toString() const {
 }
 
 BaseAction *RestoreStudio::clone() {
-    return new RestoreStudio();
+    BaseAction *action = new RestoreStudio();
+    action->setErrorMsg(getErrorMsg());
+    action->setStatus(getStatus());
+    return action;
 }
