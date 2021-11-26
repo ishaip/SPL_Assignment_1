@@ -67,23 +67,23 @@ void Trainer::addCustomer(Customer *customer) {
     customersList.emplace_back(customer);
 }
 
-void Trainer::removeCustomer(int id) { //TODO: check when compiling
+void Trainer::removeCustomer(int id) {
     //create new vector of orderList
     std::vector<OrderPair> tempOrder;
-    for (int i = 0; i < orderList.size(); i++){
-        if ( orderList[i].first != id )
+    for (int i = 0; i < orderList.size(); i++) {
+        if (orderList[i].first != id)
             tempOrder.emplace_back(orderList[i]);
     }
     orderList.clear();
     //reassign to our vector
     for (int i = 0; i < tempOrder.size(); i++)
         orderList.emplace_back(tempOrder[i]);
-
     //create new vector of customersList
-    std::vector<Customer*> tempCustomer;
-    for (int i = 0; i < customersList.size(); i++)
-        tempCustomer.emplace_back(customersList[i]);
-
+    std::vector<Customer *> tempCustomer;
+    for (int i = 0; i < customersList.size(); i++){
+        if (customersList[i]->getId() != id)
+            tempCustomer.emplace_back(customersList[i]);
+    }
     customersList.clear();
     //reassign to our vector
     for (int i = 0; i < tempCustomer.size(); i++)

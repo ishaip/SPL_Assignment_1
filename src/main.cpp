@@ -128,7 +128,7 @@ int main(int argc, char** argv){
         else if (str.substr(0,4) == "back"){
             action = breakdownBackup(str);
         }
-        else /*if (str.substr(0,4) == "rest")*/{  //
+        else if (str.substr(0,4) == "rest"){
             action = breakdownRestore(str);
         }
         action->act(studio);
