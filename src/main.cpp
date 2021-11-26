@@ -107,16 +107,16 @@ int main(int argc, char** argv){
         if (str.substr(0,4) == "open"){
             action = breakdownOpen(str, studio);
         }
-        if (str.substr(0,5) == "order"){
+        else if (str.substr(0,5) == "order"){
             action = breakdownOrder(str);
         }
-        if (str.substr(0,4) == "move"){
+        else if (str.substr(0,4) == "move"){
             action = breakdownMove(str);
         }
-        if (str.substr(0,5) == "close"){
+        else if (str.substr(0,5) == "close"){
             action = breakdownClose(str);
         }
-        if (str.substr(0,4) == "work"){
+        else if (str.substr(0,4) == "work"){
             action = breakdownWorkout_options(str);
         }
         if (str.substr(0,4) == "stat"){
