@@ -110,16 +110,17 @@ Studio::~Studio() {
 
 //copy constructor
 Studio:: Studio(const Studio& other):
-        open(other.open), nextCustomerId(other.nextCustomerId),workout_options(other.workout_options){
+        open(other.open), nextCustomerId(other.nextCustomerId){
     for (Trainer* t : other.trainers){
         Trainer* trainer = new Trainer(*t);
         trainers.emplace_back(trainer);
     }
 
     for (int i = 0; i < other.actionsLog.size(); i++)
-        actionsLog.emplace_back(actionsLog[i]->clone());
-//    for (BaseAction* action : other.actionsLog)
-//        actionsLog.emplace_back(action);
+        actionsLog.emplace_back(other.actionsLog[i]->clone());
+
+    for (int i = 0; i < other.workout_options.size(); i++)
+        workout_options.emplace_back(other.workout_options[i].clone());
 };
 
 //copy assignment operator
@@ -131,11 +132,14 @@ Studio &Studio::operator=(Studio &other){ //TODO: check deleting way
     //freeing the pointers
     for (Trainer* t : trainers)
         t->~Trainer();
-    for (BaseAction* a : actionsLog) {
+    for (BaseAction* a : actionsLog)
         a->~BaseAction();
-    }
     for (Workout workout : workout_options)
         workout.~Workout();
+
+    trainers.clear(); // TODO: check memory leak
+    actionsLog.clear();
+    workout_options.clear();
 
     //duplicate the resources
     for (int i = 0; i < other.trainers.size(); i++){
@@ -145,12 +149,12 @@ Studio &Studio::operator=(Studio &other){ //TODO: check deleting way
 
     actionsLog.clear();
     for (int i = 0; i < other.actionsLog.size(); i++)
-        actionsLog.emplace_back(actionsLog[i]->clone());
+        actionsLog.emplace_back(other.actionsLog[i]->clone());
 
     //copy the rest of the data
     workout_options.clear();
     for(int i = 0; i < other.workout_options.size(); i++){
-        workout_options.emplace_back(*other.workout_options[i].clone());
+        workout_options.emplace_back(other.workout_options[i].clone());
     }
     open = other.open;
     nextCustomerId = other.nextCustomerId;

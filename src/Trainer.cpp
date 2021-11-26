@@ -16,13 +16,15 @@ Trainer::~Trainer(){
 
 void Trainer::clear(){
     for (int i = 0; i < customersList.size(); i++){
-        delete &customersList[i];
-        customersList[i] = nullptr;
+        customersList[i]->~Customer();
+//        delete &customersList[i];
+//        customersList[i] = nullptr;
     }
     customersList.clear(); //TODO: check memory leak
     orderList.clear();
 }
 
+//copy constructor
 Trainer::Trainer(const Trainer &trainer):
     capacity(trainer.capacity), open(trainer.open),salary(trainer.salary){
     for (Customer * customer : trainer.customersList)
