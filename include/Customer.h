@@ -38,7 +38,7 @@ public:
     std::vector<int> order(const std::vector<Workout> &workout_options);
     std::string toString() const;
     Customer *clone();
-    virtual ~CheapCustomer()= default;
+    virtual ~CheapCustomer();
 private:
 };
 

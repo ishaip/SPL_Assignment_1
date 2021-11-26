@@ -87,25 +87,18 @@ void Studio:: makeWorkout(std::string workout, int id){
         type = CARDIO;
     else
         type = ALL;
-    Workout *newWorkout;
-    newWorkout = new Workout(id, workoutName, price, type);
-    workout_options.emplace_back(*newWorkout);
+    workout_options.emplace_back(Workout(id, workoutName, price, type));
 }
 
 //destructor
 Studio::~Studio() {
-    for (Trainer *trainer : trainers)
-        trainer->~Trainer();
-
-    for (Workout workout : workout_options)
-        workout.~Workout();
-
-    for (BaseAction* action: actionsLog)
-        action->BaseAction::~BaseAction();
-
-//    workout_options.clear();
-//    trainers.clear();
-//    workout_options.clear();
+    for (int i=0; i< trainers.size();i++)
+        delete trainers[i];
+    for (int i =0; i< actionsLog.size(); i++)
+        delete actionsLog[i];
+    actionsLog.clear();
+    workout_options.clear();
+    trainers.clear();
 }
 
 //copy constructor
