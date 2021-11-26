@@ -117,10 +117,10 @@ Studio:: Studio(const Studio& other):
     }
 
     for (int i = 0; i < other.actionsLog.size(); i++)
-        actionsLog.emplace_back(actionsLog[i]->clone());
+        actionsLog.emplace_back(other.actionsLog[i]->clone());
 //    for (BaseAction* action : other.actionsLog)
 //        actionsLog.emplace_back(action);
-};
+}
 
 //copy assignment operator
 Studio &Studio::operator=(Studio &other){ //TODO: check deleting way
