@@ -18,8 +18,8 @@ public:
     static bool compareId(const Workout &thisWorkout, const Workout &otherWorkout);
     std::string toString();
     std::string typeToString();
-    virtual ~Workout();
-
+    virtual ~Workout(); //destructor
+    Workout(const Workout &w);
 private:
 	const int id;
     const std::string name;

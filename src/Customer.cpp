@@ -9,7 +9,6 @@
 
 Customer::Customer(std::string c_name, int c_id): name(std::move(c_name)),  id(c_id){}
 
-
 std::string Customer::getName() const {
     return name;
 }
@@ -44,8 +43,7 @@ int Customer::selectOrder(const std::vector<Workout> &workout_options, WorkoutTy
     return index;
 }
 
-
-//Customer::~Customer() = default;
+Customer::~Customer() = default;
 
 SweatyCustomer::SweatyCustomer(std::string name, int id) : Customer(name, id) {}
 
@@ -92,14 +90,15 @@ HeavyMuscleCustomer::HeavyMuscleCustomer(std::string name, int id) : Customer(na
 
 std::vector<int> HeavyMuscleCustomer::order(const std::vector<Workout> &workout_options) {
     std::vector<int> workoutOrder;
-    //if it is a ANAEROBIC type of workout save the location of the workout
+    //if it is an ANAEROBIC type of workout save the location of the workout
     for (int i = 0; i < workout_options.size(); i++){
         if (workout_options[i].getType() == ANAEROBIC){
             workoutOrder.emplace_back(i);
         }
     }
+    //stable sorting
     for (int i = 0; i < workoutOrder.size(); ++i) {
-        for (int j = i+1; j < workoutOrder.size(); ++j) {
+        for (int j = i + 1; j < workoutOrder.size(); ++j) {
             if(workout_options[workoutOrder[i]].getPrice() < workout_options[workoutOrder[j]].getPrice()) {
                 int temp = workoutOrder[i];
                 workoutOrder[i] = workoutOrder[j];
@@ -107,8 +106,6 @@ std::vector<int> HeavyMuscleCustomer::order(const std::vector<Workout> &workout_
             }
         }
     }
-    //std::sort(workoutOrder.begin(),workoutOrder.end(),Workout::comparePrice);
-    //we wrote a comprator that compares prices
     return workoutOrder;
 }
 

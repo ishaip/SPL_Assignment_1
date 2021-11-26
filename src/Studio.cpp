@@ -14,7 +14,7 @@ Studio::Studio():
         open(false), nextCustomerId(0), trainers({}),
         workout_options({}), actionsLog({}){
 };
-//
+
 Studio::Studio(const std::string &configFilePath):
         open(false), nextCustomerId(0){
 
@@ -94,17 +94,18 @@ void Studio:: makeWorkout(std::string workout, int id){
 
 //destructor
 Studio::~Studio() {
-    for (Trainer  *trainer : trainers){
+    for (Trainer *trainer : trainers)
         trainer->~Trainer();
-    }
-    for (BaseAction *action : actionsLog){
-        action->BaseAction::~BaseAction();
-    }
-    for (Workout workout : workout_options){
+
+    for (Workout workout : workout_options)
         workout.~Workout();
-    }
-    actionsLog.clear();
-    trainers.clear();
+
+    for (BaseAction* action: actionsLog)
+        action->BaseAction::~BaseAction();
+
+//    workout_options.clear();
+//    trainers.clear();
+//    workout_options.clear();
 }
 
 //copy constructor
@@ -115,40 +116,41 @@ Studio:: Studio(const Studio& other):
         trainers.emplace_back(trainer);
     }
 
-    for (BaseAction* action : other.actionsLog)
-        actionsLog.emplace_back(action);
-}
+    for (int i = 0; i < other.actionsLog.size(); i++)
+        actionsLog.emplace_back(actionsLog[i]->clone());
+//    for (BaseAction* action : other.actionsLog)
+//        actionsLog.emplace_back(action);
+};
 
 //copy assignment operator
-Studio &Studio::operator=(Studio &other){
+Studio &Studio::operator=(Studio &other){ //TODO: check deleting way
     //check for self assignment
     if ( this == &other)
         return *this;
+
     //freeing the pointers
-    for (Trainer* t : trainers) {
+    for (Trainer* t : trainers)
         t->~Trainer();
-    }
     for (BaseAction* a : actionsLog) {
         a->~BaseAction();
     }
-    for (Workout w : workout_options) {
-        w.~Workout();
-    }
-    actionsLog.clear();
-    trainers.clear();
-    workout_options.clear();
+    for (Workout workout : workout_options)
+        workout.~Workout();
+
     //duplicate the resources
-    for (Trainer* t : other.trainers){
-        Trainer* trainer = new Trainer(*t);
+    for (int i = 0; i < other.trainers.size(); i++){
+        Trainer* trainer = new Trainer(*other.trainers[i]);
         trainers.emplace_back(trainer);
     }
-    for (BaseAction* action : other.actionsLog)
-        actionsLog.emplace_back(action);
+
+    actionsLog.clear();
+    for (int i = 0; i < other.actionsLog.size(); i++)
+        actionsLog.emplace_back(actionsLog[i]->clone());
 
     //copy the rest of the data
     workout_options.clear();
-    for(Workout workout : other.workout_options){
-        workout_options.emplace_back(workout);
+    for(int i = 0; i < other.workout_options.size(); i++){
+        workout_options.emplace_back(other.workout_options[i].clone());
     }
     open = other.open;
     nextCustomerId = other.nextCustomerId;
@@ -186,10 +188,14 @@ Studio &Studio::operator=(Studio &&other) noexcept {
     //workout_options.clear(); //important??
 
     //assigning
-    for (Trainer* t : other.trainers){
-        Trainer* trainer = new Trainer(*t);
-        trainers.emplace_back(trainer);
+    for (int i = 0; i < other.trainers.size(); i++){
+        Trainer* t = new Trainer(*other.trainers[i]);
+        trainers.emplace_back(t);
     }
+//    for (Trainer* t : other.trainers){
+//        Trainer* trainer = new Trainer(*t);
+//        trainers.emplace_back(trainer);
+//    }
     workout_options.clear();
     for(Workout workout : other.workout_options){
         workout_options.emplace_back(workout);
@@ -235,4 +241,3 @@ int Studio::getNextCustomerId() {
     nextCustomerId ++;
     return output;
 }
-
