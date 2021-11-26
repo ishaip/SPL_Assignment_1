@@ -119,13 +119,13 @@ int main(int argc, char** argv){
         else if (str.substr(0,4) == "work"){
             action = breakdownWorkout_options(str);
         }
-        if (str.substr(0,4) == "stat"){
+        else if (str.substr(0,4) == "stat"){
             action = breakdownStatus(str);
         }
-        if (str.substr(0,3) == "log"){
+        else if (str.substr(0,3) == "log"){
             action = breakdownLog(str);
         }
-        if (str.substr(0,4) == "back"){
+        else if (str.substr(0,4) == "back"){
             action = breakdownBackup(str);
         }
         if (str.substr(0,4) == "rest"){
