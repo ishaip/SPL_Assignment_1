@@ -50,7 +50,8 @@ Trainer &Trainer::operator=(const Trainer &other) {
         delete &orderList[i];
 
     orderList.clear(); //TODO: check memory leak
-    customersList.erase(customersList.begin(),customersList.end()); // TODO: check whether it is important when compiling
+    customersList.clear();
+    //customersList.erase(customersList.begin(),customersList.end()); // TODO: check whether it is important when compiling
 
     for (OrderPair orderPair : other.orderList) {
         orderList.emplace_back(orderPair);
