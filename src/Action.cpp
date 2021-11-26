@@ -65,7 +65,7 @@ BaseAction *OpenTrainer::clone() {
     for (int i = 0; i < customers.size(); ++i) {
         cloneCustomerList.emplace_back(customers[i]->clone());
     }
-    return  new OpenTrainer(trainerId,cloneCustomerList);
+    return new OpenTrainer(trainerId,cloneCustomerList);
 }
 
 Order::Order(int id): trainerId(id) {}

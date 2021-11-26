@@ -63,6 +63,7 @@ void Studio:: makeTrainer(int trainerCount, const int *spots){
     Trainer* newTrainer;
     newTrainer = new Trainer(*spots);
     trainers.emplace_back(newTrainer);
+    delete newTrainer;
 }
 
 void Studio:: makeWorkout(std::string workout, int id){
@@ -90,6 +91,7 @@ void Studio:: makeWorkout(std::string workout, int id){
     Workout *newWorkout;
     newWorkout = new Workout(id, workoutName, price, type);
     workout_options.emplace_back(*newWorkout);
+    delete newWorkout;
 }
 
 //destructor
@@ -103,9 +105,9 @@ Studio::~Studio() {
     for (BaseAction* action: actionsLog)
         action->BaseAction::~BaseAction();
 
-//    workout_options.clear();
-//    trainers.clear();
-//    workout_options.clear();
+    workout_options.clear();
+    trainers.clear();
+    workout_options.clear();
 }
 
 //copy constructor

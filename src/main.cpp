@@ -2,6 +2,8 @@
 #include <iostream>
 #include <algorithm>
 
+//valgrind --leak-check=full --show-reachable=yes bin/studio example.txt
+
 using namespace std;
 
 Studio* backup = nullptr;
@@ -132,7 +134,8 @@ int main(int argc, char** argv){
             action = breakdownRestore(str);
         }
         action->act(studio);
-        studio.addAction(action);
+        studio.addAction(action->clone());
+        delete action;
         std::getline(cin,str);
     }
     CloseAll closeAll = CloseAll();
