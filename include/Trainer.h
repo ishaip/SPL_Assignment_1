@@ -4,6 +4,7 @@
 #include <vector>
 #include "Customer.h"
 #include "Workout.h"
+#include <iostream>
 
 typedef std::pair<int, Workout> OrderPair;
 

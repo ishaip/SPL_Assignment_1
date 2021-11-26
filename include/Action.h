@@ -36,6 +36,7 @@ private:
 
 class OpenTrainer : public BaseAction {
 public:
+    virtual ~OpenTrainer();
     virtual BaseAction *clone();
     OpenTrainer(int id, std::vector<Customer *> &customersList);
     void act(Studio &studio);

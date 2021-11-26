@@ -16,8 +16,7 @@ Trainer::~Trainer(){
 
 void Trainer::clear(){
     for (int i = 0; i < customersList.size(); i++){
-        customersList[i]->~Customer();
-//        customersList[i] = nullptr;
+        delete customersList[i];
     }
     customersList.clear(); //TODO: check memory leak
     orderList.clear();

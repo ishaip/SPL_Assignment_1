@@ -69,6 +69,13 @@ BaseAction *OpenTrainer::clone() {
     return  new OpenTrainer(trainerId,cloneCustomerList);
 }
 
+OpenTrainer::~OpenTrainer() {
+    for (int i = 0; i < customers.size(); ++i) {
+        delete customers[i];
+    }
+    customers.clear();
+}
+
 Order::Order(int id): trainerId(id) {}
 
 void Order::act(Studio &studio) {

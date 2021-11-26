@@ -141,6 +141,7 @@ int main(int argc, char** argv){
         delete backup;
         backup = nullptr;
     }
+    //delete &studio;
 
     return 0;
 }
