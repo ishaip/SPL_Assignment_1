@@ -35,9 +35,14 @@ OpenTrainer::OpenTrainer(int id, std::vector<Customer *> &customersList):
 
 void OpenTrainer::act(Studio &studio) {
     Trainer *trainer = studio.getTrainer(trainerId);
-    if(trainer == nullptr || trainer->isOpen()|| trainer->getCapacity() < static_cast<int>(customers.size()))
+    if(trainer == nullptr || trainer->isOpen())
         error( "Trainer does not exist or is not open");
     else{
+        std::vector<Customer *> rightsize;
+        for (int i = static_cast<int>(customers.size() - 1); i >= trainer->getCapacity(); i--) {
+            delete customers[i];
+            customers.pop_back();
+        }
         trainer->openTrainer();
         for (Customer *c : customers) {
             Customer *customer = c->clone();
