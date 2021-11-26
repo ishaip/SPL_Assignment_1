@@ -20,6 +20,7 @@ class BaseAction{
 public:
     BaseAction();
     ActionStatus getStatus() const;
+    bool getIsItDone() const;
     virtual void act(Studio& studio)=0;
     virtual std::string toString() const=0;
     virtual ~BaseAction()= default;

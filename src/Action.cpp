@@ -20,14 +20,13 @@ std::string BaseAction::getErrorMsg() const {
 }
 
 void BaseAction::error(std::string errorMsg) {
-    status = ERROR;
+    status =  ActionStatus::ERROR;
     this->errorMsg ="Error: " + errorMsg;
     std:: cout << errorMsg <<"\n";
 }
 
 void BaseAction::complete() {
-    status = COMPLETED;
-    //this->errorMsg = nullptr;
+    status = ActionStatus::COMPLETED;
 }
 
 OpenTrainer::OpenTrainer(int id, std::vector<Customer *> &customersList):
@@ -276,7 +275,7 @@ PrintActionsLog::PrintActionsLog() = default;
 void PrintActionsLog::act(Studio &studio) {
     const std::vector<BaseAction*>& actionLog = studio.getActionsLog();
     for (int i = 0; i < static_cast<int>(actionLog.size()); i++) {
-        std::cout<< actionLog[i]->toString()<<"\n";
+        std::cout<< actionLog[i]->toString()<<std::endl;
     }
     complete();
 }
