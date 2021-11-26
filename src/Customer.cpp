@@ -43,7 +43,7 @@ int Customer::selectOrder(const std::vector<Workout> &workout_options, WorkoutTy
     return index;
 }
 
-Customer::~Customer() = default;
+
 
 SweatyCustomer::SweatyCustomer(std::string name, int id) : Customer(name, id) {}
 
