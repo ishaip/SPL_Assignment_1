@@ -175,7 +175,6 @@ Studio::Studio(Studio&& other) noexcept :
     //destroying other's pointers
     trainers = std::vector<Trainer*>{};
     actionsLog = std::vector<BaseAction*>{};
-
 };
 
 //move assignment operator
@@ -196,10 +195,7 @@ Studio &Studio::operator=(Studio &&other) noexcept {
         Trainer* t = new Trainer(*other.trainers[i]);
         trainers.emplace_back(t);
     }
-//    for (Trainer* t : other.trainers){
-//        Trainer* trainer = new Trainer(*t);
-//        trainers.emplace_back(trainer);
-//    }
+
     workout_options.clear();
     for(Workout workout : other.workout_options){
         workout_options.emplace_back(workout);

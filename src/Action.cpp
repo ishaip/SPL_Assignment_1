@@ -102,7 +102,7 @@ BaseAction *Order::clone() {
     return new Order(trainerId);
 }
 
-MoveCustomer::MoveCustomer(int src, int dst, int customerId):srcTrainer(src), dstTrainer(dst),id(customerId) {}
+MoveCustomer::MoveCustomer(int src, int dst, int customerId):srcTrainer(src), dstTrainer(dst),id(customerId) {};
 
 void MoveCustomer::act(Studio &studio) {
     Trainer *trainerDst = studio.getTrainer(dstTrainer);
@@ -239,7 +239,7 @@ void PrintTrainerStatus::act(Studio &studio) {
             std::cout <<orderList[i].second.getName()<<" " <<std::to_string(orderList[i].second.getPrice())<<"NIS"<< " "<< std::to_string(orderList[i].first)<<"\n";
         }
         int sum =0;
-        for(int i =0; i<orderList.size(); i++){
+        for(int i =0; i < orderList.size(); i++){
             sum = sum + orderList[i].second.getPrice();
         }
         std::cout <<"Current Trainer’s Salary: " << std::to_string(trainer->getSalary() + sum)<<"NIS"<< "\n";
@@ -324,7 +324,7 @@ std::string RestoreStudio::toString() const {
     if (getStatus() == COMPLETED)
         str += " Completed";
     else
-        str +=" "+ getErrorMsg();
+        str += " " + getErrorMsg();
     return str;
 }
 
