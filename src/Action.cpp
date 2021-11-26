@@ -8,6 +8,7 @@
 
 
 extern Studio *backup;
+
 BaseAction::BaseAction() {}
 
 ActionStatus BaseAction::getStatus() const {
@@ -65,7 +66,14 @@ BaseAction *OpenTrainer::clone() {
     for (int i = 0; i < customers.size(); ++i) {
         cloneCustomerList.emplace_back(customers[i]->clone());
     }
-    return new OpenTrainer(trainerId,cloneCustomerList);
+    return  new OpenTrainer(trainerId,cloneCustomerList);
+}
+
+OpenTrainer::~OpenTrainer() {
+    for (int i = 0; i < customers.size(); ++i) {
+        delete customers[i];
+    }
+    customers.clear();
 }
 
 Order::Order(int id): trainerId(id) {}
@@ -80,7 +88,6 @@ void Order::act(Studio &studio) {
         for (Customer *customer : trainer->getCustomers()) {
             trainer->order( customer->getId() , customer->order(workoutOptions), workoutOptions);
         }
-
         for(const OrderPair& pair : trainer->getOrders()){
             std:: cout << trainer->getCustomer(pair.first)->getName()<< " Is Doing " << pair.second.getName() <<"\n";
         }
@@ -102,7 +109,7 @@ BaseAction *Order::clone() {
     return new Order(trainerId);
 }
 
-MoveCustomer::MoveCustomer(int src, int dst, int customerId):srcTrainer(src), dstTrainer(dst),id(customerId) {};
+MoveCustomer::MoveCustomer(int src, int dst, int customerId):srcTrainer(src), dstTrainer(dst),id(customerId) {}
 
 void MoveCustomer::act(Studio &studio) {
     Trainer *trainerDst = studio.getTrainer(dstTrainer);
@@ -239,7 +246,7 @@ void PrintTrainerStatus::act(Studio &studio) {
             std::cout <<orderList[i].second.getName()<<" " <<std::to_string(orderList[i].second.getPrice())<<"NIS"<< " "<< std::to_string(orderList[i].first)<<"\n";
         }
         int sum =0;
-        for(int i =0; i < orderList.size(); i++){
+        for(int i =0; i<orderList.size(); i++){
             sum = sum + orderList[i].second.getPrice();
         }
         std::cout <<"Current Trainer’s Salary: " << std::to_string(trainer->getSalary() + sum)<<"NIS"<< "\n";
@@ -324,7 +331,7 @@ std::string RestoreStudio::toString() const {
     if (getStatus() == COMPLETED)
         str += " Completed";
     else
-        str += " " + getErrorMsg();
+        str +=" "+ getErrorMsg();
     return str;
 }
 

@@ -63,7 +63,6 @@ void Studio:: makeTrainer(int trainerCount, const int *spots){
     Trainer* newTrainer;
     newTrainer = new Trainer(*spots);
     trainers.emplace_back(newTrainer);
-    delete newTrainer; //
 }
 
 void Studio:: makeWorkout(std::string workout, int id){
@@ -88,42 +87,33 @@ void Studio:: makeWorkout(std::string workout, int id){
         type = CARDIO;
     else
         type = ALL;
-    Workout *newWorkout;
-    newWorkout = new Workout(id, workoutName, price, type);
-    workout_options.emplace_back(*newWorkout);
-    delete newWorkout;
+    workout_options.emplace_back(Workout(id, workoutName, price, type));
 }
 
 //destructor
 Studio::~Studio() {
-    for (Trainer *trainer : trainers)
-        trainer->~Trainer();
-
-    for (Workout workout : workout_options)
-        workout.~Workout();
-
-    for (BaseAction* action: actionsLog)
-        action->BaseAction::~BaseAction();
-
+    for (int i=0; i< trainers.size();i++)
+        delete trainers[i];
+    for (int i =0; i< actionsLog.size(); i++)
+        delete actionsLog[i];
+    actionsLog.clear();
     workout_options.clear();
     trainers.clear();
-    workout_options.clear();
 }
 
 //copy constructor
 Studio:: Studio(const Studio& other):
         open(other.open), nextCustomerId(other.nextCustomerId){
+    for (int i = 0; i < other.workout_options.size(); ++i) {
+        workout_options.emplace_back(other.workout_options[i].clone());
+    }
     for (Trainer* t : other.trainers){
         Trainer* trainer = new Trainer(*t);
         trainers.emplace_back(trainer);
     }
-
     for (int i = 0; i < other.actionsLog.size(); i++)
         actionsLog.emplace_back(other.actionsLog[i]->clone());
-
-    for (int i = 0; i < other.workout_options.size(); i++)
-        workout_options.emplace_back(other.workout_options[i].clone());
-};
+}
 
 //copy assignment operator
 Studio &Studio::operator=(Studio &other){ //TODO: check deleting way
@@ -134,12 +124,12 @@ Studio &Studio::operator=(Studio &other){ //TODO: check deleting way
     //freeing the pointers
     for (Trainer* t : trainers)
         t->~Trainer();
-    for (BaseAction* a : actionsLog)
+    for (BaseAction* a : actionsLog) {
         a->~BaseAction();
+    }
     for (Workout workout : workout_options)
         workout.~Workout();
-
-    trainers.clear(); // TODO: check memory leak
+    trainers.clear();
     actionsLog.clear();
     workout_options.clear();
 
@@ -148,7 +138,6 @@ Studio &Studio::operator=(Studio &other){ //TODO: check deleting way
         Trainer* trainer = new Trainer(*other.trainers[i]);
         trainers.emplace_back(trainer);
     }
-
     actionsLog.clear();
     for (int i = 0; i < other.actionsLog.size(); i++)
         actionsLog.emplace_back(other.actionsLog[i]->clone());
@@ -173,8 +162,11 @@ Studio::Studio(Studio&& other) noexcept :
         actionsLog(other.actionsLog){
 
     //destroying other's pointers
-    trainers = std::vector<Trainer*>{};
-    actionsLog = std::vector<BaseAction*>{};
+    //other.trainers = {};
+    for (Trainer* t : other.trainers)
+        t = nullptr;
+    for (BaseAction* a : other.actionsLog)
+        a = nullptr;
 };
 
 //move assignment operator
@@ -195,7 +187,10 @@ Studio &Studio::operator=(Studio &&other) noexcept {
         Trainer* t = new Trainer(*other.trainers[i]);
         trainers.emplace_back(t);
     }
-
+//    for (Trainer* t : other.trainers){
+//        Trainer* trainer = new Trainer(*t);
+//        trainers.emplace_back(trainer);
+//    }
     workout_options.clear();
     for(Workout workout : other.workout_options){
         workout_options.emplace_back(workout);
@@ -204,9 +199,11 @@ Studio &Studio::operator=(Studio &&other) noexcept {
     for (BaseAction* action : other.actionsLog)
         actionsLog.emplace_back(action);
 
-    //detach other's resources //TODO: check whether it is important
-    trainers = std::vector<Trainer*>{};
-    actionsLog = std::vector<BaseAction*>{};
+    //detach other's resources
+    for (Trainer* t : other.trainers)
+        t = nullptr;
+    for (BaseAction* a : other.actionsLog)
+        a = nullptr;
 
     return *this;
 }

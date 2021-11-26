@@ -85,6 +85,8 @@ Customer *CheapCustomer::clone() {
     return new CheapCustomer(this->getName(), this->getId());
 }
 
+CheapCustomer::~CheapCustomer() = default;
+
 
 HeavyMuscleCustomer::HeavyMuscleCustomer(std::string name, int id) : Customer(name, id) {}
 
