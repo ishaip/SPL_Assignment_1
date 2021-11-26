@@ -50,7 +50,7 @@ SweatyCustomer::SweatyCustomer(std::string name, int id) : Customer(name, id) {}
 std::vector<int> SweatyCustomer::order(const std::vector<Workout> &workout_options) {
     std::vector<int> workoutOrder;
     //if it is a CARDIO type of workout save the location of the workout
-    for (int i = 0; i < workout_options.size(); i++){
+    for (int i = 0; i < static_cast<int>(workout_options.size()); i++){
         if (workout_options[i].getType() == CARDIO){
             workoutOrder.emplace_back(i);
         }
@@ -87,19 +87,18 @@ Customer *CheapCustomer::clone() {
 
 CheapCustomer::~CheapCustomer() = default;
 
-
 HeavyMuscleCustomer::HeavyMuscleCustomer(std::string name, int id) : Customer(name, id) {}
 
 std::vector<int> HeavyMuscleCustomer::order(const std::vector<Workout> &workout_options) {
     std::vector<int> workoutOrder;
     //if it is an ANAEROBIC type of workout save the location of the workout
-    for (int i = 0; i < workout_options.size(); i++){
+    for (int i = 0; i < static_cast<int>(workout_options.size()); i++){
         if (workout_options[i].getType() == ANAEROBIC){
             workoutOrder.emplace_back(i);
         }
     }
     //stable sorting
-    for (int i = 0; i < workoutOrder.size(); ++i) {
+    for (int i = 0; i < static_cast<int>(workoutOrder.size()); ++i) {
         for (int j = i + 1; j < workoutOrder.size(); ++j) {
             if(workout_options[workoutOrder[i]].getPrice() < workout_options[workoutOrder[j]].getPrice()) {
                 int temp = workoutOrder[i];

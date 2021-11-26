@@ -36,23 +36,22 @@ Trainer &Trainer::operator=(const Trainer &other) {
     if (this == &other)
         return *this;
     //free the pointers
-    for (int i = 0; i < customersList.size(); i++) {
+    for (int i = 0; i < static_cast<int>(customersList.size()); i++) {
         if (customersList[i] != nullptr){
             delete &customersList[i];
             customersList[i] = nullptr;
         }
     }
-    for (int i = 0; i < orderList.size(); i++)
+    for (int i = 0; i < static_cast<int>(orderList.size()); i++)
         delete &orderList[i];
 
     orderList.clear(); //TODO: check memory leak
     customersList.clear();
-//    customersList.erase(customersList.begin(),customersList.end()); // TODO: check whether it is important when compiling
 
     for (OrderPair orderPair : other.orderList) {
         orderList.emplace_back(orderPair);
     }
-    for (int i = 0; i < other.customersList.size(); i++) {
+    for (int i = 0; i < static_cast<int>(other.customersList.size()); i++) {
         customersList.emplace_back(other.customersList[i]->clone());
     }
     //copy the rest of the data
@@ -70,25 +69,25 @@ void Trainer::addCustomer(Customer *customer) {
 void Trainer::removeCustomer(int id) { //TODO: check when compiling
     //create new vector of orderList
     std::vector<OrderPair> tempOrder;
-    for (int i = 0; i < orderList.size(); i++){
+    for (int i = 0; i < static_cast<int>(orderList.size()); i++){
         if ( orderList[i].first != id )
             tempOrder.emplace_back(orderList[i]);
     }
     orderList.clear();
     //reassign to our vector
-    for (int i = 0; i < tempOrder.size(); i++)
+    for (int i = 0; i < static_cast<int>(tempOrder.size()); i++)
         orderList.emplace_back(tempOrder[i]);
 
     //create new vector of customersList
     std::vector<Customer*> tempCustomer;
-    for (int i = 0; i < customersList.size(); i++) {
+    for (int i = 0; i < static_cast<int>(customersList.size()); i++) {
         if (customersList[i]->getId() != id)
             tempCustomer.emplace_back(customersList[i]);
     }
 
     customersList.clear();
     //reassign to our vector
-    for (int i = 0; i < tempCustomer.size(); i++)
+    for (int i = 0; i < static_cast<int>(tempCustomer.size()); i++)
         customersList.emplace_back(tempCustomer[i]);
 }
 
@@ -110,7 +109,7 @@ void Trainer::addOrder (const OrderPair& pair) {
 }
 
 void Trainer::order(const int customer_id, const std::vector<int> workout_ids, const std::vector<Workout> &workout_options) {
-    for (int i = 0; i < workout_ids.size(); i++)
+    for (int i = 0; i < static_cast<int>(workout_ids.size()); i++)
         orderList.emplace_back(customer_id, workout_options[workout_ids[i]]);
 }
 
@@ -120,15 +119,13 @@ void Trainer::closeTrainer(){
     open = false;
     updateSalary();
     //removing the customers
-    for (int i = 0; i < customersList.size(); i++) {
+    for (int i = 0; i < static_cast<int>(customersList.size()); i++) {
         delete customersList[i];
         customersList[i] = nullptr;
     }
     //clear orderList and customersList
     orderList.clear();
     customersList.clear();
-//    customersList.erase(customersList.begin(), customersList.end());
-
 }
 
 int Trainer::getSalary() { return salary; }
@@ -140,7 +137,7 @@ void Trainer::updateSalary() {
 
 bool Trainer::isOpen() const{ return open; }
 
-int Trainer::availableCapacity() { return capacity - customersList.size(); }
+int Trainer::availableCapacity() { return capacity - static_cast<int>(customersList.size()); }
 
 
 

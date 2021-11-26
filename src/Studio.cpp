@@ -96,6 +96,7 @@ Studio::~Studio() {
         delete trainers[i];
     for (int i =0; i< actionsLog.size(); i++)
         delete actionsLog[i];
+
     actionsLog.clear();
     workout_options.clear();
     trainers.clear();
@@ -104,47 +105,45 @@ Studio::~Studio() {
 //copy constructor
 Studio:: Studio(const Studio& other):
         open(other.open), nextCustomerId(other.nextCustomerId){
-    for (int i = 0; i < other.workout_options.size(); ++i) {
+    for (int i = 0; i < static_cast<int>(other.workout_options.size()); ++i) {
         workout_options.emplace_back(other.workout_options[i].clone());
     }
     for (Trainer* t : other.trainers){
         Trainer* trainer = new Trainer(*t);
         trainers.emplace_back(trainer);
     }
-    for (int i = 0; i < other.actionsLog.size(); i++)
+    for (int i = 0; i < static_cast<int>(other.actionsLog.size()); i++)
         actionsLog.emplace_back(other.actionsLog[i]->clone());
 }
 
 //copy assignment operator
-Studio &Studio::operator=(Studio &other){ //TODO: check deleting way
+Studio &Studio::operator=(Studio &other){
     //check for self assignment
     if ( this == &other)
         return *this;
 
     //freeing the pointers
-    for (Trainer* t : trainers)
-        t->~Trainer();
-    for (BaseAction* a : actionsLog) {
-        a->~BaseAction();
-    }
-    for (Workout workout : workout_options)
-        workout.~Workout();
+    for (int i = 0; i < static_cast<int>(trainers.size()); i++) //TODO: check casting necessity
+        delete trainers[i];
+    for (int i = 0; i < static_cast<int>(actionsLog.size()); i++)
+        delete actionsLog[i];
+
     trainers.clear();
     actionsLog.clear();
     workout_options.clear();
 
     //duplicate the resources
-    for (int i = 0; i < other.trainers.size(); i++){
+    for (int i = 0; i < static_cast<int>(other.trainers.size()); i++){
         Trainer* trainer = new Trainer(*other.trainers[i]);
         trainers.emplace_back(trainer);
     }
     actionsLog.clear();
-    for (int i = 0; i < other.actionsLog.size(); i++)
+    for (int i = 0; i < static_cast<int>(other.actionsLog.size()); i++)
         actionsLog.emplace_back(other.actionsLog[i]->clone());
 
     //copy the rest of the data
     workout_options.clear();
-    for(int i = 0; i < other.workout_options.size(); i++){
+    for(int i = 0; i < static_cast<int>(other.workout_options.size()); i++){
         workout_options.emplace_back(other.workout_options[i].clone());
     }
     open = other.open;
@@ -162,11 +161,8 @@ Studio::Studio(Studio&& other) noexcept :
         actionsLog(other.actionsLog){
 
     //destroying other's pointers
-    //other.trainers = {};
-    for (Trainer* t : other.trainers)
-        t = nullptr;
-    for (BaseAction* a : other.actionsLog)
-        a = nullptr;
+    trainers = std::vector<Trainer*>{};
+    actionsLog = std::vector<BaseAction*>{};
 };
 
 //move assignment operator
@@ -183,14 +179,11 @@ Studio &Studio::operator=(Studio &&other) noexcept {
     //workout_options.clear(); //important??
 
     //assigning
-    for (int i = 0; i < other.trainers.size(); i++){
+    for (int i = 0; i < static_cast<int>(other.trainers.size()); i++){
         Trainer* t = new Trainer(*other.trainers[i]);
         trainers.emplace_back(t);
     }
-//    for (Trainer* t : other.trainers){
-//        Trainer* trainer = new Trainer(*t);
-//        trainers.emplace_back(trainer);
-//    }
+
     workout_options.clear();
     for(Workout workout : other.workout_options){
         workout_options.emplace_back(workout);
@@ -200,10 +193,8 @@ Studio &Studio::operator=(Studio &&other) noexcept {
         actionsLog.emplace_back(action);
 
     //detach other's resources
-    for (Trainer* t : other.trainers)
-        t = nullptr;
-    for (BaseAction* a : other.actionsLog)
-        a = nullptr;
+    trainers = std::vector<Trainer*>{};
+    actionsLog = std::vector<BaseAction*>{};
 
     return *this;
 }
@@ -218,7 +209,7 @@ int Studio::getNumOfTrainers() const{
 }
 
 Trainer *Studio::getTrainer(int tid) {
-    if (tid >= 0 && tid < trainers.size())
+    if ( tid >= 0 && tid < static_cast<int>(trainers.size()) )
         return trainers[tid];
     return nullptr;
 }

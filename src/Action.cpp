@@ -63,10 +63,10 @@ std::string OpenTrainer::toString() const {
 
 BaseAction *OpenTrainer::clone() {
     std::vector<Customer *> cloneCustomerList;
-    for (int i = 0; i < customers.size(); ++i) {
+    for (int i = 0; i < static_cast<int>(customers.size()); ++i) {
         cloneCustomerList.emplace_back(customers[i]->clone());
     }
-    return  new OpenTrainer(trainerId,cloneCustomerList);
+    return new OpenTrainer(trainerId,cloneCustomerList);
 }
 
 OpenTrainer::~OpenTrainer() {
@@ -120,7 +120,7 @@ void MoveCustomer::act(Studio &studio) {
 
     else {
         std::vector<OrderPair> orderList = trainerSrc->getOrders();
-        for (int i = 0; i < orderList.size(); i++) {
+        for (int i = 0; i < static_cast<int>(orderList.size()); i++) {
             if (orderList[i].first == id) {
                 trainerDst->addOrder(orderList[i]);
             }
@@ -149,7 +149,6 @@ BaseAction *MoveCustomer::clone() {
     return new MoveCustomer(srcTrainer, dstTrainer,id);
 }
 
-
 Close::Close(int id): trainerId(id){}
 
 void Close::act(Studio &studio) {
@@ -176,7 +175,6 @@ std::string Close::toString() const {
 BaseAction *Close::clone() {
     return new Close(trainerId);
 }
-
 
 CloseAll::CloseAll() {}
 
@@ -208,7 +206,7 @@ PrintWorkoutOptions::PrintWorkoutOptions() {}
 
 void PrintWorkoutOptions::act(Studio &studio) {
     std::vector<Workout> workoutOptions =  studio.getWorkoutOptions();
-    for (int i = 0; i < workoutOptions.size(); ++i) {
+    for (int i = 0; i < static_cast<int>(workoutOptions.size()); ++i) {
         std::cout << workoutOptions[i].toString()<< "\n";
     }
     complete();
@@ -272,7 +270,7 @@ PrintActionsLog::PrintActionsLog() = default;
 
 void PrintActionsLog::act(Studio &studio) {
     const std::vector<BaseAction*>& actionLog = studio.getActionsLog();
-    for (int i = 0; i < actionLog.size(); i++) {
+    for (int i = 0; i < static_cast<int>(actionLog.size()); i++) {
         std::cout<< actionLog[i]->toString()<<"\n";
     }
     complete();
