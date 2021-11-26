@@ -8,6 +8,7 @@
 
 
 extern Studio *backup;
+
 BaseAction::BaseAction() {}
 
 ActionStatus BaseAction::getStatus() const {
@@ -80,7 +81,6 @@ void Order::act(Studio &studio) {
         for (Customer *customer : trainer->getCustomers()) {
             trainer->order( customer->getId() , customer->order(workoutOptions), workoutOptions);
         }
-        //std:: cout <<"order "<< trainerId << "\n";
         for(const OrderPair& pair : trainer->getOrders()){
             std:: cout << trainer->getCustomer(pair.first)->getName()<< " Is Doing " << pair.second.getName() <<"\n";
         }
