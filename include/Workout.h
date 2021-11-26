@@ -20,7 +20,7 @@ public:
     std::string typeToString();
     virtual ~Workout(); //destructor
     Workout(const Workout &w);
-    virtual Workout *clone();
+    virtual Workout clone() const;
 private:
 	const int id;
     const std::string name;

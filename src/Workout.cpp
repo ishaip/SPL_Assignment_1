@@ -52,8 +52,10 @@ std::string Workout::typeToString() {
     return "ALL";
 }
 
-Workout *Workout::clone() {
-    return new Workout(id,name,price,type);
+
+
+Workout Workout::clone() const {
+    return  Workout(id,name,price,type);
 }
 
 

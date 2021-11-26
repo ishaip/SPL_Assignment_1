@@ -16,18 +16,17 @@ Trainer::~Trainer(){
 
 void Trainer::clear(){
     for (int i = 0; i < customersList.size(); i++){
-        delete &customersList[i];
-        customersList[i] = nullptr;
+        customersList[i]->~Customer();
+//        customersList[i] = nullptr;
     }
     customersList.clear(); //TODO: check memory leak
     orderList.clear();
 }
-
+//copy constructor
 Trainer::Trainer(const Trainer &trainer):
     capacity(trainer.capacity), open(trainer.open),salary(trainer.salary){
     for (Customer * customer : trainer.customersList)
         this->customersList.emplace_back(customer->clone());
-
     for (OrderPair orderPair : trainer.orderList)
         this->orderList.emplace_back(orderPair);
 }
