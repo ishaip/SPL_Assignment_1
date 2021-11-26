@@ -122,13 +122,11 @@ Studio &Studio::operator=(Studio &other){ //TODO: check deleting way
         return *this;
 
     //freeing the pointers
-    for (Trainer* t : trainers)
-        t->~Trainer();
-    for (BaseAction* a : actionsLog) {
-        a->~BaseAction();
+    for (int i = 0; i < trainers.size(); i++)
+        delete trainers[i];
+    for (int i = 0; i < actionsLog.size(); i++) {
+        delete actionsLog[i];
     }
-    for (Workout workout : workout_options)
-        workout.~Workout();
     trainers.clear();
     actionsLog.clear();
     workout_options.clear();
