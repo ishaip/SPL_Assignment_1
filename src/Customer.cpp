@@ -20,7 +20,7 @@ int Customer::getId() const {
 int Customer::selectOrder(const std::vector<Workout> &workout_options, WorkoutType workoutType, bool lookingForCheap) {
     int index=-1;
     if (!workout_options.empty() ) {
-        for (int i = 0; i < workout_options.size(); i++) {
+        for (int i = 0; i < static_cast<int>(workout_options.size()); i++) {
             if (workout_options[i].getType() == workoutType || workoutType == ALL) {
                 if (index == -1)
                     //first time wanted workout appears
@@ -99,7 +99,7 @@ std::vector<int> HeavyMuscleCustomer::order(const std::vector<Workout> &workout_
     }
     //stable sorting
     for (int i = 0; i < static_cast<int>(workoutOrder.size()); ++i) {
-        for (int j = i + 1; j < workoutOrder.size(); ++j) {
+        for (int j = i + 1; j < static_cast<int>(workoutOrder.size()); ++j) {
             if(workout_options[workoutOrder[i]].getPrice() < workout_options[workoutOrder[j]].getPrice()) {
                 int temp = workoutOrder[i];
                 workoutOrder[i] = workoutOrder[j];

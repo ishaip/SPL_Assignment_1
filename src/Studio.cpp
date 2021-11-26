@@ -92,9 +92,9 @@ void Studio:: makeWorkout(std::string workout, int id){
 
 //destructor
 Studio::~Studio() {
-    for (int i=0; i< trainers.size();i++)
+    for (int i=0; i < static_cast<int>(trainers.size());i++)
         delete trainers[i];
-    for (int i =0; i< actionsLog.size(); i++)
+    for (int i =0; i < static_cast<int>(actionsLog.size()); i++)
         delete actionsLog[i];
 
     actionsLog.clear();
