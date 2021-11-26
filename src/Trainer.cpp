@@ -59,6 +59,7 @@ Trainer &Trainer::operator=(const Trainer &other) {
     capacity = other.capacity;
     open = other.open;
     salary = other.salary;
+    return *this;
 }
 
 int Trainer::getCapacity() const{ return capacity; }
