@@ -81,8 +81,10 @@ void Trainer::removeCustomer(int id) { //TODO: check when compiling
 
     //create new vector of customersList
     std::vector<Customer*> tempCustomer;
-    for (int i = 0; i < customersList.size(); i++)
-        tempCustomer.emplace_back(customersList[i]);
+    for (int i = 0; i < customersList.size(); i++) {
+        if (customersList[i]->getId() != id)
+            tempCustomer.emplace_back(customersList[i]);
+    }
 
     customersList.clear();
     //reassign to our vector
