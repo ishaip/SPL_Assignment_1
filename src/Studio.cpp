@@ -63,7 +63,7 @@ void Studio:: makeTrainer(int trainerCount, const int *spots){
     Trainer* newTrainer;
     newTrainer = new Trainer(*spots);
     trainers.emplace_back(newTrainer);
-    delete newTrainer;
+    delete newTrainer; //
 }
 
 void Studio:: makeWorkout(std::string workout, int id){
@@ -173,11 +173,13 @@ Studio::Studio(Studio&& other) noexcept :
         actionsLog(other.actionsLog){
 
     //destroying other's pointers
-    //other.trainers = {};
-    for (Trainer* t : other.trainers)
-        t = nullptr;
-    for (BaseAction* a : other.actionsLog)
-        a = nullptr;
+//    for (Trainer* t : other.trainers)//TODO: check
+//        t = nullptr;
+//    for (BaseAction* a : other.actionsLog)
+//        a = nullptr;
+    trainers = std::vector<Trainer*>{};
+    actionsLog = std::vector<BaseAction*>{};
+
 };
 
 //move assignment operator
@@ -210,11 +212,10 @@ Studio &Studio::operator=(Studio &&other) noexcept {
     for (BaseAction* action : other.actionsLog)
         actionsLog.emplace_back(action);
 
-    //detach other's resources
-    for (Trainer* t : other.trainers)
-        t = nullptr;
-    for (BaseAction* a : other.actionsLog)
-        a = nullptr;
+    //detach other's resources //TODO: check whether it is important
+
+    trainers = std::vector<Trainer*>{};
+    actionsLog = std::vector<BaseAction*>{};
 
     return *this;
 }
