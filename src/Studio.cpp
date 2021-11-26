@@ -150,7 +150,7 @@ Studio &Studio::operator=(Studio &other){ //TODO: check deleting way
     //copy the rest of the data
     workout_options.clear();
     for(int i = 0; i < other.workout_options.size(); i++){
-        workout_options.emplace_back(other.workout_options[i].clone());
+        workout_options.emplace_back(*other.workout_options[i].clone());
     }
     open = other.open;
     nextCustomerId = other.nextCustomerId;
