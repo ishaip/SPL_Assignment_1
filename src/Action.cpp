@@ -35,7 +35,7 @@ OpenTrainer::OpenTrainer(int id, std::vector<Customer *> &customersList):
 
 void OpenTrainer::act(Studio &studio) {
     Trainer *trainer = studio.getTrainer(trainerId);
-    if(trainer == nullptr || trainer->isOpen()|| trainer->getCapacity() < customers.size())
+    if(trainer == nullptr || trainer->isOpen()|| trainer->getCapacity() < static_cast<int>(customers.size()))
         error( "Trainer does not exist or is not open");
     else{
         trainer->openTrainer();
@@ -70,7 +70,7 @@ BaseAction *OpenTrainer::clone() {
 }
 
 OpenTrainer::~OpenTrainer() {
-    for (int i = 0; i < customers.size(); ++i) {
+    for (int i = 0; i < static_cast<int>(customers.size()); ++i) {
         delete customers[i];
     }
     customers.clear();
@@ -235,16 +235,16 @@ void PrintTrainerStatus::act(Studio &studio) {
     if (trainer != nullptr && trainer->isOpen()){
         std::cout <<"Trainer "<< trainerId<<" status: open\nCustomers: \n";
         std::vector<Customer *> customers = trainer->getCustomers();
-        for (int i = 0; i < customers.size(); ++i) {
+        for (int i = 0; i < static_cast<int>(customers.size()); ++i) {
             std::cout <<customers[i]->getId() << " "<<customers[i]->getName()<<"\n";
         }
         std::cout <<"Orders:\n";
         std::vector<OrderPair> orderList = trainer->getOrders();
-        for (int i = 0; i < orderList.size(); ++i) {
+        for (int i = 0; i < static_cast<int>(orderList.size()); ++i) {
             std::cout <<orderList[i].second.getName()<<" " <<std::to_string(orderList[i].second.getPrice())<<"NIS"<< " "<< std::to_string(orderList[i].first)<<"\n";
         }
         int sum =0;
-        for(int i =0; i<orderList.size(); i++){
+        for(int i =0; i < static_cast<int>(orderList.size()); i++){
             sum = sum + orderList[i].second.getPrice();
         }
         std::cout <<"Current Trainer’s Salary: " << std::to_string(trainer->getSalary() + sum)<<"NIS"<< "\n";

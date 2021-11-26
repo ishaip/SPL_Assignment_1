@@ -15,7 +15,7 @@ Trainer::~Trainer(){
 }
 
 void Trainer::clear(){
-    for (int i = 0; i < customersList.size(); i++){
+    for (int i = 0; i < static_cast<int>(customersList.size()); i++){
         delete customersList[i];
     }
     customersList.clear(); //TODO: check memory leak
