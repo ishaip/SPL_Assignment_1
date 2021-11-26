@@ -12,8 +12,7 @@ id(w_id), name(w_name),price(w_price), type(w_type){};
 Workout::~Workout() = default;
 
 //copy constructor
-Workout::Workout(const Workout &w): //TODO: check
-    id(w.id), name(w.name),price(w.price), type(w.type){}{};
+Workout::Workout(const Workout &w) = default;
 
 int Workout::getId() const {
     return id;
@@ -52,6 +51,12 @@ std::string Workout::typeToString() {
         return "CARDIO";
     return "ALL";
 }
+
+Workout *Workout::clone() {
+    return new Workout(id,name,price,type);
+}
+
+
 
 
 
