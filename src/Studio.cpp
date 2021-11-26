@@ -173,10 +173,6 @@ Studio::Studio(Studio&& other) noexcept :
         actionsLog(other.actionsLog){
 
     //destroying other's pointers
-//    for (Trainer* t : other.trainers)//TODO: check
-//        t = nullptr;
-//    for (BaseAction* a : other.actionsLog)
-//        a = nullptr;
     trainers = std::vector<Trainer*>{};
     actionsLog = std::vector<BaseAction*>{};
 
@@ -213,7 +209,6 @@ Studio &Studio::operator=(Studio &&other) noexcept {
         actionsLog.emplace_back(action);
 
     //detach other's resources //TODO: check whether it is important
-
     trainers = std::vector<Trainer*>{};
     actionsLog = std::vector<BaseAction*>{};
 
