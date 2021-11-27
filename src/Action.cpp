@@ -6,7 +6,6 @@
 #include "../include/Studio.h"
 #include "../include/Trainer.h"
 
-
 extern Studio *backup;
 
 BaseAction::BaseAction() {}
@@ -36,7 +35,6 @@ void BaseAction::setStatus(ActionStatus status) {
 void BaseAction::setErrorMsg(std::string str) {
     this->errorMsg = str;
 }
-
 
 OpenTrainer::OpenTrainer(int id, std::vector<Customer *> &customersList):
         trainerId (id),customers(customersList){}

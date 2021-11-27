@@ -7,7 +7,6 @@
 #include "Trainer.h"
 #include "Action.h"
 
-
 class Studio{
 public:
     Studio();
@@ -33,8 +32,6 @@ private:
 
     void makeTrainer(int trainerCount,const int *spots);
     void makeWorkout(std::string workout, int id);
-
-    // id's 'iterator' for every class that has an id field
 };
 
 

@@ -22,8 +22,7 @@ Studio::Studio(const std::string &configFilePath):
     std::ifstream file;
     file.open(configFilePath);
     std::stringstream buffer;
-//reinterpret_cast<const char *>(&configFilePath)
-//    buffer << file.rdbuf(); //??
+
     int trainerCount = 0;
     int numOfTrainers;
     int workoutIds = 0;
@@ -176,7 +175,6 @@ Studio &Studio::operator=(Studio &&other) noexcept {
         delete &t;
     for (BaseAction* a : actionsLog)
         delete &a;
-    //workout_options.clear(); //important??
 
     //assigning
     for (int i = 0; i < static_cast<int>(other.trainers.size()); i++){

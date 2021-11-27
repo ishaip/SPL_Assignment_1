@@ -18,7 +18,7 @@ void Trainer::clear(){
     for (int i = 0; i < static_cast<int>(customersList.size()); i++){
         delete customersList[i];
     }
-    customersList.clear(); //TODO: check memory leak
+    customersList.clear();
     orderList.clear();
 }
 //copy constructor
@@ -45,7 +45,7 @@ Trainer &Trainer::operator=(const Trainer &other) {
     for (int i = 0; i < static_cast<int>(orderList.size()); i++)
         delete &orderList[i];
 
-    orderList.clear(); //TODO: check memory leak
+    orderList.clear();
     customersList.clear();
 
     for (OrderPair orderPair : other.orderList) {
@@ -67,7 +67,7 @@ void Trainer::addCustomer(Customer *customer) {
     customersList.emplace_back(customer);
 }
 
-void Trainer::removeCustomer(int id) { //TODO: check when compiling
+void Trainer::removeCustomer(int id) {
     //create new vector of orderList
     std::vector<OrderPair> tempOrder;
     for (int i = 0; i < static_cast<int>(orderList.size()); i++){
@@ -139,8 +139,3 @@ void Trainer::updateSalary() {
 bool Trainer::isOpen() const{ return open; }
 
 int Trainer::availableCapacity() { return capacity - static_cast<int>(customersList.size()); }
-
-
-
-
-

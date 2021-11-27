@@ -2,8 +2,6 @@
 #include <iostream>
 #include <algorithm>
 
-//valgrind --leak-check=full --show-reachable=yes bin/studio ExampleInput.txt
-
 using namespace std;
 
 Studio* backup = nullptr;
@@ -130,7 +128,7 @@ int main(int argc, char** argv){
         else if (str.substr(0,4) == "back"){
             action = breakdownBackup(str);
         }
-        else /*if (str.substr(0,4) == "rest")*/{  //
+        if (str.substr(0,4) == "rest"){  //
             action = breakdownRestore(str);
         }
         action->act(studio);
